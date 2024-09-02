@@ -1,0 +1,26 @@
+$theme-colors: (
+    main: white,
+    secondary: rgb(34, 71, 34),
+    highlighted: #db4545,
+    transparent: #ffffff00,
+);
+
+@mixin apply-color($property, $color-key) {
+    #{$property}: map-get($theme-colors, $color-key);
+}
+
+.color {
+    @each $key, $value in $theme-colors {
+        &-#{$key} {
+            @include apply-color(color, $key);
+        }
+    }
+}
+
+.bg {
+    @each $key, $value in $theme-colors {
+        &-#{$key} {
+            @include apply-color(background-color, $key);
+        }
+    }
+}

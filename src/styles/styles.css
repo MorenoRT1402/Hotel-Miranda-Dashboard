@@ -1,0 +1,27 @@
+#root {
+  padding: 0;
+  max-width: 100%;
+  width: 100%;
+  height: 100vh; }
+  #root > * {
+    height: 100%; }
+
+.color-main {
+  color: white; }
+.color-secondary {
+  color: #224722; }
+.color-highlighted {
+  color: #db4545; }
+.color-transparent {
+  color: #ffffff00; }
+
+.bg-main {
+  background-color: white; }
+.bg-secondary {
+  background-color: #224722; }
+.bg-highlighted {
+  background-color: #db4545; }
+.bg-transparent {
+  background-color: #ffffff00; }
+
+/*# sourceMappingURL=styles.css.map */

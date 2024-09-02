@@ -11,21 +11,23 @@ const Container = styled.article`
 `;
 
 const Border = styled.div`
+    position: absolute;
     width: 3rem;
     height: 2rem;
-    margin-left: calc(-${containerPadding} - 2.7rem);
-    margin-right: 1rem;
+    left: calc(-${containerPadding} - 2.7rem);
     border-radius: 5px;
 `;
 
+
 // eslint-disable-next-line react/prop-types
 export const LateralMenuLink = ({ text, icon: IconComp, isSelected, onClick }) => {
+    const colorClass = isSelected ? "color-highlighted" : "color-dimmed";
 
     return (
         <Container onClick={onClick}>
             <Border className={isSelected ? "bg-highlighted" : "bg-transparent"}/>
-            {IconComp ? <IconComp className={isSelected ? "color-highlighted" : ""}/> : <></>}
-            <strong>{text}</strong>
+            {IconComp ? <IconComp className={colorClass}/> : <></>}
+            <strong className={colorClass}>{text}</strong>
         </Container>
     );
 };

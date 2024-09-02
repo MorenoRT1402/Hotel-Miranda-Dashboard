@@ -12,6 +12,8 @@
   color: #224722; }
 .color-highlighted {
   color: #db4545; }
+.color-dimmed {
+  color: gray; }
 .color-transparent {
   color: #ffffff00; }
 
@@ -21,6 +23,8 @@
   background-color: #224722; }
 .bg-highlighted {
   background-color: #db4545; }
+.bg-dimmed {
+  background-color: gray; }
 .bg-transparent {
   background-color: #ffffff00; }
 

@@ -8,7 +8,7 @@ const Title = styled.h1`
 export const Home = () => {
 
     return (
-        <section className="bg-main">
+        <section className="bg-dimmed-medium">
             <LateralMenu />
             <Title className="color-secondary">Home</Title>
         </section>

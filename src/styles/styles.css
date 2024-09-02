@@ -10,10 +10,16 @@
   color: white; }
 .color-secondary {
   color: #224722; }
+.color-secondary-dimmed {
+  color: rgba(63, 105, 63, 0.098); }
 .color-highlighted {
   color: #db4545; }
 .color-dimmed {
   color: gray; }
+.color-dimmed-light {
+  color: #fafafa; }
+.color-dimmed-medium {
+  color: #f6f3f3; }
 .color-transparent {
   color: #ffffff00; }
 
@@ -21,10 +27,16 @@
   background-color: white; }
 .bg-secondary {
   background-color: #224722; }
+.bg-secondary-dimmed {
+  background-color: rgba(63, 105, 63, 0.098); }
 .bg-highlighted {
   background-color: #db4545; }
 .bg-dimmed {
   background-color: gray; }
+.bg-dimmed-light {
+  background-color: #fafafa; }
+.bg-dimmed-medium {
+  background-color: #f6f3f3; }
 .bg-transparent {
   background-color: #ffffff00; }
 

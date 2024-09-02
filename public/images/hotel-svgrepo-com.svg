@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800px" height="800px" viewBox="0 -2 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+    <title>hotel</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+
+</defs>
+    <g id="Vivid.JS" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Vivid-Icons" transform="translate(-276.000000, -254.000000)">
+            <g id="Icons" transform="translate(37.000000, 169.000000)">
+                <g id="hotel" transform="translate(234.000000, 78.000000)">
+                    <g transform="translate(5.000000, 7.000000)" id="Shape">
+                        <path d="M9,0 L11,2 L26,2 L28,0 L9,0 Z M7,21 L7,34 L31,34 L31,21 L7,21 Z M9,7 L29,7 L29,16 L9,16 L9,7 Z" fill="#FF6E6E">#224722
+
+</path>
+                        <path d="M8,7 L3,2 L34,2 L29,7 L8,7 Z M12,8 L16,8 L16,11.017 L12,11.017 L12,8 Z M16,14.983 L12,14.983 L12,12.005 L16,12.005 L16,14.982 L16,14.983 Z M17,8 L21,8 L21,11.017 L17,11.017 L17,8 Z M21,14.983 L17,14.983 L17,12.005 L21,12.005 L21,14.982 L21,14.983 Z M22,8 L26,8 L26,11.017 L22,11.017 L22,8 Z M26,14.983 L22,14.983 L22,12.005 L26,12.005 L26,14.982 L26,14.983 Z M32,22 L6,22 L0,16 L38,16 L32,22 Z M24,27 L23,27 L23,34 L15,34 L15,27 L14,27 L14,24 L24,24 L24,27 Z" fill="#224722">
+
+</path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,12 +1,9 @@
 import styled from "styled-components";
 
-const containerPadding = '1rem';
-
 const Container = styled.article`
     display: flex;
     gap: .5rem;
     align-items: center;
-    padding: ${containerPadding};
     cursor: pointer;
 `;
 
@@ -14,7 +11,7 @@ const Border = styled.div`
     position: absolute;
     width: 3rem;
     height: 2rem;
-    left: calc(-${containerPadding} - 2.7rem);
+    left: -4.75rem;
     border-radius: 5px;
 `;
 

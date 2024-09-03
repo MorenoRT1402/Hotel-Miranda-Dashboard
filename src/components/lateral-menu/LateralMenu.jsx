@@ -9,16 +9,19 @@ const Menu = styled.section`
     width: 16.5%;
     min-width: 11rem;
     text-align: left;
+    box-shadow: 13px 3px 40px #00000005;
+    position: relative;
+    z-index: 20;
 `;
 
-const Header = styled.header`
-    height: 3rem;
+const Logo = styled.article`
+    height: 4rem;
     display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    gap: 2rem;
 
     &>img{
         height: 100%;
+        max-height: 6rem;
     }
 
     &>section{
@@ -66,6 +69,10 @@ const UserCard = styled.article`
     &>small{
         font-size: 12px;
     }
+
+    &>button{
+        background-color: #EBF1EF;
+    }
 `;
 
 const PolicyText = styled.section`
@@ -99,13 +106,13 @@ export const LateralMenu = () => {
 
     return (
         <Menu className="bg-main">
-            <Header>
+            <Logo className="bg-main">
                 <img src="/images/hotel-svgrepo-com.svg" alt="" />
                 <section>
                     <h2>travl</h2>
                     <small className="color-dimmed">Hotel Admin Dashboard</small>
                 </section>
-            </Header>
+            </Logo>
             <LinkNav>
                 {menuLinks.map((link, index) => (
                     <LateralMenuLink
@@ -119,15 +126,15 @@ export const LateralMenu = () => {
             </LinkNav>
             <UserCard>
                 <img src="https://picsum.photos/300/200" alt="" />
-                <h4>William Johanson</h4>
-                <small className="color-dimmed">williamjohn@mail.com</small>
-                <button className="bg-secondary-dimmed color-secondary">Contact us</button>
+                <h4>Carlos Moreno</h4>
+                <small className="color-dimmed">morenort1402@gmail.com</small>
+                <button className="color-secondary">Edit</button>
             </UserCard>
             <PolicyText>
                 <strong>Travl Hotel Admin Dashboard</strong>
-                <span className="color-dimmed">@2024 All rights reserved</span>
+                <span className="color-secondary-dimmed">@2024 All rights reserved</span>
             </PolicyText>
-            <WithLove className="color-dimmed">Made with <Heart/> by MorenoRT</WithLove>
+            <WithLove className="color-secondary-dimmed">Made with <Heart/> by MorenoRT</WithLove>
         </Menu>
     );
 };

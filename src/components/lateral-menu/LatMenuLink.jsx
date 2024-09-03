@@ -5,6 +5,10 @@ const Container = styled.article`
     gap: .5rem;
     align-items: center;
     cursor: pointer;
+
+    &>strong{
+        opacity: 1;
+    }
 `;
 
 const Border = styled.div`
@@ -18,7 +22,7 @@ const Border = styled.div`
 
 // eslint-disable-next-line react/prop-types
 export const LateralMenuLink = ({ text, icon: IconComp, isSelected, onClick }) => {
-    const colorClass = isSelected ? "color-highlighted" : "color-dimmed";
+    const colorClass = isSelected ? "color-highlighted" : "color-secondary-dimmed";
 
     return (
         <Container onClick={onClick}>

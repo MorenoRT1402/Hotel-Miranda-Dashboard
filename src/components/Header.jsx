@@ -4,6 +4,8 @@ import { NotificationButton } from "./NotificationButton";
 import { IoMailOutline } from "react-icons/io5";
 import { GoBell } from "react-icons/go";
 import { MdOutlineComment } from "react-icons/md";
+import { useLocation, useParams } from "react-router-dom";
+import { getPageByRoute } from "../app/pages";
 
 const Container = styled.header`
     display: flex;
@@ -61,14 +63,18 @@ const Icons = styled.section`
 
 export const Header = () => {
     const theme = useTheme();
+    const location = useLocation();
+    const route = location.pathname;
+    const title = getPageByRoute(route).title;
+    const {id} = useParams();
 
     return (
         <Container className="bg-main">
             <Menu>
                 <FaArrowLeft/>
                 <Path>
-                    <h2>Guest Details</h2>
-                    <small className="color-secondary">Guest / <span>Roberto Mansini</span></small>
+                    <h2>{title}</h2>
+                    {id ? <small className="color-secondary">{`${title}`} / <span>{id}</span></small> : <></>}
                 </Path>
                 {/* <SearchBar>
                     <input type="text" />

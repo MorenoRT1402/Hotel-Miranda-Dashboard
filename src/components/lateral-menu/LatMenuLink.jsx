@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.article`
@@ -21,11 +22,17 @@ const Border = styled.div`
 
 
 // eslint-disable-next-line react/prop-types
-export const LateralMenuLink = ({ text, icon: IconComp, isSelected, onClick }) => {
+export const LateralMenuLink = ({ text, icon: IconComp, isSelected, onClick, route }) => {
+    const navigate = useNavigate();
     const colorClass = isSelected ? "color-highlighted" : "color-secondary-dimmed";
 
+    const handleClick = () => {
+        onClick();
+        navigate(route);
+    };
+
     return (
-        <Container onClick={onClick}>
+        <Container onClick={handleClick}>
             <Border className={isSelected ? "bg-highlighted" : "bg-transparent"}/>
             {IconComp ? <IconComp className={colorClass}/> : <></>}
             <strong className={colorClass}>{text}</strong>

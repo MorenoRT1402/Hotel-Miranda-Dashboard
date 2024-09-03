@@ -97,11 +97,11 @@ export const LateralMenu = () => {
     const [selectedLink, setSelectedLink] = useState(null);
 
     const menuLinks = [
-        { title: "Dashboard", icon: MdSpaceDashboard },
-        { title: "Room", icon: MdHotel },
-        { title: "Bookings", icon: MdBook },
-        { title: "Guests", icon: MdPeople },
-        { title: "Concierge", icon: MdRoomService },
+        { title: "Dashboard", icon: MdSpaceDashboard, route: '/' },
+        { title: "Room", icon: MdHotel, route: '/room'},
+        { title: "Bookings", icon: MdBook, route: 'booking/all'},
+        { title: "Guests", icon: MdPeople, route: '/guest'},
+        { title: "Concierge", icon: MdRoomService, route: '/concierge'},
     ];
 
     return (
@@ -121,6 +121,7 @@ export const LateralMenu = () => {
                         icon={link.icon}
                         isSelected={selectedLink === index}
                         onClick={() => setSelectedLink(index)}
+                        route={link.route}
                     />
                 ))}
             </LinkNav>

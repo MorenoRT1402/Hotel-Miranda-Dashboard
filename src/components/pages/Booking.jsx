@@ -6,7 +6,7 @@ export const Booking = () => {
     return (
         <>
             <h1>Booking</h1>
-            <p>{id ? `ID: ${id}` : "Get All" }</p>
+            <p>{id!='all' ? `ID: ${id}` : "Get All" }</p>
         </>
     )
 }

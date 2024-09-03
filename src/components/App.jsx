@@ -3,21 +3,22 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Home } from './pages/Home'
 import { Booking } from './pages/Booking'
 import { ThemeProvider } from 'styled-components'
-import { theme } from '../theme'
+import { Layout } from './Layout'
+import { theme } from '../app/theme'
+import { pages } from '../app/pages'
 
 function App() {
-
   return (
-    <BrowserRouter>
     <ThemeProvider theme={theme}>
-      <Routes>
-        <Route path='/' element={<Home />}/>
-        <Route path='/booking' element={<Booking />}>
-          <Route path=':id' element={<Booking />} />
-        </ Route >
-      </Routes>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path={pages.booking.path} element={<Booking />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </ThemeProvider>
-    </BrowserRouter>
   )
 }
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styled from "styled-components";
 import { FaChevronDown } from "react-icons/fa";
 
@@ -16,8 +17,27 @@ const ControlPanel = styled.section`
 
 const Content = styled.table`
     width: 100%;
-    margin-top: 1rem;
+    border-spacing: 0 .2rem;
+    text-align: left;
+    
+    &>*{
+        background-color: ${({theme}) => theme.colors.main};
+        &>tr{
+            &>*{
+                padding: 1rem;
+
+                &>span{
+                    font-size: 14px;
+                    color: ${({theme}) => theme.colors.secondaryDimmed};
+                }
+            }
+        }
+    }
 `;
+
+const WrappedTd = styled.td`
+    max-width: 11rem;
+`
 
 const Pagination = styled.section`
     margin-top: 1rem;
@@ -26,7 +46,8 @@ const Pagination = styled.section`
 `;
 
 const BasicFilter = styled.button`
-    padding: 1rem;
+    padding: .8rem;
+    margin-bottom: 1rem;
     border: 0;
     border-bottom: 1px solid ${({theme}) => theme.colors.dimmed};
     border-radius: 0px;
@@ -48,20 +69,25 @@ const BasicFilter = styled.button`
     }
 `;
 
+const SortSection = styled.section`
+    font-size: 16px;
+    max-height: 3rem;
+
+    &>*{
+        border-radius: 10px;
+    }
+`
+
 const AddButton = styled.button`
-    border-radius: 10px;
     background-color: ${({theme}) => theme.colors.secondary};
     color: white;
     padding: 0 3.2rem;
-    font-size: 16px;
     margin-right: 1.5rem;
 `;
 
 const SortButton = styled.button`
-    border-radius: 10px;
     border: 1px solid ${({theme}) => theme.colors.secondary};
     color: ${({theme}) => theme.colors.secondary};
-    font-size: 16px;
 
     &>*{
         color: gray;
@@ -69,7 +95,37 @@ const SortButton = styled.button`
     }
 `;
 
-export const Table = () => {
+const Identificator = styled.div`
+    display: flex;
+    gap: 1.5rem;
+
+    &>img{
+        border-radius: 20px;
+    }
+
+    &>div{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1rem;
+
+        &>span{
+            font-size: 14px;
+            color: ${({theme}) => theme.colors.secondaryDimmed};
+        }
+
+        &>strong{
+            font-size: 16px;
+        }
+    }
+`;
+
+const StatusButton = styled.button`
+background-color: ${({ status, theme }) => 
+    status === 'Available' ? '#5AD07A' : theme.colors.highlighted};    color: white;
+`;
+
+export const Table = ({headers, data}) => {
     const basicFilters = ["All Rooms", "Active Employee", "Inactive Employee"];
 
     return (
@@ -80,14 +136,38 @@ export const Table = () => {
                         <BasicFilter key={`${index}-${filter}`}>{filter}</BasicFilter>
                     ))}
                 </section>
-                <section>
+                <SortSection>
                     <AddButton>+ New Room</AddButton>
                     <SortButton>
                         Newest <FaChevronDown />
                     </SortButton>
-                </section>
+                </SortSection>
             </ControlPanel>
-            <Content />
+            <Content>
+                <thead>
+                    <tr>
+                        {headers.map((col, index) => <th key={`${index}-${col}`}>{col}</th>)}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <Identificator>
+                                <img src={data[0].picture} alt="" />
+                                <div>
+                                    <span>{`#${data[0].id}`}</span>
+                                    <strong>{`${data[0]["room-type"]}-${data[0].number}`}</strong>
+                                </div>
+                            </Identificator>
+                        </td>
+                        <td>{`${data[0]["bed-type"]} Bed`}</td>
+                        <td>{`Floor ${data[0]["room-floor"]}`}</td>
+                        <WrappedTd>{data[0].facilities.join(', ')}</WrappedTd>
+                        <td>{data[0].rate}<span> /night</span></td>
+                        <td><StatusButton status={data[0].status}>{data[0].status}</StatusButton></td>
+                    </tr>
+                </tbody>
+            </Content>
             <Pagination />
         </Container>
     );

@@ -82,7 +82,7 @@ export const Header = () => {
                 <FaArrowLeft/>
                 <Path>
                     <h2>{title}</h2>
-                    {id ? <small className="color-secondary">{`${title}`} / <span>{id}</span></small> : <></>}
+                    {id !== 'all' ? <small className="color-secondary">{`${title}`} / <span>{id}</span></small> : <></>}
                 </Path>
                 {/* <SearchBar>
                     <input type="text" />

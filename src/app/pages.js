@@ -7,6 +7,10 @@ export const pages = {
       path: 'booking/:id',
       title: 'Booking'
     },
+    login: {
+      path: 'login',
+      title: 'Login'
+    }
   };
 
   export const getPageByRoute = route => {

@@ -23,6 +23,7 @@ const Menu = styled.section`
     align-items: center;
     flex: 1;
     padding-left: 0;
+    min-height: 4rem;
 
     &>svg{
         flex: 1;

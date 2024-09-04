@@ -6,6 +6,7 @@ import { ThemeProvider } from 'styled-components'
 import { Layout } from './Layout'
 import { theme } from '../app/theme'
 import { pages } from '../app/pages'
+import { Login } from './pages/Login'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path={pages.booking.path} element={<Booking />} />
           </Route>
+          <Route path={pages.login.path} element={<Login />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

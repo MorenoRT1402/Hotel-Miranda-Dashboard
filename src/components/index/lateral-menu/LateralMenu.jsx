@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { LateralMenuLink } from "./LatMenuLink";
-import { MdSpaceDashboard, MdHotel, MdBook, MdPeople, MdRoomService } from "react-icons/md";
+import { MdSpaceDashboard, MdHotel, MdBook, MdRoomService } from "react-icons/md";
 import { FaHeart } from "react-icons/fa";
 
 const Menu = styled.section`
@@ -98,10 +98,10 @@ export const LateralMenu = () => {
 
     const menuLinks = [
         { title: "Dashboard", icon: MdSpaceDashboard, route: '/' },
-        { title: "Room", icon: MdHotel, route: '/room'},
+        { title: "Room", icon: MdHotel, route: 'rooms/all'},
         { title: "Bookings", icon: MdBook, route: 'booking/all'},
-        { title: "Guests", icon: MdPeople, route: '/guest'},
-        { title: "Concierge", icon: MdRoomService, route: '/concierge'},
+        // { title: "Guests", icon: MdPeople, route: '/guest'},
+        { title: "Concierge", icon: MdRoomService, route: 'concierge/all'},
     ];
 
     return (

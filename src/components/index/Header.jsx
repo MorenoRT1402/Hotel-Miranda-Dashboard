@@ -1,13 +1,13 @@
 import { FaArrowLeft, FaRegHeart } from "react-icons/fa";
 import styled, { useTheme } from "styled-components"
-import { NotificationButton } from "./NotificationButton";
+import { NotificationButton } from "../NotificationButton";
 import { IoMailOutline } from "react-icons/io5";
 import { GoBell } from "react-icons/go";
 import { MdOutlineComment } from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { useLocation, useParams } from "react-router-dom";
-import { getPageByRoute } from "../app/pages";
-import { onLogout } from "../app/auth";
+import { getPageByRoute } from "../../app/pages";
+import { onLogout } from "../../app/auth";
 
 const Container = styled.header`
     display: flex;

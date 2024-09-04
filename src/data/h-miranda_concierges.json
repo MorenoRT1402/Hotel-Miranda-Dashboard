@@ -1,0 +1,132 @@
+[
+  {
+    "id": 1,
+    "name": "Pietrek Fryatt",
+    "picture": "http://dummyimage.com/237x100.png/ff4444/ffffff",
+    "joined": "2024-03-13 07:22:02",
+    "job-desk": "Offer restaurant and activity recommendations and assist guests in arranging transportation",
+    "schedule": [
+      "Monday",
+      "Wednesday"
+    ],
+    "contact": "354 488 8837",
+    "status": "Inactive"
+  },
+  {
+    "id": 2,
+    "name": "Teirtza Joscelyn",
+    "picture": "http://dummyimage.com/109x100.png/cc0000/ffffff",
+    "joined": "2024-02-28 03:56:00",
+    "job-desk": "Offer restaurant and activity recommendations and assist guests in arranging transportation",
+    "schedule": [
+      "Wednesday",
+      "Monday"
+    ],
+    "contact": "479 205 1895",
+    "status": "Inactive"
+  },
+  {
+    "id": 3,
+    "name": "Alina Mowday",
+    "picture": "http://dummyimage.com/190x100.png/cc0000/ffffff",
+    "joined": "2024-04-10 13:16:50",
+    "job-desk": "Act as a liaison between guests and any department necessary including the kitchen, housekeeping, etc",
+    "schedule": [
+      "Wednesday",
+      "Saturday"
+    ],
+    "contact": "931 683 6957",
+    "status": "Inactive"
+  },
+  {
+    "id": 4,
+    "name": "Stacy Looney",
+    "picture": "http://dummyimage.com/197x100.png/ff4444/ffffff",
+    "joined": "2023-10-08 15:07:13",
+    "job-desk": "Anticipate guests needs in order to accommodate them and provide an exceptional guest experience",
+    "schedule": [
+      "Saturday",
+      "Friday"
+    ],
+    "contact": "984 889 8452",
+    "status": "Active"
+  },
+  {
+    "id": 5,
+    "name": "Titus Bach",
+    "picture": "http://dummyimage.com/154x100.png/dddddd/000000",
+    "joined": "2024-04-30 14:57:39",
+    "job-desk": "Answering guest inquiries, directing phone calls, coordinating travel plans, and more.",
+    "schedule": [
+      "Friday",
+      "Wednesday"
+    ],
+    "contact": "205 533 9243",
+    "status": "Inactive"
+  },
+  {
+    "id": 6,
+    "name": "Padraic O'Crowley",
+    "picture": "http://dummyimage.com/111x100.png/cc0000/ffffff",
+    "joined": "2023-09-24 15:52:41",
+    "job-desk": "Answering guest inquiries, directing phone calls, coordinating travel plans, and more.",
+    "schedule": [
+      "Wednesday",
+      "Monday"
+    ],
+    "contact": "923 474 4658",
+    "status": "Inactive"
+  },
+  {
+    "id": 7,
+    "name": "Eldon Gaskell",
+    "picture": "http://dummyimage.com/145x100.png/ff4444/ffffff",
+    "joined": "2024-08-07 20:06:45",
+    "job-desk": "Answering guest inquiries, directing phone calls, coordinating travel plans, and more.",
+    "schedule": [
+      "Friday",
+      "Sunday"
+    ],
+    "contact": "965 798 6918",
+    "status": "Inactive"
+  },
+  {
+    "id": 8,
+    "name": "Deonne McQuilliam",
+    "picture": "http://dummyimage.com/224x100.png/ff4444/ffffff",
+    "joined": "2024-04-10 16:04:52",
+    "job-desk": "Act as a liaison between guests and any department necessary including the kitchen, housekeeping, etc",
+    "schedule": [
+      "Sunday",
+      "Monday"
+    ],
+    "contact": "203 553 5335",
+    "status": "Active"
+  },
+  {
+    "id": 9,
+    "name": "Lillis Targetter",
+    "picture": "http://dummyimage.com/181x100.png/dddddd/000000",
+    "joined": "2024-05-11 19:30:24",
+    "job-desk": "Act as a liaison between guests and any department necessary including the kitchen, housekeeping, etc",
+    "schedule": [
+      "Sunday",
+      "Friday"
+    ],
+    "contact": "510 157 5799",
+    "status": "Active"
+  },
+  {
+    "id": 10,
+    "name": "Elliott Thunder",
+    "picture": "http://dummyimage.com/166x100.png/5fa2dd/ffffff",
+    "joined": "2023-09-23 22:21:42",
+    "job-desk": "Offer restaurant and activity recommendations and assist guests in arranging transportation",
+    "schedule": [
+      "Saturday",
+      "Friday"
+    ],
+    "contact": "994 974 9102",
+    "status": "Inactive"
+  }
+]

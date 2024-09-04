@@ -1,9 +1,6 @@
-// import { useParams } from "react-router-dom"
-import { Table } from "../Table";
+import { Table } from "../Table"
 
-export const Booking = () => {
-    // const { id } = useParams();
-
+export const Rooms = () => {
     return (
         <>
             {/* <h1>Booking</h1>

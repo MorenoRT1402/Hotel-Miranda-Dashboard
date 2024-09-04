@@ -3,9 +3,20 @@ export const pages = {
       path: '/',
       title: 'Dashboard'
     },
+    rooms: {
+      path: 'rooms/:id',
+      title: 'Room List',
+      detailTitle: 'Room Detail'
+    },
     booking: {
       path: 'booking/:id',
-      title: 'Booking'
+      title: 'Guest List',
+      detailTitle: 'Guest Detail'
+    },
+    concierges: {
+      path: 'concierges/:id',
+      title: 'Concierges List',
+      detailTitle: 'Concierge Detail'
     },
     login: {
       path: 'login',

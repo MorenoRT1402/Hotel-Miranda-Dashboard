@@ -4,8 +4,10 @@ import { NotificationButton } from "./NotificationButton";
 import { IoMailOutline } from "react-icons/io5";
 import { GoBell } from "react-icons/go";
 import { MdOutlineComment } from "react-icons/md";
+import { RiLogoutBoxLine } from "react-icons/ri";
 import { useLocation, useParams } from "react-router-dom";
 import { getPageByRoute } from "../app/pages";
+import { onLogout } from "../app/auth";
 
 const Container = styled.header`
     display: flex;
@@ -69,6 +71,11 @@ export const Header = () => {
     const title = getPageByRoute(route).title;
     const {id} = useParams();
 
+    const logout = () => {
+        onLogout();
+        window.location.reload();
+    }
+
     return (
         <Container className="bg-main">
             <Menu>
@@ -86,6 +93,7 @@ export const Header = () => {
                     <NotificationButton icon={IoMailOutline} number={2}/>
                     <NotificationButton icon={GoBell} number={87}/>
                     <NotificationButton icon={MdOutlineComment} number={'!'} color={theme.colors.secondary}/>
+                    <NotificationButton icon={RiLogoutBoxLine} onClick={logout} />
                 </Icons>
                 {/* <img src="" alt="" />
                 <Separator /> */}

@@ -36,9 +36,9 @@ export const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = ev => {
+    const handleSubmit = async (ev) => {
         ev.preventDefault();
-        onLogin({username, password});
+        await onLogin({username, password});
         navigate(pages.home.path);
     }
 

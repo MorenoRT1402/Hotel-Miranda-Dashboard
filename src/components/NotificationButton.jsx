@@ -28,9 +28,9 @@ const Notification = styled.span`
 `
 
 // eslint-disable-next-line react/prop-types
-export const NotificationButton = ({icon:IconComp, number, color}) => {
+export const NotificationButton = ({icon:IconComp, number, color, onClick}) => {
     return (
-        <Container>
+        <Container onClick={onClick}>
             {IconComp ? <IconComp /> : <></>}
             {number ? <Notification bg={color}>{number}</Notification> : <></> }
         </Container>

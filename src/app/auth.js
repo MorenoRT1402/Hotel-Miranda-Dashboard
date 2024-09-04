@@ -19,3 +19,5 @@ export const onLogin = async ({ username, password }) => {
         console.log("Invalid username or password.");
     }
 };
+
+export const onLogout = () => localStorage.removeItem(key);

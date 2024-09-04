@@ -24,7 +24,7 @@ const Content = styled.table`
         background-color: ${({theme}) => theme.colors.main};
         &>tr{
             &>*{
-                padding: 1rem;
+                padding: .61rem 1rem;
 
                 &>span{
                     font-size: 14px;
@@ -101,6 +101,8 @@ const Identificator = styled.div`
 
     &>img{
         border-radius: 20px;
+        width: 10rem;
+        aspect-ratio: 2/1;
     }
 
     &>div{
@@ -128,6 +130,8 @@ background-color: ${({ status, theme }) =>
 export const Table = ({headers, data}) => {
     const basicFilters = ["All Rooms", "Active Employee", "Inactive Employee"];
 
+    const filteredData = data.slice(0, 6);
+
     return (
         <Container>
             <ControlPanel>
@@ -150,23 +154,29 @@ export const Table = ({headers, data}) => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    {filteredData.map(item => (
+                    <tr key={item.id}>
                         <td>
-                            <Identificator>
-                                <img src={data[0].picture} alt="" />
-                                <div>
-                                    <span>{`#${data[0].id}`}</span>
-                                    <strong>{`${data[0]["room-type"]}-${data[0].number}`}</strong>
-                                </div>
-                            </Identificator>
+                        <Identificator>
+                            <img src={item.picture} alt="" />
+                            <div>
+                            <span>{`#${item.id}`}</span>
+                            <strong>{`${item['room-type']}-${item.number}`}</strong>
+                            </div>
+                        </Identificator>
                         </td>
-                        <td>{`${data[0]["bed-type"]} Bed`}</td>
-                        <td>{`Floor ${data[0]["room-floor"]}`}</td>
-                        <WrappedTd>{data[0].facilities.join(', ')}</WrappedTd>
-                        <td>{data[0].rate}<span> /night</span></td>
-                        <td><StatusButton status={data[0].status}>{data[0].status}</StatusButton></td>
+                        <td>{`${item['bed-type']} Bed`}</td>
+                        <td>{`Floor ${item['room-floor']}`}</td>
+                        <WrappedTd>{item.facilities.join(', ')}</WrappedTd>
+                        <td>{item.rate}<span> /night</span></td>
+                        <td>
+                        <StatusButton status={item.status}>
+                            {item.status}
+                        </StatusButton>
+                        </td>
                     </tr>
-                </tbody>
+                    ))}
+                </tbody>            
             </Content>
             <Pagination />
         </Container>

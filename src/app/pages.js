@@ -4,17 +4,17 @@ export const pages = {
       title: 'Dashboard'
     },
     rooms: {
-      path: 'rooms/:id',
+      path: 'rooms',
       title: 'Room List',
       detailTitle: 'Room Detail'
     },
     booking: {
-      path: 'booking/:id',
+      path: 'booking',
       title: 'Guest List',
       detailTitle: 'Guest Detail'
     },
     concierges: {
-      path: 'concierges/:id',
+      path: 'concierges',
       title: 'Concierges List',
       detailTitle: 'Concierge Detail'
     },

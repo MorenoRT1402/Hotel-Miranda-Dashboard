@@ -46,4 +46,3 @@ export const getStringData = (header, item) => {
     const getValue = tableMap[header] || (() => '');
     return getValue(item);
 };
-

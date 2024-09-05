@@ -1,7 +1,7 @@
 # Rutas de la Aplicación - CRUD
 
 ## Bookings
-- GET /bookings/all           -> Mostrar todas las reservas (Index)
+- GET /bookings           -> Mostrar todas las reservas (Index)
 - GET /bookings/:id       -> Mostrar una reserva específica (Show)
 - POST /bookings          -> Crear una nueva reserva (Create)
 - PUT /bookings/:id       -> Actualizar una reserva existente (Update)

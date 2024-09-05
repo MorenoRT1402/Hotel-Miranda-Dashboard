@@ -9,6 +9,7 @@ import { pages } from '../../app/pages'
 import { Login } from '../pages/Login'
 import { Rooms } from '../pages/Rooms'
 import { Concierges } from '../pages/Concierges'
+import { GuestDetail } from '../pages/GuestDetail'
 
 function App() {
   return (
@@ -17,7 +18,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path={pages.booking.path} element={<Booking />} />
+            <Route path={pages.booking.path} element={<Booking />}>
+            </Route>
+            <Route path={`${pages.booking.path}/:id`} element={<GuestDetail />} />
             <Route path={pages.rooms.path} element={<Rooms />} />            
             <Route path={pages.concierges.path} element={<Concierges />} />
           </Route>

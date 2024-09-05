@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { getStringData } from "../app/table";
 
 /* eslint-disable react/prop-types */
 const Identificator = styled.div`
@@ -8,8 +9,8 @@ const Identificator = styled.div`
 
     &>img{
         border-radius: 20px;
-        width: 10rem;
-        aspect-ratio: ${({ hasRoomType }) => (hasRoomType ? '2 / 1' : '1 / 2')};
+        min-width: 2rem;
+        aspect-ratio: ${({ hasroomtype }) => (hasroomtype ? '2 / 1' : '1 / 2')};
     }
 
     &>div{
@@ -29,25 +30,34 @@ const Identificator = styled.div`
     }
 `;
 
+const StatusButton = styled.button`
+background-color: ${({ status, theme }) => 
+    status === 'Available' ? '#5AD07A' : theme.colors.highlighted};    
+    color: white;
+`;
+
+const WrappedTd = styled.td`
+    max-width: 11rem;
+`;
+
 export const TableDataIdentificator = ({ item }) => {
-    const hasRoomType = item['room-type'] !== undefined;
+    const hasroomtype = item['room-type'] !== undefined;
 
     return (
-        <Identificator hasRoomType={hasRoomType}>
+        <Identificator hasroomtype={hasroomtype ? true : undefined}>
             <img src={item.picture} alt="" />
             <div>
-                {!hasRoomType ? <strong>{item.name || item.guest}</strong> : <></>}
+                {!hasroomtype ? <strong>{item.name || item.guest}</strong> : <></>}
                 <span>{`#${item.id}`}</span>
-                {hasRoomType ? <strong>{`${item['room-type']}-${item.number}`}</strong> : <></>}
+                {hasroomtype ? <strong>{`${item['room-type']}-${item.number}`}</strong> : <></>}
                 {item.joined !== undefined ? <span>{item.joined}</span> : <></>}
             </div>
         </Identificator>
     );
 }
 
-export const TableData = ({ item, colIndex }) => {
-    const stringData = getStringData(item, colIndex);
-
+export const TableData = ({ header, item, colIndex }) => {
+    const stringData = colIndex !== 0 ? getStringData(header, item) : '';
 
     return (
         <td>

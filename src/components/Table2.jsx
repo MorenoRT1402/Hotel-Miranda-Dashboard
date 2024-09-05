@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { getCategoryItem, getStatusOption } from "../app/table";
 import { useState } from "react";
+import { TableData } from "./TableData";
+import { TableRow } from "./TableRow";
 
 //#region Style
 const Container = styled.article`
@@ -37,10 +39,6 @@ const Content = styled.table`
         }
     }
 `;
-
-const WrappedTd = styled.td`
-    max-width: 11rem;
-`
 
 const BasicFilter = styled.button`
     padding: .8rem;
@@ -92,39 +90,6 @@ const SortButton = styled.button`
     }
 `;
 
-const Identificator = styled.div`
-    display: flex;
-    gap: 1.5rem;
-    min-width: 17rem;
-
-    &>img{
-        border-radius: 20px;
-        width: 10rem;
-        aspect-ratio: 2/1;
-    }
-
-    &>div{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 1rem;
-
-        &>span{
-            font-size: 14px;
-            color: ${({theme}) => theme.colors.secondaryDimmed};
-        }
-
-        &>strong{
-            font-size: 16px;
-        }
-    }
-`;
-
-const StatusButton = styled.button`
-background-color: ${({ status, theme }) => 
-    status === 'Available' ? '#5AD07A' : theme.colors.highlighted};    color: white;
-`;
-
 const Pagination = styled.section`
   width: 100%;
   display: flex;
@@ -161,28 +126,27 @@ const PaginationInfo = styled.div`
 `;
 
 const PageButton = styled.button.attrs(props => ({
-    'aria-pressed': props.isActive,
-  }))`
-    font-weight: ${({ isActive }) => (isActive ? 'bold' : 'normal')};
+  'aria-pressed': props.isActive,
+}))`
+  font-weight: ${({ isActive }) => (isActive ? 'bold' : 'normal')};
+  background-color: ${({ isActive, theme }) => (isActive ? theme.colors.secondary : 'transparent')};
+  color: ${({ isActive, theme }) => (isActive ? 'white' : theme.colors.secondary)};
+  border: none;
+  cursor: pointer;
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
     background-color: ${({ isActive, theme }) => (isActive ? theme.colors.secondary : 'transparent')};
-    color: ${({ isActive, theme }) => (isActive ? 'white' : theme.colors.secondary)};
-    border: none;
-    cursor: pointer;
-    margin: 0 0.5rem;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-  
-    &:hover {
-      background-color: ${({ isActive, theme }) => (isActive ? theme.colors.secondary : 'transparent')};
-    }
-  `;
-  
+  }
+`;
 
 //#region Component
 const ITEMS_PER_PAGE = 6;
 
-export const Table = ({ headers, data }) => {
+export const Table2 = ({ headers, data }) => {
   const categoryItem = getCategoryItem(headers);
   const statusOptions = getStatusOption(data);
   
@@ -196,10 +160,6 @@ export const Table = ({ headers, data }) => {
       ? [`Active ${categoryItem}`, `Inactive ${categoryItem}`] 
       : statusOptions.map(status => `${status} ${categoryItem}`))
   ];
-
-  const handleFilterClick = (filter) => {
-    setActiveFilter(filter);
-  };
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
 
@@ -258,8 +218,7 @@ export const Table = ({ headers, data }) => {
           {basicFilters.map((filter, index) => (
             <BasicFilter 
               key={`${index}-${filter}`} 
-              onClick={() => handleFilterClick(filter)}
-              isActive={activeFilter === filter}
+              onClick={() => setActiveFilter(filter)}
             >
               {filter}
             </BasicFilter>
@@ -280,27 +239,8 @@ export const Table = ({ headers, data }) => {
           </tr>
         </thead>
         <tbody>
-          {filteredData.map(item => (
-          <tr key={item.id}>
-            <td>
-              <Identificator>
-                <img src={item.picture} alt="" />
-                <div>
-                  <span>{`#${item.id}`}</span>
-                  <strong>{`${item['room-type']}-${item.number}`}</strong>
-                </div>
-              </Identificator>
-            </td>
-            <td>{`${item['bed-type']} Bed`}</td>
-            <td>{`Floor ${item['room-floor']}`}</td>
-            <WrappedTd>{item.facilities.join(', ')}</WrappedTd>
-            <td>{item.rate}<span> /night</span></td>
-            <td>
-              <StatusButton status={item.status}>
-                {item.status}
-              </StatusButton>
-            </td>
-          </tr>
+          {filteredData.map((item, index) => (
+            <TableRow key={`${item}-${index}`} headers={headers} item={item} />
           ))}
         </tbody>            
       </Content>

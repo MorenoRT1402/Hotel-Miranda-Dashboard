@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
 import { FaChevronDown } from "react-icons/fa";
+import { getCategoryItem, getStatusOption } from "../app/table";
+import { useState } from "react";
 
 const Container = styled.article`
     margin: 3rem 2rem;
@@ -127,58 +129,89 @@ background-color: ${({ status, theme }) =>
     status === 'Available' ? '#5AD07A' : theme.colors.highlighted};    color: white;
 `;
 
-export const Table = ({headers, data}) => {
-    const basicFilters = ["All Rooms", "Active Employee", "Inactive Employee"];
+export const Table = ({ headers, data }) => {
+  const categoryItem = getCategoryItem(headers);
+  const statusOptions = getStatusOption(data);
+  
+  const [activeFilter, setActiveFilter] = useState('All');
 
-    const filteredData = data.slice(0, 6);
+  // Filters
+  const basicFilters = [
+    `All ${categoryItem === 'Room' ? 'Rooms' : categoryItem}`, 
+    ...(statusOptions.length === 2 
+      ? [`Active ${categoryItem}`, `Inactive ${categoryItem}`] 
+      : statusOptions.map(status => `${status} ${categoryItem}`))
+  ];
 
-    return (
-        <Container>
-            <ControlPanel>
-                <section>
-                    {basicFilters.map((filter, index) => (
-                        <BasicFilter key={`${index}-${filter}`}>{filter}</BasicFilter>
-                    ))}
-                </section>
-                <SortSection>
-                    <AddButton>+ New Room</AddButton>
-                    <SortButton>
-                        Newest <FaChevronDown />
-                    </SortButton>
-                </SortSection>
-            </ControlPanel>
-            <Content>
-                <thead>
-                    <tr>
-                        {headers.map((col, index) => <th key={`${index}-${col}`}>{col}</th>)}
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredData.map(item => (
-                    <tr key={item.id}>
-                        <td>
-                        <Identificator>
-                            <img src={item.picture} alt="" />
-                            <div>
-                            <span>{`#${item.id}`}</span>
-                            <strong>{`${item['room-type']}-${item.number}`}</strong>
-                            </div>
-                        </Identificator>
-                        </td>
-                        <td>{`${item['bed-type']} Bed`}</td>
-                        <td>{`Floor ${item['room-floor']}`}</td>
-                        <WrappedTd>{item.facilities.join(', ')}</WrappedTd>
-                        <td>{item.rate}<span> /night</span></td>
-                        <td>
-                        <StatusButton status={item.status}>
-                            {item.status}
-                        </StatusButton>
-                        </td>
-                    </tr>
-                    ))}
-                </tbody>            
-            </Content>
-            <Pagination />
-        </Container>
-    );
+  const handleFilterClick = (filter) => {
+    setActiveFilter(filter);
+  };
+
+  const filteredData = data.filter(item => {
+    if (activeFilter.startsWith('All')) {
+      return true;
+    } else if (activeFilter.startsWith('Active')) {
+      return item.status === 'Available' || item.status === 'Active';
+    } else if (activeFilter.startsWith('Inactive')) {
+      return item.status === 'Booked' || item.status === 'Inactive';
+    } else {
+      return item.status === activeFilter.replace(` ${categoryItem}`, '');
+    }
+  }).slice(0, 6);
+
+  return (
+    <Container>
+      <ControlPanel>
+        <section>
+          {basicFilters.map((filter, index) => (
+            <BasicFilter 
+              key={`${index}-${filter}`} 
+              onClick={() => handleFilterClick(filter)}
+              isActive={activeFilter === filter}
+            >
+              {filter}
+            </BasicFilter>
+          ))}
+        </section>
+        <SortSection>
+          <AddButton>+ New Room</AddButton>
+          <SortButton>
+            Newest <FaChevronDown />
+          </SortButton>
+        </SortSection>
+      </ControlPanel>
+      <Content>
+        <thead>
+          <tr>
+            {headers.map((col, index) => <th key={`${index}-${col}`}>{col}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {filteredData.map(item => (
+          <tr key={item.id}>
+            <td>
+              <Identificator>
+                <img src={item.picture} alt="" />
+                <div>
+                  <span>{`#${item.id}`}</span>
+                  <strong>{`${item['room-type']}-${item.number}`}</strong>
+                </div>
+              </Identificator>
+            </td>
+            <td>{`${item['bed-type']} Bed`}</td>
+            <td>{`Floor ${item['room-floor']}`}</td>
+            <WrappedTd>{item.facilities.join(', ')}</WrappedTd>
+            <td>{item.rate}<span> /night</span></td>
+            <td>
+              <StatusButton status={item.status}>
+                {item.status}
+              </StatusButton>
+            </td>
+          </tr>
+          ))}
+        </tbody>            
+      </Content>
+      <Pagination />
+    </Container>
+  );
 };

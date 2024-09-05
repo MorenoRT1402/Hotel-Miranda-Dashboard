@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
-import { FaChevronDown } from "react-icons/fa";
+import { FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { getCategoryItem, getStatusOption } from "../app/table";
 import { useState } from "react";
 
+//#region Style
 const Container = styled.article`
     margin: 3rem 2rem;
 `;
@@ -26,7 +27,7 @@ const Content = styled.table`
         background-color: ${({theme}) => theme.colors.main};
         &>tr{
             &>*{
-                padding: .61rem 1rem;
+                padding: .31rem 1rem;
 
                 &>span{
                     font-size: 14px;
@@ -40,12 +41,6 @@ const Content = styled.table`
 const WrappedTd = styled.td`
     max-width: 11rem;
 `
-
-const Pagination = styled.section`
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
-`;
 
 const BasicFilter = styled.button`
     padding: .8rem;
@@ -100,6 +95,7 @@ const SortButton = styled.button`
 const Identificator = styled.div`
     display: flex;
     gap: 1.5rem;
+    min-width: 17rem;
 
     &>img{
         border-radius: 20px;
@@ -129,13 +125,68 @@ background-color: ${({ status, theme }) =>
     status === 'Available' ? '#5AD07A' : theme.colors.highlighted};    color: white;
 `;
 
+const Pagination = styled.section`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+`;
+
+const PageControls = styled.div`
+  display: flex;
+  align-items: center;
+
+  button {
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: ${({ theme }) => theme.colors.primary};
+    margin: 0 0.5rem;
+
+    &:disabled {
+      cursor: not-allowed;
+      color: ${({ theme }) => theme.colors.dimmed};
+    }
+  }
+
+  span {
+    margin: 0 0.5rem;
+  }
+`;
+
+const PaginationInfo = styled.div`
+  font-size: 14px;
+  color: ${({ theme }) => theme.colors.dimmed};
+`;
+
+const PageButton = styled.button`
+  font-weight: ${({ isActive }) => (isActive ? 'bold' : 'normal')};
+  background-color: ${({ isActive, theme }) => (isActive ? theme.colors.secondary : 'transparent')};
+  color: ${({ isActive, theme }) => (isActive ? 'white' : theme.colors.secondary)};
+  border: none;
+  cursor: pointer;
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: ${({ isActive, theme }) => (isActive ? theme.colors.secondary : 'transparent')};
+  }
+`;
+
+//#region Component
+const ITEMS_PER_PAGE = 6;
+
 export const Table = ({ headers, data }) => {
   const categoryItem = getCategoryItem(headers);
   const statusOptions = getStatusOption(data);
   
   const [activeFilter, setActiveFilter] = useState('All');
+  const [currentPage, setCurrentPage] = useState(1);
 
-  // Filters
+  //#region Filters
   const basicFilters = [
     `All ${categoryItem === 'Room' ? 'Rooms' : categoryItem}`, 
     ...(statusOptions.length === 2 
@@ -147,6 +198,8 @@ export const Table = ({ headers, data }) => {
     setActiveFilter(filter);
   };
 
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+
   const filteredData = data.filter(item => {
     if (activeFilter.startsWith('All')) {
       return true;
@@ -157,8 +210,44 @@ export const Table = ({ headers, data }) => {
     } else {
       return item.status === activeFilter.replace(` ${categoryItem}`, '');
     }
-  }).slice(0, 6);
+  }).slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
+//#region Pagination
+  const totalItems = data.length;
+  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+  const getVisiblePages = () => {
+    const pages = [];
+    const maxPagesToShow = 4;
+
+    let start = Math.max(1, currentPage - 2);
+    let end = Math.min(totalPages, currentPage + 2);
+
+    if (end - start < maxPagesToShow - 1) {
+      if (currentPage <= Math.ceil(maxPagesToShow / 2)) {
+        end = Math.min(totalPages, start + maxPagesToShow - 1);
+      } else if (currentPage >= totalPages - Math.floor(maxPagesToShow / 2)) {
+        start = Math.max(1, end - maxPagesToShow + 1);
+      }
+    }
+
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+    return pages;
+  };
+
+  const visiblePages = getVisiblePages();
+
+  //#region Return
   return (
     <Container>
       <ControlPanel>
@@ -174,12 +263,13 @@ export const Table = ({ headers, data }) => {
           ))}
         </section>
         <SortSection>
-          <AddButton>+ New Room</AddButton>
+          <AddButton>{`+ New ${categoryItem}`}</AddButton>
           <SortButton>
             Newest <FaChevronDown />
           </SortButton>
         </SortSection>
       </ControlPanel>
+
       <Content>
         <thead>
           <tr>
@@ -211,7 +301,32 @@ export const Table = ({ headers, data }) => {
           ))}
         </tbody>            
       </Content>
-      <Pagination />
+
+      <Pagination>
+        <PaginationInfo>
+          Showing {startIndex + 1} to {Math.min(startIndex + ITEMS_PER_PAGE, totalItems)} of {totalItems} entries
+        </PaginationInfo>
+
+        <PageControls>
+          <button onClick={handlePrevPage} disabled={currentPage === 1}>
+            <FaChevronLeft />
+          </button>
+
+          {visiblePages.map((page) => (
+            <PageButton
+            key={page}
+            isActive={currentPage === page}
+            onClick={() => setCurrentPage(page)}
+          >
+            {page}
+          </PageButton>
+          ))}
+
+          <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+            <FaChevronRight />
+          </button>
+        </PageControls>
+      </Pagination>
     </Container>
   );
 };

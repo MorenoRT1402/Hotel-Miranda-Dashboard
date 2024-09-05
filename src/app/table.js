@@ -8,3 +8,12 @@ export const getCategoryItem = headers =>{
 }
 
 export const getStatusOption = data => [...new Set(data.map(item => item.status))];
+
+export const getStringData = (item, colIndex) => {
+    const dataMapping = {
+        1: () => item['job-desk'] || item['order-date'] || `${item['bed-type']} Bed`,
+        2: () => item['check-in'] || item['schedule'] || item['room-floor']
+    };
+
+    return (dataMapping[colIndex] || (() => ''))();
+};

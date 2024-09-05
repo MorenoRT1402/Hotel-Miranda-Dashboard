@@ -1,5 +1,4 @@
 // import { useParams } from "react-router-dom"
-import { Table } from "../Table";
 import data from '../../data/h-miranda_guests.json'
 import { Table2 } from "../Table2";
 

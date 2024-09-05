@@ -101,7 +101,7 @@ export const LateralMenu = () => {
         { title: "Room", icon: MdHotel, route: 'rooms/all'},
         { title: "Bookings", icon: MdBook, route: 'booking/all'},
         // { title: "Guests", icon: MdPeople, route: '/guest'},
-        { title: "Concierge", icon: MdRoomService, route: 'concierge/all'},
+        { title: "Concierge", icon: MdRoomService, route: 'concierges/all'},
     ];
 
     return (

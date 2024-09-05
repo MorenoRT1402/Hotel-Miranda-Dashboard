@@ -15,13 +15,15 @@ const Identificator = styled.div`
         border-radius: 20px;
         min-width: 2rem;
         aspect-ratio: ${({ hasroomtype }) => (hasroomtype ? '2 / 1' : '1 / 2')};
+        max-height: 6rem;
+        min-width: 5rem;
     }
 
     &>div{
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: 1rem;
+        /* gap: 1rem; */
 
         &>span{
             font-size: 14px;
@@ -34,15 +36,15 @@ const Identificator = styled.div`
     }
 `;
 
-const StatusButton = styled.button`
-background-color: ${({ status, theme }) => 
-    status === 'Available' ? '#5AD07A' : theme.colors.highlighted};    
-    color: white;
-`;
+// const StatusButton = styled.button`
+// background-color: ${({ status, theme }) => 
+//     status === 'Available' ? '#5AD07A' : theme.colors.highlighted};    
+//     color: white;
+// `;
 
-const WrappedTd = styled.td`
-    max-width: 11rem;
-`;
+// const WrappedTd = styled.td`
+//     max-width: 11rem;
+// `;
 
 export const TableDataIdentificator = ({ item }) => {
     const hasroomtype = item['room-type'] !== undefined;

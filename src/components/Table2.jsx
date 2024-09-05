@@ -176,9 +176,8 @@ export const Table2 = ({ headers, data }) => {
   const pageData = filteredData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
 //#region Pagination
-  const totalItems = data.length;
   const totalFiltered = filteredData.length;
-  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(totalFiltered / ITEMS_PER_PAGE);
 
   const handlePrevPage = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);

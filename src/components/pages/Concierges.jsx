@@ -1,8 +1,8 @@
-import data from '../../data/h-miranda_rooms.json';
+import data from '../../data/h-miranda_concierges.json';
 import { Table2 } from "../Table2";
 
-export const Rooms = () => {
-    const headers = ["Room Name", "Bed Type", "Room Floor", "Facilities", "Rate", "Status"];
+export const Concierges = () => {
+    const headers = ["Name", "Job Desk", "Schedule", "Contact", "Status"];
 
     return (
         <>

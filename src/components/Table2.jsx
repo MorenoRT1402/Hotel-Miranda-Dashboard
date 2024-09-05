@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { getCategoryItem, getStatusOption } from "../app/table";
 import { useState } from "react";
-import { TableData } from "./TableData";
 import { TableRow } from "./TableRow";
 
 //#region Style
@@ -158,7 +157,7 @@ export const Table2 = ({ headers, data }) => {
     `All ${categoryItem === 'Room' ? 'Rooms' : categoryItem}`, 
     ...(statusOptions.length === 2 
       ? [`Active ${categoryItem}`, `Inactive ${categoryItem}`] 
-      : statusOptions.map(status => `${status} ${categoryItem}`))
+      : statusOptions.map(status => `${status}`))
   ];
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -173,10 +172,12 @@ export const Table2 = ({ headers, data }) => {
     } else {
       return item.status === activeFilter.replace(` ${categoryItem}`, '');
     }
-  }).slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  })
+  const pageData = filteredData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
 //#region Pagination
   const totalItems = data.length;
+  const totalFiltered = filteredData.length;
   const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
   const handlePrevPage = () => {
@@ -239,7 +240,7 @@ export const Table2 = ({ headers, data }) => {
           </tr>
         </thead>
         <tbody>
-          {filteredData.map((item, index) => (
+          {pageData.map((item, index) => (
             <TableRow key={`${item}-${index}`} headers={headers} item={item} />
           ))}
         </tbody>            
@@ -247,7 +248,7 @@ export const Table2 = ({ headers, data }) => {
 
       <Pagination>
         <PaginationInfo>
-          Showing {startIndex + 1} to {Math.min(startIndex + ITEMS_PER_PAGE, totalItems)} of {totalItems} entries
+          Showing {startIndex + 1} to {Math.min(startIndex + ITEMS_PER_PAGE, totalFiltered)} of {totalFiltered} entries
         </PaginationInfo>
 
         <PageControls>

@@ -2,6 +2,10 @@ import styled from "styled-components";
 import { getStringData } from "../app/table";
 
 /* eslint-disable react/prop-types */
+const Container = styled.td`
+    max-width: 17rem;
+`;
+
 const Identificator = styled.div`
     display: flex;
     gap: 1.5rem;
@@ -60,10 +64,10 @@ export const TableData = ({ header, item, colIndex }) => {
     const stringData = colIndex !== 0 ? getStringData(header, item) : '';
 
     return (
-        <td>
+        <Container>
             {colIndex === 0 ? <TableDataIdentificator item={item} /> 
             : <strong>{stringData}</strong>
             }
-        </td>
+        </Container>
     )
 }

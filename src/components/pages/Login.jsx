@@ -1,8 +1,10 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import styled from "styled-components"
-import { onLogin } from "../../app/auth";
+import { onLogin, onLoginWithEmail } from "../../app/auth";
 import { useNavigate } from "react-router-dom";
 import { pages } from "../../app/pages";
+import { AuthContext } from "../AuthProvider";
+import { authActions } from "../../app/actions";
 
 const Container = styled.section`
     margin: 0 auto;
@@ -33,20 +35,38 @@ const Container = styled.section`
 
 export const Login = () => {
     const navigate = useNavigate();
+    const {dispatch} = useContext(AuthContext);
     const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const LOGIN_TYPE = 'email';
 
     const handleSubmit = async (ev) => {
         ev.preventDefault();
-        await onLogin({username, password});
-        navigate(pages.home.path);
-    }
+    
+        let success = false;
+        if (LOGIN_TYPE === 'username') {
+          success = await onLogin({ username, password });
+        } else {
+          success = await onLoginWithEmail({ email, password });
+        }
+    
+        if (success) {
+            dispatch({type: authActions.LOGIN, payload:{email, username, password}})
+            navigate(pages.home.path);
+        } else {
+          alert("Invalid credentials.");
+        }
+      };
 
     return (
         <Container>
             <h1>Welcome</h1>
             <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="username" name="username" value={username} onChange={e => setUsername(e.target.value)} />
+                {
+                LOGIN_TYPE === 'username' ? <input type="text" placeholder="username" name="username" value={username} onChange={e => setUsername(e.target.value)} /> 
+                : <input type="email" placeholder="email" name="email" value={email} onChange={e => setEmail(e.target.value)} />
+                }
                 <input type="password" placeholder="password" name="password" value={password} onChange={e => setPassword(e.target.value)} />
                 <button>Login</button>
             </form>

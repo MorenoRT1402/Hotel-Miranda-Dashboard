@@ -10,21 +10,24 @@ import { Login } from '../pages/Login'
 import { Rooms } from '../pages/Rooms'
 import { Concierges } from '../pages/Concierges'
 import { GuestDetail } from '../pages/GuestDetail'
+import { AuthMiddleware } from '../AuthMiddleware'
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path={pages.booking.path} element={<Booking />}>
-            </Route>
-            <Route path={`${pages.booking.path}/:id`} element={<GuestDetail />} />
-            <Route path={pages.rooms.path} element={<Rooms />} />            
-            <Route path={pages.concierges.path} element={<Concierges />} />
-          </Route>
           <Route path={pages.login.path} element={<Login />} />
+          <Route element={<AuthMiddleware />}>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path={pages.booking.path} element={<Booking />}>
+              </Route>
+              <Route path={`${pages.booking.path}/:id`} element={<GuestDetail />} />
+              <Route path={pages.rooms.path} element={<Rooms />} />            
+              <Route path={pages.concierges.path} element={<Concierges />} />
+            </Route>
+          </Route>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

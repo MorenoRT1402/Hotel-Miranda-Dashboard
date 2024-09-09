@@ -8,6 +8,9 @@ import { RiLogoutBoxLine } from "react-icons/ri";
 import { useLocation, useParams } from "react-router-dom";
 import { getPageByRoute } from "../../app/pages";
 import { onLogout } from "../../app/auth";
+import { useContext } from "react";
+import { AuthContext } from "../AuthProvider";
+import { authActions } from "../../app/actions";
 
 const Container = styled.header`
     display: flex;
@@ -65,6 +68,7 @@ const Icons = styled.section`
 // `;
 
 export const Header = () => {
+    const {dispatch} = useContext(AuthContext);
     const theme = useTheme();
     const location = useLocation();
     const route = location.pathname;
@@ -72,6 +76,7 @@ export const Header = () => {
     const {id} = useParams();
 
     const logout = () => {
+        dispatch({type: authActions.LOGOUT})
         onLogout();
         window.location.reload();
     }

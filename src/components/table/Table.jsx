@@ -4,10 +4,12 @@ import { FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { getCategoryItem, getStatusOption } from "../../app/table";
 import { useState } from "react";
 import { TableRow } from "./TableRow";
+import { NewDataForm } from "./NewDataForm";
 
 //#region Style
 const Container = styled.article`
     margin: 3rem 2rem;
+    position: relative;
 `;
 
 const ControlPanel = styled.section`
@@ -148,6 +150,7 @@ const ITEMS_PER_PAGE = 6;
 export const Table = ({ headers, data }) => {
   const categoryItem = getCategoryItem(headers);
   const statusOptions = getStatusOption(data);
+  const [modalVisible, setModalVisible] = useState(false);
   
   const [currentPage, setCurrentPage] = useState(1);
   
@@ -216,6 +219,7 @@ export const Table = ({ headers, data }) => {
   //#region Return
   return (
     <Container>
+      {modalVisible ? <NewDataForm close={() => setModalVisible(false)}/> : <></>}
       <ControlPanel>
         <section>
           {basicFilters.map((filter, index) => (
@@ -228,7 +232,7 @@ export const Table = ({ headers, data }) => {
           ))}
         </section>
         <SortSection>
-          <AddButton>{`+ New ${categoryItem}`}</AddButton>
+          <AddButton onClick={() => setModalVisible(true)}>{`+ New ${categoryItem}`}</AddButton>
           <SortButton>
             Newest <FaChevronDown />
           </SortButton>

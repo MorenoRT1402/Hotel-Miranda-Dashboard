@@ -149,17 +149,20 @@ export const Table = ({ headers, data }) => {
   const categoryItem = getCategoryItem(headers);
   const statusOptions = getStatusOption(data);
   
-  const [activeFilter, setActiveFilter] = useState('All');
   const [currentPage, setCurrentPage] = useState(1);
-
+  
+  
   //#region Filters
+  const getAllFilterName = `All ${categoryItem === 'Room' ? 'Rooms' : categoryItem}`;
   const basicFilters = [
-    `All ${categoryItem === 'Room' ? 'Rooms' : categoryItem}`, 
+    getAllFilterName, 
     ...(statusOptions.length === 2 
       ? [`Active ${categoryItem}`, `Inactive ${categoryItem}`] 
       : statusOptions.map(status => `${status}`))
-  ];
+    ];
 
+  const [activeFilter, setActiveFilter] = useState(basicFilters[0]);
+    
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
 
   const filteredData = data.filter(item => {

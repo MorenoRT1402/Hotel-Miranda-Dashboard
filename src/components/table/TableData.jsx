@@ -6,7 +6,9 @@ const Container = styled.td`
     max-width: 17rem;
 `;
 
-const Identificator = styled.div`
+const Identificator = styled.div.attrs(hasroomtype => ({
+    hasroomtype: hasroomtype ? true : undefined
+}))`
     display: flex;
     gap: 1.5rem;
     min-width: 17rem;
@@ -50,7 +52,7 @@ export const TableDataIdentificator = ({ item }) => {
     const hasroomtype = item['room-type'] !== undefined;
 
     return (
-        <Identificator hasroomtype={hasroomtype ? true : undefined}>
+        <Identificator hasroomtype={hasroomtype}>
             <img src={item.picture} alt="" />
             <div>
                 {!hasroomtype ? <strong>{item.name || item.guest}</strong> : <></>}

@@ -13,6 +13,9 @@ const Menu = styled.section`
     box-shadow: 13px 3px 40px #00000005;
     position: relative;
     z-index: 20;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 `;
 
 const Logo = styled.article`
@@ -132,11 +135,13 @@ export const LateralMenu = () => {
                 <small className="color-dimmed">morenort1402@gmail.com</small>
                 <button className="color-secondary">Edit</button>
             </UserCard>
+            <section>
             <PolicyText>
                 <strong>Travl Hotel Admin Dashboard</strong>
                 <span className="color-secondary-dimmed">@2024 All rights reserved</span>
             </PolicyText>
             <WithLove className="color-secondary-dimmed">Made with <Heart/> by MorenoRT</WithLove>
+            </section>
         </Menu>
     );
 };

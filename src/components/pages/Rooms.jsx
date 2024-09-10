@@ -1,5 +1,5 @@
 import data from '../../data/h-miranda_rooms.json';
-import { Table2 } from "../Table2";
+import { Table } from '../table/Table';
 
 export const Rooms = () => {
     const headers = ["Room Name", "Bed Type", "Room Floor", "Facilities", "Rate", "Status"];
@@ -9,7 +9,7 @@ export const Rooms = () => {
             {/* <h1>Booking</h1>
             <p>{id!='all' ? `ID: ${id}` : "Get All" }</p> */}
             {/* <Table headers={headers} data={data}/> */}
-            <Table2 headers={headers} data={data} />
+            <Table headers={headers} data={data} />
         </>
     )
 }

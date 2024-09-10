@@ -3,8 +3,8 @@ import styled from "styled-components"
 import { onLogin, onLoginWithEmail } from "../../app/auth";
 import { useNavigate } from "react-router-dom";
 import { pages } from "../../app/pages";
-import { AuthContext } from "../AuthProvider";
 import { authActions } from "../../app/actions";
+import { AuthContext } from "../auth/AuthProvider";
 
 const Container = styled.section`
     margin: 0 auto;

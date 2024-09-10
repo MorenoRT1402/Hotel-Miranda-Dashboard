@@ -10,7 +10,7 @@ import { Login } from '../pages/Login'
 import { Rooms } from '../pages/Rooms'
 import { Concierges } from '../pages/Concierges'
 import { GuestDetail } from '../pages/GuestDetail'
-import { AuthMiddleware } from '../AuthMiddleware'
+import { AuthMiddleware } from '../auth/AuthMiddleware'
 
 function App() {
   return (

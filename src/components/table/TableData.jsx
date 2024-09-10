@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { getStringData } from "../app/table";
+import { getStringData } from "../../app/table";
 
 /* eslint-disable react/prop-types */
 const Container = styled.td`

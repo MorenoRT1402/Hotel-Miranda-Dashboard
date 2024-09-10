@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
 import { FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { getCategoryItem, getStatusOption } from "../app/table";
+import { getCategoryItem, getStatusOption } from "../../app/table";
 import { useState } from "react";
 import { TableRow } from "./TableRow";
 
@@ -145,7 +145,7 @@ const PageButton = styled.button.attrs(props => ({
 //#region Component
 const ITEMS_PER_PAGE = 6;
 
-export const Table2 = ({ headers, data }) => {
+export const Table = ({ headers, data }) => {
   const categoryItem = getCategoryItem(headers);
   const statusOptions = getStatusOption(data);
   

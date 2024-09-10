@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import data from '../../data/h-miranda_guests.json'
+import data from '../../data/h-miranda_rooms.json'
 import { delay } from "../../app/utils";
 
 export const getAllThunk = createAsyncThunk(
-    'booking/getAll',
+    'room/getAll',
     async () => {
         await delay(5000);
         return data;
@@ -11,35 +11,35 @@ export const getAllThunk = createAsyncThunk(
 );
 
 export const getByIdThunk = createAsyncThunk(
-    'booking/getById',
+    'room/getById',
     async (id) => {
         await delay(5000);
-        return data.find(booking => booking.id === id) || null;
+        return data.find(room => room.id === id) || null;
     }
 )
 
 export const createThunk = createAsyncThunk(
-    'booking/create',
-    async (booking) => {
+    'room/create',
+    async (room) => {
         await delay(5000);
-        alert(`Created ${booking}`);
+        alert(`Created ${room}`);
     }
 )
 
 export const editThunk = createAsyncThunk(
-    'booking/edit',
-    async (id, booking) => {
+    'room/edit',
+    async (id, room) => {
         await delay(5000);
-        const old = data.find(booking => booking.id === id) || null;
-        alert(`Modified ${[...old]} -> ${[...booking]}`);
+        const old = data.find(room => room.id === id) || null;
+        alert(`Modified ${[...old]} -> ${[...room]}`);
     }
 )
 
 export const removeThunk = createAsyncThunk(
-    'booking/remove',
+    'room/remove',
     async (id) => {
         await delay(5000);
-        const deleted = data.find(booking => booking.id === id) || null;
+        const deleted = data.find(room => room.id === id) || null;
         alert(`Deleted ${deleted}`);
     }
 )

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { createContext, useReducer, useEffect, useMemo } from "react";
-import { authActions } from "../app/actions";
+import { authActions } from "../../app/actions";
 
 export const AuthContext = createContext();
 

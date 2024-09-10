@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { AuthContext } from './AuthProvider';
-import { pages } from '../app/pages';
+import { pages } from '../../app/pages';
 
 export const AuthMiddleware = () => {
   const { state } = useContext(AuthContext);

@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
+import Select from 'react-select';
 import { FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { getCategoryItem, getStatusOption } from "../../app/table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TableRow } from "./TableRow";
 import { NewDataForm } from "./NewDataForm";
 
@@ -147,10 +148,21 @@ const PageButton = styled.button.attrs(props => ({
 //#region Component
 const ITEMS_PER_PAGE = 6;
 
+
 export const Table = ({ headers, data }) => {
   const categoryItem = getCategoryItem(headers);
+  const sortOptions = [
+    { value: 'guest', label: 'Guest (Alphabetical)' },
+    { value: 'orderDate', label: 'Order Date (Default)' },
+    { value: 'checkIn', label: 'Check In Date' },
+    { value: 'checkOut', label: 'Check Out Date' },
+  ];
   const statusOptions = getStatusOption(data);
   const [modalVisible, setModalVisible] = useState(false);
+  const [filteredData, setFilteredData] = useState([]);
+  const [sortedData, setSortedData] = useState([]);
+  const [showedData, setShowedData] = useState([]);
+  const [sortOption, setSortOption] = useState(sortOptions[1]);
   
   const [currentPage, setCurrentPage] = useState(1);
   
@@ -168,18 +180,46 @@ export const Table = ({ headers, data }) => {
     
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
 
-  const filteredData = data.filter(item => {
-    if (activeFilter.startsWith('All')) {
-      return true;
-    } else if (activeFilter.startsWith('Active')) {
-      return item.status === 'Available' || item.status === 'Active';
-    } else if (activeFilter.startsWith('Inactive')) {
-      return item.status === 'Booked' || item.status === 'Inactive';
-    } else {
-      return item.status === activeFilter.replace(` ${categoryItem}`, '');
-    }
-  })
-  const pageData = filteredData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  useEffect(() => {
+    setFilteredData(data.filter(item => {
+      if (activeFilter.startsWith('All')) {
+        return true;
+      } else if (activeFilter.startsWith('Active')) {
+        return item.status === 'Available' || item.status === 'Active';
+      } else if (activeFilter.startsWith('Inactive')) {
+        return item.status === 'Booked' || item.status === 'Inactive';
+      } else {
+        return item.status === activeFilter.replace(` ${categoryItem}`, '');
+      }
+    })
+  )
+  }, [data, activeFilter, categoryItem])
+
+  useEffect(() => {
+    const sorted = [...filteredData].sort((a, b) => {
+      switch (sortOption.value) {
+        case 'guest':
+          return a.guest.localeCompare(b.guest);
+        case 'orderDate':
+          return new Date(a.orderDate) - new Date(b.orderDate);
+        case 'checkIn':
+          return new Date(a.checkIn) - new Date(b.checkIn);
+        case 'checkOut':
+          return new Date(a.checkOut) - new Date(b.checkOut);
+        default:
+          return 0;
+      }
+    });
+    setSortedData(sorted);
+  }, [filteredData, sortOption]);
+
+  useEffect(() => {
+    console.log(sortOption)
+  }, [sortOption])
+
+  useEffect(() => {
+    setShowedData(sortedData.slice(startIndex, startIndex + ITEMS_PER_PAGE));
+  }, [sortedData, startIndex]);
 
 //#region Pagination
   const totalFiltered = filteredData.length;
@@ -233,9 +273,16 @@ export const Table = ({ headers, data }) => {
         </section>
         <SortSection>
           <AddButton onClick={() => setModalVisible(true)}>{`+ New ${categoryItem}`}</AddButton>
-          <SortButton>
-            Newest <FaChevronDown />
-          </SortButton>
+          <Select
+          value={sortOption}
+          onChange={value => setSortOption(value)}
+          options={sortOptions}
+          isSearchable={false}
+          styles={{
+            container: (base) => ({ ...base, minWidth: '200px' }),
+            control: (base) => ({ ...base, borderRadius: '4px', padding: '0.4rem' }),
+          }}
+        />
         </SortSection>
       </ControlPanel>
 
@@ -246,7 +293,7 @@ export const Table = ({ headers, data }) => {
           </tr>
         </thead>
         <tbody>
-          {pageData.map((item, index) => (
+          {showedData.map((item, index) => (
             <TableRow key={`${item}-${index}`} headers={headers} item={item} />
           ))}
         </tbody>            

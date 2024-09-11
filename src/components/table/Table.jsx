@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
-import Select from 'react-select';
-import { FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { getCategoryItem, getStatusOption } from "../../app/table";
 import { useEffect, useState } from "react";
 import { TableRow } from "./TableRow";
 import { NewDataForm } from "./NewDataForm";
+import { TableSort } from "./TableSort";
 
 //#region Style
 const Container = styled.article`
@@ -82,16 +82,6 @@ const AddButton = styled.button`
     margin-right: 1.5rem;
 `;
 
-const SortButton = styled.button`
-    border: 1px solid ${({theme}) => theme.colors.secondary};
-    color: ${({theme}) => theme.colors.secondary};
-
-    &>*{
-        color: gray;
-        transform: translate(2px, 3px);
-    }
-`;
-
 const Pagination = styled.section`
   width: 100%;
   display: flex;
@@ -151,18 +141,11 @@ const ITEMS_PER_PAGE = 6;
 
 export const Table = ({ headers, data }) => {
   const categoryItem = getCategoryItem(headers);
-  const sortOptions = [
-    { value: 'guest', label: 'Guest (Alphabetical)' },
-    { value: 'orderDate', label: 'Order Date (Default)' },
-    { value: 'checkIn', label: 'Check In Date' },
-    { value: 'checkOut', label: 'Check Out Date' },
-  ];
   const statusOptions = getStatusOption(data);
   const [modalVisible, setModalVisible] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
   const [sortedData, setSortedData] = useState([]);
   const [showedData, setShowedData] = useState([]);
-  const [sortOption, setSortOption] = useState(sortOptions[1]);
   
   const [currentPage, setCurrentPage] = useState(1);
   
@@ -194,28 +177,6 @@ export const Table = ({ headers, data }) => {
     })
   )
   }, [data, activeFilter, categoryItem])
-
-  useEffect(() => {
-    const sorted = [...filteredData].sort((a, b) => {
-      switch (sortOption.value) {
-        case 'guest':
-          return a.guest.localeCompare(b.guest);
-        case 'orderDate':
-          return new Date(a.orderDate) - new Date(b.orderDate);
-        case 'checkIn':
-          return new Date(a.checkIn) - new Date(b.checkIn);
-        case 'checkOut':
-          return new Date(a.checkOut) - new Date(b.checkOut);
-        default:
-          return 0;
-      }
-    });
-    setSortedData(sorted);
-  }, [filteredData, sortOption]);
-
-  useEffect(() => {
-    console.log(sortOption)
-  }, [sortOption])
 
   useEffect(() => {
     setShowedData(sortedData.slice(startIndex, startIndex + ITEMS_PER_PAGE));
@@ -273,16 +234,7 @@ export const Table = ({ headers, data }) => {
         </section>
         <SortSection>
           <AddButton onClick={() => setModalVisible(true)}>{`+ New ${categoryItem}`}</AddButton>
-          <Select
-          value={sortOption}
-          onChange={value => setSortOption(value)}
-          options={sortOptions}
-          isSearchable={false}
-          styles={{
-            container: (base) => ({ ...base, minWidth: '200px' }),
-            control: (base) => ({ ...base, borderRadius: '4px', padding: '0.4rem' }),
-          }}
-        />
+          <TableSort filteredData={filteredData} setSortedData={setSortedData}/>
         </SortSection>
       </ControlPanel>
 

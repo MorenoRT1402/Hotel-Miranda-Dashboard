@@ -15,10 +15,10 @@ const Identificator = styled.div.attrs(hasroomtype => ({
 
     &>img{
         border-radius: 20px;
-        min-width: 2rem;
         aspect-ratio: ${({ hasroomtype }) => (hasroomtype ? '2 / 1' : '1 / 2')};
         max-height: 6rem;
         min-width: 5rem;
+        max-width: 9rem;
     }
 
     &>div{

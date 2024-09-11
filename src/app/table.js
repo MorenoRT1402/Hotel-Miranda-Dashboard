@@ -10,7 +10,7 @@ const tableMap = {
     'Schedule': item => item['schedule'].join(', '),
     'Contact': item => item['contact'],
 
-    'Bed Type': item => `${item['bed-type']} Bed`,
+    'Bed Type': item => `${item['bed-type']}`,
     'Room Floor': item => item['room-floor'],
     'Facilities': item => item['facilities'].join(', '),
     'Rate': item => `${item['rate']} /night`,

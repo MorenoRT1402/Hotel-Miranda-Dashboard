@@ -9,13 +9,21 @@ import { TableSort } from "./TableSort";
 
 //#region Style
 const Container = styled.article`
-    margin: 3rem 2rem;
+    margin: 1.2rem;
     position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &>table{
+      flex: 1;
+    }
 `;
 
 const ControlPanel = styled.section`
     display: flex;
     justify-content: space-between;
+    margin-bottom: 1rem;
 
     &>section{
         display: flex;
@@ -72,6 +80,7 @@ const SortSection = styled.section`
 
     &>*{
         border-radius: 10px;
+        min-height: 3rem;
     }
 `
 
@@ -149,17 +158,20 @@ export const Table = ({ headers, data }) => {
   
   const [currentPage, setCurrentPage] = useState(1);
   
+  const isRoom = categoryItem === 'Room';
   
   //#region Filters
-  const getAllFilterName = `All ${categoryItem === 'Room' ? 'Rooms' : categoryItem}`;
-  const basicFilters = [
+  const getAllFilterName = `All ${isRoom ? 'Rooms' : categoryItem}`;
+
+  const basicFilters = !isRoom ? [
     getAllFilterName, 
     ...(statusOptions.length === 2 
       ? [`Active ${categoryItem}`, `Inactive ${categoryItem}`] 
       : statusOptions.map(status => `${status}`))
-    ];
+    ]
+    : [];
 
-  const [activeFilter, setActiveFilter] = useState(basicFilters[0]);
+  const [activeFilter, setActiveFilter] = useState('All');
     
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
 
@@ -179,8 +191,9 @@ export const Table = ({ headers, data }) => {
   }, [data, activeFilter, categoryItem])
 
   useEffect(() => {
-    setShowedData(sortedData.slice(startIndex, startIndex + ITEMS_PER_PAGE));
-  }, [sortedData, startIndex]);
+    const newShowedData = sortedData.length < 1 ? filteredData : sortedData;
+    setShowedData(newShowedData.slice(startIndex, startIndex + ITEMS_PER_PAGE));
+  }, [sortedData, startIndex, filteredData]);
 
 //#region Pagination
   const totalFiltered = filteredData.length;
@@ -234,7 +247,7 @@ export const Table = ({ headers, data }) => {
         </section>
         <SortSection>
           <AddButton onClick={() => setModalVisible(true)}>{`+ New ${categoryItem}`}</AddButton>
-          <TableSort filteredData={filteredData} setSortedData={setSortedData}/>
+          {!isRoom ? <TableSort category={categoryItem} filteredData={filteredData} setSortedData={setSortedData}/>: <></>}
         </SortSection>
       </ControlPanel>
 

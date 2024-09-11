@@ -3,7 +3,7 @@ import { getStringData } from "../../app/table";
 
 /* eslint-disable react/prop-types */
 const Container = styled.td`
-    max-width: 17rem;
+    max-width: 23rem;
 `;
 
 const Identificator = styled.div.attrs(hasroomtype => ({

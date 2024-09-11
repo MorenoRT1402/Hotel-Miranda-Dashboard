@@ -23,6 +23,7 @@ export const createThunk = createAsyncThunk(
     async (booking) => {
         await delay(5000);
         alert(`Created ${booking}`);
+        return booking;
     }
 )
 

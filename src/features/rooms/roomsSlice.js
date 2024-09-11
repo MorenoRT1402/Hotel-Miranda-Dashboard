@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { promiseStatus } from '../../app/actions';
 import { createThunk, editThunk, getAllThunk, getByIdThunk, removeThunk } from './roomsThunk';
+import { pending, promiseStatus, rejected } from '../../utils/promises';
 
 const initialState = {
     rooms: [],
@@ -15,44 +15,41 @@ export const roomSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getAllThunk.pending, (state) => {
-                state.status = promiseStatus.PENDING;
+            .addCase(getAllThunk.pending, state => {
+                pending(state);
             })
             .addCase(getAllThunk.fulfilled, (state, action) => {
                 state.status = promiseStatus.FULFILLED;
                 state.rooms = action.payload;
             })
             .addCase(getAllThunk.rejected, (state, action) => {
-                state.status = promiseStatus.REJECTED;
-                state.error = action.error.message;
+                rejected(state, action);
             })
 
             .addCase(getByIdThunk.pending, (state) => {
-                state.status = promiseStatus.PENDING;
+                pending(state);
             })
             .addCase(getByIdThunk.fulfilled, (state, action) => {
                 state.status = promiseStatus.FULFILLED;
                 state.room = action.payload;
             })
             .addCase(getByIdThunk.rejected, (state, action) => {
-                state.status = promiseStatus.REJECTED;
-                state.error = action.error.message;
+                rejected(state, action);
             })
 
             .addCase(createThunk.pending, (state) => {
-                state.status = promiseStatus.PENDING;
+                pending(state);
             })
             .addCase(createThunk.fulfilled, (state, action) => {
                 state.status = promiseStatus.FULFILLED;
                 state.rooms.push(action.payload);
             })
             .addCase(createThunk.rejected, (state, action) => {
-                state.status = promiseStatus.REJECTED;
-                state.error = action.error.message;
+                rejected(state, action);
             })
 
             .addCase(editThunk.pending, (state) => {
-                state.status = promiseStatus.PENDING;
+                pending(state);
             })
             .addCase(editThunk.fulfilled, (state, action) => {
                 state.status = promiseStatus.FULFILLED;
@@ -62,20 +59,18 @@ export const roomSlice = createSlice({
                 }
             })
             .addCase(editThunk.rejected, (state, action) => {
-                state.status = promiseStatus.REJECTED;
-                state.error = action.error.message;
+                rejected(state, action);
             })
 
             .addCase(removeThunk.pending, (state) => {
-                state.status = promiseStatus.PENDING;
+                pending(state);
             })
             .addCase(removeThunk.fulfilled, (state, action) => {
                 state.status = promiseStatus.FULFILLED;
                 state.rooms = state.rooms.filter(room => room.id !== action.payload.id);
             })
             .addCase(removeThunk.rejected, (state, action) => {
-                state.status = promiseStatus.REJECTED;
-                state.error = action.error.message;
+                rejected(state, action);
             });
     }
 });

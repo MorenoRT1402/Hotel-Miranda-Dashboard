@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { promiseStatus } from '../../app/actions';
 import { createThunk, editThunk, getAllThunk, getByIdThunk, removeThunk } from './bookingThunk';
+import { changeStatus, pending, promiseStatus, rejected } from '../../utils/promises';
 
 const initialState = {
     guests: [],
@@ -16,66 +16,61 @@ export const bookingSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getAllThunk.pending, (state) => {
-                state.status = promiseStatus.PENDING;
+                pending(state);
             })
             .addCase(getAllThunk.fulfilled, (state, action) => {
-                state.status = promiseStatus.FULFILLED;
+                changeStatus(state, promiseStatus.FULFILLED);
                 state.guests = action.payload;
             })
             .addCase(getAllThunk.rejected, (state, action) => {
-                state.status = promiseStatus.REJECTED;
-                state.error = action.error.message;
+                rejected(state, action);
             })
 
-            .addCase(getByIdThunk.pending, (state) => {
-                state.status = promiseStatus.PENDING;
+            .addCase(getByIdThunk.pending, state => {
+                pending(state)
             })
             .addCase(getByIdThunk.fulfilled, (state, action) => {
-                state.status = promiseStatus.FULFILLED;
+                changeStatus(state, promiseStatus.FULFILLED);
                 state.guest = action.payload;
             })
             .addCase(getByIdThunk.rejected, (state, action) => {
-                state.status = promiseStatus.REJECTED;
-                state.error = action.error.message;
+                rejected(state, action);
             })
 
-            .addCase(createThunk.pending, (state) => {
-                state.status = promiseStatus.PENDING;
+            .addCase(createThunk.pending, state => {
+                pending(state);
             })
             .addCase(createThunk.fulfilled, (state, action) => {
-                state.status = promiseStatus.FULFILLED;
+                changeStatus(state, promiseStatus.FULFILLED);
                 state.guests.push(action.payload);
             })
             .addCase(createThunk.rejected, (state, action) => {
-                state.status = promiseStatus.REJECTED;
-                state.error = action.error.message;
+                rejected(state, action);
             })
 
             .addCase(editThunk.pending, (state) => {
-                state.status = promiseStatus.PENDING;
+                pending(state);
             })
             .addCase(editThunk.fulfilled, (state, action) => {
-                state.status = promiseStatus.FULFILLED;
+                changeStatus(state, promiseStatus.FULFILLED);
                 const index = state.guests.findIndex(booking => booking.id === action.payload.id);
                 if (index !== -1) {
                     state.guests[index] = action.payload;
                 }
             })
             .addCase(editThunk.rejected, (state, action) => {
-                state.status = promiseStatus.REJECTED;
-                state.error = action.error.message;
+                rejected(state, action);
             })
 
             .addCase(removeThunk.pending, (state) => {
-                state.status = promiseStatus.PENDING;
+                pending(state);
             })
             .addCase(removeThunk.fulfilled, (state, action) => {
-                state.status = promiseStatus.FULFILLED;
+                changeStatus(state, promiseStatus.FULFILLED);
                 state.guests = state.guests.filter(booking => booking.id !== action.payload.id);
             })
             .addCase(removeThunk.rejected, (state, action) => {
-                state.status = promiseStatus.REJECTED;
-                state.error = action.error.message;
+                rejected(state, action);
             });
     }
 });

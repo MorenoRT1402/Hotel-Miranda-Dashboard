@@ -2,9 +2,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 // import data from '../../data/h-miranda_guests.json'
 import { useEffect } from 'react';
-import { promiseStatus } from '../../app/actions';
 import { getAllThunk } from '../../features/bookings/bookingThunk';
 import { Table } from '../table/Table';
+import { promiseStatus } from '../../utils/promises';
 
 export const Booking = () => {
     const dispatch = useDispatch();

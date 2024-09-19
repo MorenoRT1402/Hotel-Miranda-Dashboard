@@ -65,10 +65,10 @@ export const Login = () => {
             <form onSubmit={handleSubmit}>
                 {
                 LOGIN_TYPE === 'username' ? <input type="text" placeholder="username" name="username" value={username} onChange={e => setUsername(e.target.value)} /> 
-                : <input type="email" placeholder="email" name="email" value={email} onChange={e => setEmail(e.target.value)} />
+                : <input type="email" data-cy="email" placeholder="email" name="email" value={email} onChange={e => setEmail(e.target.value)} />
                 }
-                <input type="password" placeholder="password" name="password" value={password} onChange={e => setPassword(e.target.value)} />
-                <button>Login</button>
+                <input type="password" data-cy="password" placeholder="password" name="password" value={password} onChange={e => setPassword(e.target.value)} />
+                <button data-cy="submit">Login</button>
             </form>
         </Container>
     )

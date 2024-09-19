@@ -39,7 +39,6 @@ export const Table = ({ headers, data }) => {
   const [sortedData, setSortedData] = useState([]);
   const [showedData, setShowedData] = useState([]);
 
-  //#region Return
   return (
     <Container>
       <TableControlPanel headers={headers} data={data} filteredData={filteredData} 

@@ -43,6 +43,7 @@ export const bookingSlice = createSlice({
             .addCase(createThunk.fulfilled, (state, action) => {
                 changeStatus(state, promiseStatus.FULFILLED);
                 state.guests.push(action.payload);
+                // state.guests = [...state.guests, action.payload];
             })
             .addCase(createThunk.rejected, (state, action) => {
                 rejected(state, action);

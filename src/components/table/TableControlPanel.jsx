@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
-import { getCategoryItem, getStatusOption } from "../../app/table";
+import { getCategory, getCategoryItem, getStatusOption } from "../../app/table";
 import { useEffect, useState } from "react";
 import { TableSort } from "./TableSort";
 import { NewDataForm } from "./NewDataForm";
@@ -57,56 +57,56 @@ const AddButton = styled.button`
 `;
 
 export const TableControlPanel = ({ headers, data, filteredData, setFilteredData, setSortedData }) => {
-    const [modalVisible, setModalVisible] = useState(false);
-    const [activeFilter, setActiveFilter] = useState('All');
-    const statusOptions = getStatusOption(data);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [activeFilter, setActiveFilter] = useState('All');
+  const statusOptions = getStatusOption(data);
 
-    const categoryItem = getCategoryItem(headers);
+  const categoryItem = getCategoryItem(headers);
 
-    const isRoom = categoryItem === 'Room';
+  const isRoom = categoryItem === 'Room';
 
-    const getAllFilterName = `All ${isRoom ? 'Rooms' : categoryItem}`;
+  const getAllFilterName = `All ${isRoom ? 'Rooms' : categoryItem}`;
 
-    const basicFilters = !isRoom ? [
-        getAllFilterName, 
-        ...(statusOptions.length === 2 
-          ? [`Active ${categoryItem}`, `Inactive ${categoryItem}`] 
-          : statusOptions.map(status => `${status}`))
-        ]
-        : [];
+  const basicFilters = !isRoom ? [
+      getAllFilterName, 
+      ...(statusOptions.length === 2 
+        ? [`Active ${categoryItem}`, `Inactive ${categoryItem}`] 
+        : statusOptions.map(status => `${status}`))
+      ]
+      : [];
 
-        useEffect(() => {
-            setFilteredData(data.filter(item => {
-              if (activeFilter.startsWith('All')) {
-                return true;
-              } else if (activeFilter.startsWith('Active')) {
-                return item.status === 'Available' || item.status === 'Active';
-              } else if (activeFilter.startsWith('Inactive')) {
-                return item.status === 'Booked' || item.status === 'Inactive';
-              } else {
-                return item.status === activeFilter.replace(` ${categoryItem}`, '');
-              }
-            })
-          )
-          }, [data, activeFilter, categoryItem, setFilteredData])
-    
-    return (
-        <ControlPanel>
-        {modalVisible ? <NewDataForm close={() => setModalVisible(false)}/> : <></>}
-        <section>
-          {basicFilters.map((filter, index) => (
-            <BasicFilter 
-              key={`${index}-${filter}`} 
-              onClick={() => setActiveFilter(filter)}
-            >
-              {filter}
-            </BasicFilter>
-          ))}
-        </section>
-        <SortSection>
-          <AddButton onClick={() => setModalVisible(true)}>{`+ New ${categoryItem}`}</AddButton>
-          {!isRoom ? <TableSort category={categoryItem} filteredData={filteredData} setSortedData={setSortedData}/>: <></>}
-        </SortSection>
-      </ControlPanel>
-    )
+      useEffect(() => {
+          setFilteredData(data.filter(item => {
+            if (activeFilter.startsWith('All')) {
+              return true;
+            } else if (activeFilter.startsWith('Active')) {
+              return item.status === 'Available' || item.status === 'Active';
+            } else if (activeFilter.startsWith('Inactive')) {
+              return item.status === 'Booked' || item.status === 'Inactive';
+            } else {
+              return item.status === activeFilter.replace(` ${categoryItem}`, '');
+            }
+          })
+        )
+        }, [data, activeFilter, categoryItem, setFilteredData])
+  
+  return (
+      <ControlPanel>
+      {modalVisible ? <NewDataForm data={data} category={getCategory(headers)} close={() => setModalVisible(false)}/> : <></>}
+      <section>
+        {basicFilters.map((filter, index) => (
+          <BasicFilter 
+            key={`${index}-${filter}`} 
+            onClick={() => setActiveFilter(filter)}
+          >
+            {filter}
+          </BasicFilter>
+        ))}
+      </section>
+      <SortSection>
+        <AddButton onClick={() => setModalVisible(true)}>{`+ New ${categoryItem}`}</AddButton>
+        {!isRoom ? <TableSort category={categoryItem} filteredData={filteredData} setSortedData={setSortedData}/>: <></>}
+      </SortSection>
+    </ControlPanel>
+  )
 }

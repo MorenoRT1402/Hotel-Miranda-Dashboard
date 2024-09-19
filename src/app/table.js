@@ -1,3 +1,7 @@
+import { createThunk as createUser } from "../features/users/userThunk";
+import { createThunk as createBooking } from "../features/bookings/bookingThunk";
+import { createThunk as createRoom } from "../features/rooms/roomsThunk";
+
 const tableMap = {
     'Order Date': item => item['orderDate'],
     'Check In': item => item['checkIn'],
@@ -26,21 +30,25 @@ export const getCategoryItem = headers =>{
         return 'Employee'
     return category;
 }
+export const categories = [
+    { category: 'Users', item: 'Employee', create: createUser },
+    { category: 'Booking', item: 'Guest', create: createBooking },
+    { category: 'Rooms', item: 'Room', create: createRoom }
+];
+
+const getCategorySlot = category => categories.find(cat => cat.category === category);
+
+export const getCategory = headers => {
+    const item = getCategoryItem(headers);
+
+    const categoryMatch = categories.find(cat => cat.item === item);
+
+    return categoryMatch ? categoryMatch.category : null;
+}
+
+export const getCreate = category => getCategorySlot(category).create;
 
 export const getStatusOption = data => [...new Set(data.map(item => item.status))];
-
-// export const getStringData = (item, colIndex) => {
-//     const dataMapping = {
-//         1: () => item['job-desk'] || item['orderDate'] || `${item['bed-type']} Bed`,
-//         2: () => item['checkIn'] || item['schedule'].join(', ') || `Room ${item['room-floor']}`,
-//         3: () => item['checkOut'] || item['contact'] || item['facilities'].join(', '),
-//         4: () => item['notes'] || `${item['rate']} /night` || item['status'],
-//         5: () => item['roomId'] || item['status'],
-//         6: () => item['status']
-//     };
-
-//     return (dataMapping[colIndex] || (() => ''))();
-// };
 
 export const getStringData = (header, item) => {
     const getValue = tableMap[header] || (() => '');

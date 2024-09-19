@@ -1,15 +1,30 @@
-import data from '../../data/h-miranda_concierges.json';
+import { useDispatch, useSelector } from 'react-redux';
 import { Table } from '../table/Table';
+import { useEffect } from 'react';
+import { promiseStatus } from '../../utils/promises';
+import { getAllThunk } from '../../features/users/userThunk';
 
 export const Concierges = () => {
     const headers = ["Name", "Job Desk", "Schedule", "Contact", "Status"];
+    
+    const { users, status, error } = useSelector(state => state.user);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (status === promiseStatus.IDLE) {
+            dispatch(getAllThunk());
+        }
+    }, [dispatch, status]);
+
+    if (status === promiseStatus.PENDING) {
+        return <p>Loading...</p>;
+    }
+
+    if (status === promiseStatus.REJECTED) {
+        return <p>Error: {error}</p>;
+    }
 
     return (
-        <>
-            {/* <h1>Booking</h1>
-            <p>{id!='all' ? `ID: ${id}` : "Get All" }</p> */}
-            {/* <Table headers={headers} data={data}/> */}
-            <Table headers={headers} data={data} />
-        </>
-    )
-}
+        <Table headers={headers} data={users} />
+    );
+};

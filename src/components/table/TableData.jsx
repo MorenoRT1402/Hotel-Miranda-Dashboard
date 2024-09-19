@@ -38,16 +38,6 @@ const Identificator = styled.div.attrs(hasroomtype => ({
     }
 `;
 
-// const StatusButton = styled.button`
-// background-color: ${({ status, theme }) => 
-//     status === 'Available' ? '#5AD07A' : theme.colors.highlighted};    
-//     color: white;
-// `;
-
-// const WrappedTd = styled.td`
-//     max-width: 11rem;
-// `;
-
 export const TableDataIdentificator = ({ item }) => {
     const hasroomtype = item['room-type'] !== undefined;
 

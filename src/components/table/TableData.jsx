@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { getStringData, statusColors, statusHeader } from "../../app/table";
-import { useEffect, useState } from "react";
 
 /* eslint-disable react/prop-types */
 const Container = styled.td`
@@ -39,10 +38,6 @@ const Identificator = styled.div.attrs(hasroomtype => ({
     }
 `;
 
-const StatusBtnContainer = styled.button`
-
-`;
-
 export const TableDataIdentificator = ({ item }) => {
     const hasroomtype = item['room-type'] !== undefined;
 
@@ -58,30 +53,6 @@ export const TableDataIdentificator = ({ item }) => {
         </Identificator>
     );
 }
-
-export const StatusButton = ({text, statusColors}) => {
-    const [status, setStatus] = useState(text);
-    const [backgroundColor, setBackgroundColor] = useState();
-
-    const statusList = Object.keys(statusColors);
-
-    useEffect(() => {
-      setBackgroundColor(statusColors[status]);
-    }, [status, statusColors]);
-  
-    const handleStatusChange = (event) => {
-        event.stopPropagation();
-        const currentIndex = statusList.indexOf(status);
-        const nextIndex = (currentIndex + 1) % statusList.length;
-        setStatus(statusList[nextIndex]);
-    };
-
-    return (
-        <StatusBtnContainer style={{ backgroundColor }} onClick={handleStatusChange}>
-            {status}
-        </StatusBtnContainer>
-    );
-};
 
 export const TableData = ({ header, item, colIndex, category }) => {
     const stringData = colIndex !== 0 ? getStringData(header, item) : '';

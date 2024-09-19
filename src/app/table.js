@@ -2,6 +2,7 @@ import { createThunk as createUser } from "../features/users/userThunk";
 import { createThunk as createBooking } from "../features/bookings/bookingThunk";
 import { createThunk as createRoom } from "../features/rooms/roomsThunk";
 
+export const statusHeader = 'status'
 const tableMap = {
     'Order Date': item => item['orderDate'],
     'Check In': item => item['checkIn'],
@@ -19,7 +20,7 @@ const tableMap = {
     'Facilities': item => item['facilities'].join(', '),
     'Rate': item => `${item['rate']} /night`,
 
-    'Status': item => item['status'],
+    'Status': item => item[statusHeader],
 }
 
 export const getCategoryItem = headers =>{
@@ -49,6 +50,22 @@ export const getCategory = headers => {
 export const getCreate = category => getCategorySlot(category).create;
 
 export const getStatusOption = data => [...new Set(data.map(item => item.status))];
+export const statusColors = {
+    Users : {
+        "Active" : "#5AD07A",
+        'Inactive' : '#E23428',
+    },
+    Rooms : {
+        'Available' : '#5AD07A',
+        'Booked' : '#E23428',
+    },
+    Booking : {
+        'Booked' : '#5AD07A',
+        'Refund' : '#E23428',
+        'Pending' : '#E2E2E2',
+        'Cancelled' : '#575757'
+    }
+}
 
 export const getStringData = (header, item) => {
     const getValue = tableMap[header] || (() => '');

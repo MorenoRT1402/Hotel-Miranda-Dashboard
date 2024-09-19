@@ -5,7 +5,7 @@ import { delay } from "../../app/utils";
 export const getAllThunk = createAsyncThunk(
     'booking/getAll',
     async () => {
-        await delay(5000);
+        await delay();
         return data;
     }
 );
@@ -13,7 +13,7 @@ export const getAllThunk = createAsyncThunk(
 export const getByIdThunk = createAsyncThunk(
     'booking/getById',
     async (id) => {
-        await delay(5000);
+        await delay();
         return data.find(booking => booking.id === id) || null;
     }
 )
@@ -21,7 +21,7 @@ export const getByIdThunk = createAsyncThunk(
 export const createThunk = createAsyncThunk(
     'booking/create',
     async (booking) => {
-        await delay(5000);
+        await delay();
         alert(`Created ${booking}`);
         return booking;
     }
@@ -30,7 +30,7 @@ export const createThunk = createAsyncThunk(
 export const editThunk = createAsyncThunk(
     'booking/edit',
     async (id, booking) => {
-        await delay(5000);
+        await delay();
         const old = data.find(booking => booking.id === id) || null;
         alert(`Modified ${[...old]} -> ${[...booking]}`);
     }
@@ -39,7 +39,7 @@ export const editThunk = createAsyncThunk(
 export const removeThunk = createAsyncThunk(
     'booking/remove',
     async (id) => {
-        await delay(5000);
+        await delay();
         const deleted = data.find(booking => booking.id === id) || null;
         alert(`Deleted ${deleted}`);
     }

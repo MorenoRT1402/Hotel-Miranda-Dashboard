@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import data from '../../data/h-miranda_guests.json';
-import { delay } from "../../app/utils";
 import { Guest, GuestConfig } from "../../dto/guest";
+import { delay } from "../../app/utils";
 
 const guestsData: GuestConfig[] = data as GuestConfig[]; 
 

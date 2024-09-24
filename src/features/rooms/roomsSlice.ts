@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createThunk, editThunk, getAllThunk, getByIdThunk, removeThunk } from './roomsThunk';
-import { pending, promiseStatus, rejected } from '../../utils/promises';
+import { pending, PromiseStatus, rejected } from '../../utils/promises';
 
 const initialState = {
     rooms: [],
     room: null,
-    status: promiseStatus.IDLE,
+    status: PromiseStatus.IDLE,
     error: null
 };
 
@@ -19,7 +19,7 @@ export const roomSlice = createSlice({
                 pending(state);
             })
             .addCase(getAllThunk.fulfilled, (state, action) => {
-                state.status = promiseStatus.FULFILLED;
+                state.status = PromiseStatus.FULFILLED;
                 state.rooms = action.payload;
             })
             .addCase(getAllThunk.rejected, (state, action) => {
@@ -30,7 +30,7 @@ export const roomSlice = createSlice({
                 pending(state);
             })
             .addCase(getByIdThunk.fulfilled, (state, action) => {
-                state.status = promiseStatus.FULFILLED;
+                state.status = PromiseStatus.FULFILLED;
                 state.room = action.payload;
             })
             .addCase(getByIdThunk.rejected, (state, action) => {
@@ -41,7 +41,7 @@ export const roomSlice = createSlice({
                 pending(state);
             })
             .addCase(createThunk.fulfilled, (state, action) => {
-                state.status = promiseStatus.FULFILLED;
+                state.status = PromiseStatus.FULFILLED;
                 state.rooms.push(action.payload);
             })
             .addCase(createThunk.rejected, (state, action) => {
@@ -52,7 +52,7 @@ export const roomSlice = createSlice({
                 pending(state);
             })
             .addCase(editThunk.fulfilled, (state, action) => {
-                state.status = promiseStatus.FULFILLED;
+                state.status = PromiseStatus.FULFILLED;
                 const index = state.rooms.findIndex(room => room.id === action.payload.id);
                 if (index !== -1) {
                     state.rooms[index] = action.payload;
@@ -66,7 +66,7 @@ export const roomSlice = createSlice({
                 pending(state);
             })
             .addCase(removeThunk.fulfilled, (state, action) => {
-                state.status = promiseStatus.FULFILLED;
+                state.status = PromiseStatus.FULFILLED;
                 state.rooms = state.rooms.filter(room => room.id !== action.payload.id);
             })
             .addCase(removeThunk.rejected, (state, action) => {

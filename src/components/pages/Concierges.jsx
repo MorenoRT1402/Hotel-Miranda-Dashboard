@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Table } from '../table/Table';
 import { useEffect } from 'react';
-import { promiseStatus } from '../../utils/promises';
+import { PromiseStatus } from '../../utils/promises';
 import { getAllThunk } from '../../features/users/userThunk';
 
 export const Concierges = () => {
@@ -11,16 +11,16 @@ export const Concierges = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (status === promiseStatus.IDLE) {
+        if (status === PromiseStatus.IDLE) {
             dispatch(getAllThunk());
         }
     }, [dispatch, status]);
 
-    if (status === promiseStatus.PENDING) {
+    if (status === PromiseStatus.PENDING) {
         return <p>Loading...</p>;
     }
 
-    if (status === promiseStatus.REJECTED) {
+    if (status === PromiseStatus.REJECTED) {
         return <p>Error: {error}</p>;
     }
 

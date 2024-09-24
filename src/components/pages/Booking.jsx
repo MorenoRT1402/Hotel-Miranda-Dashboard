@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getAllThunk } from '../../features/bookings/bookingThunk';
 import { Table } from '../table/Table';
-import { promiseStatus } from '../../utils/promises';
+import { PromiseStatus } from '../../utils/promises';
 
 export const Booking = () => {
     const dispatch = useDispatch();
@@ -13,16 +13,16 @@ export const Booking = () => {
     const headers = ["Guest", "Order Date", "Check In", "Check Out", "Special Request", "Room Type", "Status"];
 
     useEffect(() => {
-        if (status === promiseStatus.IDLE) {
+        if (status === PromiseStatus.IDLE) {
             dispatch(getAllThunk());
         }
     }, [dispatch, status]);
 
-    if (status === promiseStatus.PENDING) {
+    if (status === PromiseStatus.PENDING) {
         return <p>Loading...</p>;
     }
 
-    if (status === promiseStatus.REJECTED) {
+    if (status === PromiseStatus.REJECTED) {
         return <p>Error: {error}</p>;
     }
 

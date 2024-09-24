@@ -67,7 +67,7 @@ export const userSlice = createSlice({
             })
             .addCase(removeThunk.fulfilled, (state, action) => {
                 state.status = PromiseStatus.FULFILLED;
-                state.users = state.users.filter(user => user.id !== action.payload.id);
+                state.users = state.users.filter(user => user.id !== action.payload);
             })
             .addCase(removeThunk.rejected, (state, action) => {
                 rejected(state, action);

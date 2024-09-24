@@ -1,0 +1,53 @@
+export enum UserStatus {
+    Active = "Active",
+    Inactive = "Inactive",
+}
+
+export interface UserConfig {
+    id: number;
+    dateAdded: Date | string;
+    name: string;
+    picture: string;
+    joined: Date | string;
+    "job-desk": string;
+    schedule: string[];
+    contact: string;
+    status: UserStatus;
+}
+
+export class User {
+    id: number;
+    dateAdded: Date;
+    name: string;
+    picture: string;
+    joined: Date;
+    jobDesk: string;
+    schedule: string[];
+    contact: string;
+    status: UserStatus;
+
+    constructor(config: UserConfig) {
+        this.id = config.id;
+        this.dateAdded = new Date(config.dateAdded);
+        this.name = config.name;
+        this.picture = config.picture;
+        this.joined = new Date(config.joined);
+        this.jobDesk = config["job-desk"];
+        this.schedule = config.schedule;
+        this.contact = config.contact;
+        this.status = config.status;
+    }
+
+    toString(): string {
+        return `User Info:
+        ID: ${this.id}
+        Name: ${this.name}
+        Picture: ${this.picture}
+        Joined: ${this.joined.toDateString()}
+        Job Desk: ${this.jobDesk}
+        Schedule: ${this.schedule.join(", ")}
+        Contact: ${this.contact}
+        Status: ${this.status}
+        Date Added: ${this.dateAdded.toDateString()}`;
+    }
+}

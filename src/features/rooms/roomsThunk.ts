@@ -41,11 +41,6 @@ export const editRoomThunk = createAsyncThunk<Room, { id: number; room: Room }>(
             const updatedRoom = { ...oldRoomConfig, ...room };
             alert(`Modified ${new Room(oldRoomConfig).toString()} -> ${room.toString()}`);
 
-            const index = roomsData.findIndex(r => r.id === id);
-            if (index !== -1) {
-                roomsData[index] = updatedRoom;
-            }
-
             return new Room(updatedRoom);
         } else {
             throw new Error(`Room with ID ${id} not found.`);

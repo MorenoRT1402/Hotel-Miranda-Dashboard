@@ -20,3 +20,5 @@ export const store = configureStore({
         user: userSlice.reducer,
     },
 });
+
+export type AppStore = typeof store

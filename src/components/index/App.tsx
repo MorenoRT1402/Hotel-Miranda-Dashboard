@@ -11,6 +11,7 @@ import { Rooms } from '../pages/Rooms'
 import { Concierges } from '../pages/Concierges'
 import { GuestDetail } from '../pages/GuestDetail'
 import { AuthMiddleware } from '../auth/AuthMiddleware'
+import React from 'react'
 
 function App() {
   return (

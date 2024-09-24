@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import React, { useContext, useState } from "react"
 import styled from "styled-components"
 import { onLogin, onLoginWithEmail } from "../../app/auth";
 import { useNavigate } from "react-router-dom";
@@ -32,20 +32,20 @@ const Container = styled.section`
         }
     }
 `
-
+export enum LoginType { username = "username", email = "email" }
 export const Login = () => {
     const navigate = useNavigate();
     const {dispatch} = useContext(AuthContext);
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const LOGIN_TYPE = 'email';
+    const [loginType] = useState(LoginType.email);
 
-    const handleSubmit = async (ev) => {
+    const handleSubmit = async (ev: { preventDefault: () => void; }) => {
         ev.preventDefault();
     
         let success = false;
-        if (LOGIN_TYPE === 'username') {
+        if (loginType === LoginType.username) {
           success = await onLogin({ username, password });
         } else {
           success = await onLoginWithEmail({ email, password });
@@ -64,7 +64,7 @@ export const Login = () => {
             <h1>Welcome</h1>
             <form onSubmit={handleSubmit}>
                 {
-                LOGIN_TYPE === 'username' ? <input type="text" placeholder="username" name="username" value={username} onChange={e => setUsername(e.target.value)} /> 
+                loginType === LoginType.username ? <input type="text" placeholder="username" name="username" value={username} onChange={e => setUsername(e.target.value)} /> 
                 : <input type="email" data-cy="email" placeholder="email" name="email" value={email} onChange={e => setEmail(e.target.value)} />
                 }
                 <input type="password" data-cy="password" placeholder="password" name="password" value={password} onChange={e => setPassword(e.target.value)} />

@@ -1,14 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Table } from '../table/Table';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { PromiseStatus } from '../../utils/promises';
 import { getAllThunk } from '../../features/users/userThunk';
 
 export const Concierges = () => {
     const headers = ["Name", "Job Desk", "Schedule", "Contact", "Status"];
     
-    const { users, status, error } = useSelector(state => state.user);
-    const dispatch = useDispatch();
+    const { users, status, error } = useAppSelector(state => state.user);
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (status === PromiseStatus.IDLE) {

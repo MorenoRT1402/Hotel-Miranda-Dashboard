@@ -1,9 +1,8 @@
-import { FaArrowLeft, /* FaRegHeart */ } from "react-icons/fa";
-import styled, { /* useTheme */ } from "styled-components"
+import { FaArrowLeft } from "react-icons/fa";
+import styled from "styled-components"
 import { NotificationButton } from "../NotificationButton";
 import { IoMailOutline } from "react-icons/io5";
 import { GoBell } from "react-icons/go";
-// import { MdOutlineComment } from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { useLocation, useParams } from "react-router-dom";
 import { getPageByRoute } from "../../app/pages";
@@ -41,7 +40,6 @@ const Path = styled.section`
     align-items: start;
     font-size: 14px;
     flex: 9;
-    /* width: 80%; */
     
     &>h2{
         font-size: 28px;
@@ -53,23 +51,12 @@ const Path = styled.section`
     }
 `;
 
-// const SearchBar = styled.div`
-    
-// `
-
 const Icons = styled.section`
     flex: 4;
 `;
 
-// const Separator = styled.div`
-// `;
-
-// const LanguageContainer = styled.article`
-// `;
-
 export const Header = () => {
     const {dispatch} = useContext(AuthContext);
-    // const theme = useTheme();
     const location = useLocation();
     const route = location.pathname;
     const title = getPageByRoute(route).title;
@@ -89,23 +76,11 @@ export const Header = () => {
                     <h2>{title}</h2>
                     {id ? <small className="color-secondary">{`${title}`} / <span>{id}</span></small> : <></>}
                 </Path>
-                {/* <SearchBar>
-                    <input type="text" />
-                    <img src="" alt="" />
-                </SearchBar> */}
                 <Icons>
-                    {/* <NotificationButton icon={FaRegHeart}/> */}
                     <NotificationButton icon={IoMailOutline} number={2}/>
                     <NotificationButton icon={GoBell} number={87}/>
-                    {/* <NotificationButton icon={MdOutlineComment} number={'!'} color={theme.colors.secondary}/> */}
                     <NotificationButton icon={RiLogoutBoxLine} onClick={logout} />
                 </Icons>
-                {/* <img src="" alt="" />
-                <Separator /> */}
-                {/* <LanguageContainer>
-                    <small className="color-highlighted">EN</small>
-                    <img src="" alt="" />
-                </LanguageContainer> */}
             </Menu>
         </Container>
     )

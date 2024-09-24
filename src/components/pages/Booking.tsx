@@ -1,15 +1,12 @@
-// import { useParams } from "react-router-dom"
-import { useDispatch, useSelector } from 'react-redux';
-// import data from '../../data/h-miranda_guests.json'
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { getAllThunk } from '../../features/bookings/bookingThunk';
 import { Table } from '../table/Table';
 import { PromiseStatus } from '../../utils/promises';
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
 
 export const Booking = () => {
-    const dispatch = useDispatch();
-    const { guests, status, error } = useSelector((state) => state.booking);
-    // const { id } = useParams();
+    const dispatch = useAppDispatch();
+    const { guests, status, error } = useAppSelector((state) => state.booking);
     const headers = ["Guest", "Order Date", "Check In", "Check Out", "Special Request", "Room Type", "Status"];
 
     useEffect(() => {
@@ -27,10 +24,6 @@ export const Booking = () => {
     }
 
     return (
-        <>
-            {/* <h1>Booking</h1>
-            <p>{id!='all' ? `ID: ${id}` : "Get All" }</p> */}
-            <Table headers={headers} data={guests}/>
-        </>
+        <Table headers={headers} data={guests}/>
     )
 }

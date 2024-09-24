@@ -1,9 +1,9 @@
-const credentials = require('../../src/app/auth.credentials');
+import { testingUser, validPass } from "../../src/app/auth.credentials";
 
 describe('Authentication Tests', () => {
   const validUser = {
-    email: credentials.testingUser.email,
-    password: credentials.validPass
+    email: testingUser.email,
+    password: validPass
   }
 
   beforeEach(() => {

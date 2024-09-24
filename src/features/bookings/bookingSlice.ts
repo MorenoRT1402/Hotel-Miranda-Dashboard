@@ -2,12 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createThunk, editThunk, getAllThunk, getByIdThunk, removeThunk } from './bookingThunk';
 import { changeStatus, pending, PromiseStatus, rejected } from '../../utils/promises';
 import { Guest } from '../../dto/guest';
+import { ReduxState } from '../../app/store';
 
-interface BookingState {
+interface BookingState extends ReduxState {
     guests : Guest[],
     guest : Guest | null,
-    status: PromiseStatus,
-    error : Object | null
 }
 
 const initialState : BookingState = {

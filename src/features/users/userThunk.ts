@@ -5,11 +5,11 @@ import { User, UserConfig } from "../../dto/user";
 
 const usersData: UserConfig[] = data as UserConfig[];
 
-export const getAllThunk = createAsyncThunk<UserConfig[]>(
+export const getAllThunk = createAsyncThunk<User[]>(
     'user/getAll',
     async () => {
         await delay();
-        return data as UserConfig[];
+        return usersData.map(userConfig => new User(userConfig));
     }
 );
 
@@ -22,11 +22,12 @@ export const getByIdThunk = createAsyncThunk<User | null, number>(
     }
 );
 
-export const createThunk = createAsyncThunk<void, UserConfig>(
+export const createThunk = createAsyncThunk<User, UserConfig>(
     'user/create',
     async (user) => {
         await delay();
         alert(`Created ${JSON.stringify(user, null, 2)}`);
+        return new User(user);
     }
 );
 

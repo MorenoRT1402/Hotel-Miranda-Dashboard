@@ -1,8 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { pending, PromiseStatus, rejected } from '../../utils/promises';
 import { createRoomThunk, editRoomThunk, getAllRoomsThunk, getRoomByIdThunk, removeThunk } from './roomsThunk';
+import { Room } from '../../dto/room';
+import { ReduxState } from '../../app/store';
 
-const initialState = {
+interface RoomState extends ReduxState {
+    rooms: Room[];
+    room: Room | null;
+}
+
+const initialState : RoomState = {
     rooms: [],
     room: null,
     status: PromiseStatus.IDLE,

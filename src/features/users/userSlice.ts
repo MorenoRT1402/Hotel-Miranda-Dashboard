@@ -1,8 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createThunk, editThunk, getAllThunk, getByIdThunk, removeThunk } from './userThunk';
 import { pending, PromiseStatus, rejected } from '../../utils/promises';
+import { User } from '../../dto/user';
+import { ReduxState } from '../../app/store';
 
-const initialState = {
+interface UserState extends ReduxState {
+    users: User[];
+    user: User | null;
+}
+
+const initialState : UserState = {
     users: [],
     user: null,
     status: PromiseStatus.IDLE,

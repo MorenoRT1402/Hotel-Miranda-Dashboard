@@ -22,12 +22,13 @@ export const getRoomByIdThunk = createAsyncThunk<Room | null, number>(
     }
 );
 
-export const createRoomThunk = createAsyncThunk<Room, Room>(
+export const createRoomThunk = createAsyncThunk<Room, RoomConfig>(
     'rooms/create',
-    async (room: Room) => {
+    async (room: RoomConfig) => {
         await delay();
-        alert(`Created ${room.toString()}`);
-        return room;
+        const newRoom = new Room(room)
+        alert(`Created ${newRoom.toString()}`);
+        return newRoom;
     }
 );
 

@@ -22,12 +22,13 @@ export const getByIdThunk = createAsyncThunk<Guest | null, number>(
     }
 );
 
-export const createThunk = createAsyncThunk<Guest, Guest>(
+export const createThunk = createAsyncThunk<Guest, GuestConfig>(
     'booking/create',
-    async (booking: Guest) => {
+    async (booking: GuestConfig) => {
         await delay();
-        alert(`Created ${booking.toString()}`);
-        return booking;
+        const newBooking = new Guest(booking);
+        alert(`Created ${newBooking.toString()}`);
+        return newBooking;
     }
 );
 

@@ -1,7 +1,7 @@
 import { ReduxState } from "../app/store";
 
 export enum PromiseStatus {
-    IDLE, PENDING, FULFILLED, REJECTED
+    IDLE = 'idle', PENDING = 'pending', FULFILLED = 'fulfilled', REJECTED = 'rejected'
 }
 
 export const changeStatus = (state: ReduxState, status : PromiseStatus) => state.status = status;

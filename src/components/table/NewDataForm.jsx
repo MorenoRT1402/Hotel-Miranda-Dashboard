@@ -62,7 +62,7 @@ export const NewDataForm = ({ close, data, category }) => {
         setFormData({ ...formData, [key]: value });
     };
 
-    const handleSubmit = (ev) => {
+    const handleSubmit = ev => {
         ev.preventDefault();
         const newData = { ...formData, id: data[data.length - 1].id + 1, picture: '', status: status};
         const createTh = getCreate(category);
@@ -75,51 +75,6 @@ export const NewDataForm = ({ close, data, category }) => {
     return (
         <Container>
             <CloseButton onClick={close}>X</CloseButton>
-            {/* <form onSubmit={handleSubmit}>
-                <input 
-                    type="text" 
-                    placeholder="Name"
-                    value={name}
-                    onChange={(ev) => setName(ev.target.value)}
-                />
-                <textarea 
-                    placeholder="Job desk"
-                    value={jobDesk}
-                    onChange={(ev) => setJobDesk(ev.target.value)}
-                />
-                <section>
-                    <strong>Schedule</strong>
-                    <div>
-                        {schedules.map((sch, index) => (
-                            <label key={`${index}-${sch}`}>
-                                <input 
-                                    type="radio"
-                                    name="schedule"
-                                    value={sch}
-                                    checked={selectedSch === sch}
-                                    onChange={(ev) => setSelectedSch(ev.target.value)}
-                                />
-                                {sch}
-                            </label>
-                        ))}
-                    </div>
-                </section>
-                <input 
-                    type="text" 
-                    placeholder="Contact"
-                    value={contact}
-                    onChange={(ev) => setContact(ev.target.value)}
-                />
-                <select 
-                    name="status" 
-                    value={status}
-                    onChange={(ev) => setStatus(ev.target.value)}
-                >
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                </select>
-                <button type="submit">Create</button>
-            </form> */}
             <form onSubmit={handleSubmit}>
                 {categoryFields.map((field) => (
                     <div key={field.key}>

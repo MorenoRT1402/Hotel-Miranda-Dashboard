@@ -13,7 +13,7 @@ import { GuestDetail } from '../pages/GuestDetail'
 import { AuthMiddleware } from '../auth/AuthMiddleware'
 import React from 'react'
 
-function App() {
+export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
@@ -34,5 +34,3 @@ function App() {
     </ThemeProvider>
   )
 }
-
-export default App

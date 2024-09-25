@@ -1,5 +1,4 @@
-/* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import styled from "styled-components";
 
@@ -38,12 +37,12 @@ const PaginationInfo = styled.div`
   color: ${({ theme }) => theme.colors.dimmed};
 `;
 
-const PageButton = styled.button.attrs(props => ({
-  'aria-pressed': props.isActive,
-}))`
-  font-weight: ${({ isActive }) => (isActive ? 'bold' : 'normal')};
-  background-color: ${({ isActive, theme }) => (isActive ? theme.colors.secondary : 'transparent')};
-  color: ${({ isActive, theme }) => (isActive ? 'white' : theme.colors.secondary)};
+const PageButton = styled.button.withConfig({
+  shouldForwardProp: (prop) => prop !== 'isactive',
+})<{ isactive: boolean }>`
+  font-weight: ${({ isactive }) => (isactive ? 'bold' : 'normal')};
+  background-color: ${({ isactive, theme }) => (isactive ? theme.colors.secondary : 'transparent')};
+  color: ${({ isactive, theme }) => (isactive ? 'white' : theme.colors.secondary)};
   border: none;
   cursor: pointer;
   margin: 0 0.5rem;
@@ -52,7 +51,7 @@ const PageButton = styled.button.attrs(props => ({
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: ${({ isActive, theme }) => (isActive ? theme.colors.secondary : 'transparent')};
+    background-color: ${({ isactive: isActive, theme }) => (isActive ? theme.colors.secondary : 'transparent')};
   }
 `;
 
@@ -65,7 +64,7 @@ export const TablePagination = ({filteredData, sortedData, setShowedData}) => {
     const totalPages = Math.ceil(totalFiltered / ITEMS_PER_PAGE);  
 
     const getVisiblePages = () => {
-        const pages = [];
+        const pages : number[] = [];
         const maxPagesToShow = 4;
     
         let start = Math.max(1, currentPage - 2);
@@ -116,7 +115,7 @@ export const TablePagination = ({filteredData, sortedData, setShowedData}) => {
           {visiblePages.map((page) => (
             <PageButton
             key={page}
-            isActive={currentPage === page}
+            isactive={currentPage === page}
             onClick={() => setCurrentPage(page)}
           >
             {page}

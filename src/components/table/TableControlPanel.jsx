@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
-import { getCategory, getCategoryItem, getStatusOption } from "../../app/table";
+import { getCategory, getCategoryItem, getStatusOption, itemInThisFilter } from "../../app/table";
 import { useEffect, useState } from "react";
 import { TableSort } from "./TableSort";
 import { NewDataForm } from "./NewDataForm";
@@ -76,17 +76,7 @@ export const TableControlPanel = ({ headers, data, filteredData, setFilteredData
       : [];
 
       useEffect(() => {
-          setFilteredData(data.filter(item => {
-            if (activeFilter.startsWith('All')) {
-              return true;
-            } else if (activeFilter.startsWith('Active')) {
-              return item.status === 'Available' || item.status === 'Active';
-            } else if (activeFilter.startsWith('Inactive')) {
-              return item.status === 'Booked' || item.status === 'Inactive';
-            } else {
-              return item.status === activeFilter.replace(` ${categoryItem}`, '');
-            }
-          })
+          setFilteredData(data.filter(item => itemInThisFilter(activeFilter, categoryItem, item))
         )
         }, [data, activeFilter, categoryItem, setFilteredData])
   

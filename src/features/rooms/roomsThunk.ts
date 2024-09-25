@@ -1,38 +1,37 @@
 import data from '../../data/h-miranda_rooms.json'
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Room, RoomConfig } from '../../dto/room';
+import { RoomConfig } from '../../dto/room';
 import { delay } from '../../app/utils';
 
 const roomsData: RoomConfig[] = data as RoomConfig[];
 
-export const getAllRoomsThunk = createAsyncThunk<Room[]>(
+export const getAllRoomsThunk = createAsyncThunk<RoomConfig[]>(
     'rooms/getAll',
     async () => {
         await delay();
-        return roomsData.map(roomConfig => new Room(roomConfig));
+        return roomsData;
     }
 );
 
-export const getRoomByIdThunk = createAsyncThunk<Room | null, number>(
+export const getRoomByIdThunk = createAsyncThunk<RoomConfig | null, number>(
     'rooms/getById',
     async (id: number) => {
         await delay();
         const roomConfig = roomsData.find(room => room.id === id);
-        return roomConfig ? new Room(roomConfig) : null;
+        return roomConfig || null;
     }
 );
 
-export const createRoomThunk = createAsyncThunk<Room, RoomConfig>(
+export const createRoomThunk = createAsyncThunk<RoomConfig, RoomConfig>(
     'rooms/create',
     async (room: RoomConfig) => {
         await delay();
-        const newRoom = new Room(room)
-        alert(`Created ${newRoom.toString()}`);
-        return newRoom;
+        alert(`Created ${JSON.stringify(room)}`);
+        return room;
     }
 );
 
-export const editRoomThunk = createAsyncThunk<Room, { id: number; room: Room }>(
+export const editRoomThunk = createAsyncThunk<RoomConfig, { id: number; room: RoomConfig }>(
     'rooms/edit',
     async ({ id, room }) => {
         await delay();
@@ -40,9 +39,9 @@ export const editRoomThunk = createAsyncThunk<Room, { id: number; room: Room }>(
 
         if (oldRoomConfig) {
             const updatedRoom = { ...oldRoomConfig, ...room };
-            alert(`Modified ${new Room(oldRoomConfig).toString()} -> ${room.toString()}`);
+            alert(`Modified ${JSON.stringify(oldRoomConfig)} -> ${JSON.stringify(room)}`);
 
-            return new Room(updatedRoom);
+            return updatedRoom;
         } else {
             throw new Error(`Room with ID ${id} not found.`);
         }
@@ -54,11 +53,10 @@ export const removeThunk = createAsyncThunk<number, number>(
     async (id) => {
         await delay();
 
-        const deletedConfig = roomsData.find(booking => booking.id === id);
+        const deletedConfig = roomsData.find(room => room.id === id);
 
         if (deletedConfig) {
-            const deleted = new Room(deletedConfig);
-            alert(`Deleted ${deleted.toString()}`);
+            alert(`Deleted ${JSON.stringify(deletedConfig)}`);
             return id;
         } else {
             throw new Error(`Room with ID ${id} not found.`);

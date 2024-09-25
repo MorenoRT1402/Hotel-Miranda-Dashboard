@@ -5,7 +5,7 @@ export enum RoomStatus {
 
 export interface RoomConfig {
     id: number;
-    dateAdded: Date | string;
+    dateAdded: string;
     "room-type": string;
     number: number;
     picture: string;

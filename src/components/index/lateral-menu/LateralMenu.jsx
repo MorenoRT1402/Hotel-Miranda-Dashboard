@@ -8,6 +8,7 @@ import { pages } from "../../../app/pages";
 const Menu = styled.section`
     padding: 1.3rem 2rem;
     width: 16.5%;
+    max-width: 14rem;
     min-width: 11rem;
     text-align: left;
     box-shadow: 13px 3px 40px #00000005;

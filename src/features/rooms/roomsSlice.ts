@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { pending, PromiseStatus, rejected } from '../../utils/promises';
 import { createRoomThunk, editRoomThunk, getAllRoomsThunk, getRoomByIdThunk, removeThunk } from './roomsThunk';
-import { Room } from '../../dto/room';
 import { ReduxState } from '../../app/store';
+import { RoomConfig } from '../../dto/room';
 
 interface RoomState extends ReduxState {
-    rooms: Room[];
-    room: Room | null;
+    rooms: RoomConfig[];
+    room: RoomConfig | null;
 }
 
 const initialState : RoomState = {
@@ -33,7 +33,7 @@ export const roomSlice = createSlice({
                 rejected(state, action);
             })
 
-            .addCase(getAllRoomsThunk.pending, (state) => {
+            .addCase(getRoomByIdThunk.pending, (state) => {
                 pending(state);
             })
             .addCase(getRoomByIdThunk.fulfilled, (state, action) => {

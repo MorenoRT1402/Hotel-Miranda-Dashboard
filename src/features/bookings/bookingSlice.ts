@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createThunk, editThunk, getAllThunk, getByIdThunk, removeThunk } from './bookingThunk';
 import { changeStatus, pending, PromiseStatus, rejected } from '../../utils/promises';
-import { Guest } from '../../dto/guest';
+import { GuestConfig } from '../../dto/guest';
 import { ReduxState } from '../../app/store';
 
 interface BookingState extends ReduxState {
-    guests : Guest[],
-    guest : Guest | null,
+    guests : GuestConfig[],
+    guest : GuestConfig | null,
 }
 
 const initialState : BookingState = {
@@ -47,7 +47,7 @@ export const bookingSlice = createSlice({
             .addCase(createThunk.pending, state => {
                 pending(state);
             })
-            .addCase(createThunk.fulfilled, (state, action : PayloadAction<Guest>) => {
+            .addCase(createThunk.fulfilled, (state, action : PayloadAction<GuestConfig>) => {
                 changeStatus(state, PromiseStatus.FULFILLED);
                 state.guests.push(action.payload);
             })
@@ -58,7 +58,7 @@ export const bookingSlice = createSlice({
             .addCase(editThunk.pending, (state) => {
                 pending(state);
             })
-            .addCase(editThunk.fulfilled, (state, action : PayloadAction<Guest>) => {
+            .addCase(editThunk.fulfilled, (state, action : PayloadAction<GuestConfig>) => {
                 changeStatus(state, PromiseStatus.FULFILLED);
                 const index = state.guests.findIndex(booking => booking.id === action.payload.id);
                 if (index !== -1) {

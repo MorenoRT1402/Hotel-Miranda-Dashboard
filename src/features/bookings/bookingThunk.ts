@@ -1,38 +1,37 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import data from '../../data/h-miranda_guests.json';
-import { Guest, GuestConfig } from "../../dto/guest";
+import { GuestConfig } from "../../dto/guest";
 import { delay } from "../../app/utils";
 
 const guestsData: GuestConfig[] = data as GuestConfig[]; 
 
-export const getAllThunk = createAsyncThunk<Guest[]>(
+export const getAllThunk = createAsyncThunk<GuestConfig[]>(
     'booking/getAll',
     async () => {
         await delay();
-        return guestsData.map(guestConfig => new Guest(guestConfig));
+        return guestsData;
     }
 );
 
-export const getByIdThunk = createAsyncThunk<Guest | null, number>(
+export const getByIdThunk = createAsyncThunk<GuestConfig | null, number>(
     'booking/getById',
     async (id: number) => {
         await delay();
         const guestConfig = guestsData.find(booking => booking.id === id) || null;
-        return guestConfig ? new Guest(guestConfig) : null;
+        return guestConfig || null;
     }
 );
 
-export const createThunk = createAsyncThunk<Guest, GuestConfig>(
+export const createThunk = createAsyncThunk<GuestConfig, GuestConfig>(
     'booking/create',
     async (booking: GuestConfig) => {
         await delay();
-        const newBooking = new Guest(booking);
-        alert(`Created ${newBooking.toString()}`);
-        return newBooking;
+        alert(`Created ${JSON.stringify(booking)}`);
+        return booking;
     }
 );
 
-export const editThunk = createAsyncThunk<Guest, { id: number; booking: Guest }>(
+export const editThunk = createAsyncThunk<GuestConfig, { id: number; booking: GuestConfig }>(
     'booking/edit',
     async ({ id, booking }) => {
         await delay();
@@ -40,8 +39,7 @@ export const editThunk = createAsyncThunk<Guest, { id: number; booking: Guest }>
         const oldConfig = guestsData.find(b => b.id === id);
 
         if (oldConfig) {
-            const old = new Guest(oldConfig);
-            alert(`Modified ${old.toString()} -> ${booking.toString()}`);
+            alert(`Modified ${JSON.stringify(oldConfig)} -> ${JSON.stringify(booking)}`);
 
             return booking;
         } else {
@@ -58,8 +56,7 @@ export const removeThunk = createAsyncThunk<number, number>(
         const deletedConfig = guestsData.find(booking => booking.id === id);
 
         if (deletedConfig) {
-            const deleted = new Guest(deletedConfig);
-            alert(`Deleted ${deleted.toString()}`);
+            alert(`Deleted ${JSON.stringify(deletedConfig)}`);
             return id;
         } else {
             throw new Error(`Guest with ID ${id} not found.`);

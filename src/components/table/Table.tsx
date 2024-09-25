@@ -1,6 +1,5 @@
-/* eslint-disable react/prop-types */
 import styled from "styled-components";
-import { useState } from "react";
+import React, { useState } from "react";
 import { TableRow } from "./TableRow";
 import { TableControlPanel } from "./TableControlPanel";
 import { TablePagination } from "./TablePagination";

@@ -1,6 +1,6 @@
 import { createThunk as createUser } from "../features/users/userThunk";
 import { createThunk as createBooking } from "../features/bookings/bookingThunk";
-import { createThunk as createRoom } from "../features/rooms/roomsThunk";
+import { createRoomThunk as createRoom } from "../features/rooms/roomsThunk";
 
 export const statusHeader = 'status'
 const tableMap = {
@@ -66,6 +66,16 @@ export const statusColors = {
         'Cancelled' : '#575757'
     }
 }
+
+export const itemInThisFilter = (activeFilter, categoryItem, item) => {
+    if (activeFilter.startsWith('All'))
+      return true;
+    if (activeFilter.startsWith('Active'))
+      return item.status === 'Available' || item.status === 'Active';
+    if (activeFilter.startsWith('Inactive'))
+      return item.status === 'Booked' || item.status === 'Inactive';
+    return item.status === activeFilter.replace(` ${categoryItem}`, '');
+  }
 
 export const getStringData = (header, item) => {
     const getValue = tableMap[header] || (() => '');

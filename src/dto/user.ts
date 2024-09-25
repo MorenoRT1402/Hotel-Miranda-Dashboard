@@ -5,10 +5,10 @@ export enum UserStatus {
 
 export interface UserConfig {
     id: number;
-    dateAdded: Date | string;
+    dateAdded: string;
     name: string;
     picture: string;
-    joined: Date | string;
+    joined: string;
     "job-desk": string;
     schedule: string[];
     contact: string;

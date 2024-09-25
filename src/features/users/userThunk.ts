@@ -1,37 +1,37 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import data from '../../data/h-miranda_concierges.json';
 import { delay } from "../../app/utils";
-import { User, UserConfig } from "../../dto/user";
+import { UserConfig } from "../../dto/user";
 
 const usersData: UserConfig[] = data as UserConfig[];
 
-export const getAllThunk = createAsyncThunk<User[]>(
+export const getAllThunk = createAsyncThunk<UserConfig[]>(
     'user/getAll',
     async () => {
         await delay();
-        return usersData.map(userConfig => new User(userConfig));
+        return usersData;
     }
 );
 
-export const getByIdThunk = createAsyncThunk<User | null, number>(
+export const getByIdThunk = createAsyncThunk<UserConfig | null, number>(
     'user/getById',
     async (id) => {
         await delay();
         const userConfig = usersData.find(room => room.id === id);
-        return userConfig ? new User(userConfig) : null;
+        return userConfig || null;
     }
 );
 
-export const createThunk = createAsyncThunk<User, UserConfig>(
+export const createThunk = createAsyncThunk<UserConfig, UserConfig>(
     'user/create',
     async (user) => {
         await delay();
         alert(`Created ${JSON.stringify(user, null, 2)}`);
-        return new User(user);
+        return user;
     }
 );
 
-export const editThunk = createAsyncThunk<User, { id: number; user: User }>(
+export const editThunk = createAsyncThunk<UserConfig, { id: number; user: UserConfig }>(
     'user/edit',
     async ({ id, user }) => {
         await delay();
@@ -39,9 +39,9 @@ export const editThunk = createAsyncThunk<User, { id: number; user: User }>(
 
         if (oldConfig) {
             const updatedUser = { ...oldConfig, ...user };
-            alert(`Modified ${new User(oldConfig).toString()} -> ${user.toString()}`);
+            alert(`Modified ${JSON.stringify(oldConfig)} -> ${JSON.stringify(user)}`);
 
-            return new User(updatedUser);
+            return updatedUser;
         } else {
             throw new Error(`Room with ID ${id} not found.`);
         }
@@ -54,8 +54,7 @@ export const removeThunk = createAsyncThunk<number, number>(
         await delay();
         const deletedConfig = usersData.find(user => user.id === id) || null;
         if (deletedConfig) {
-            const deleted = new User(deletedConfig);
-            alert(`Deleted ${deleted.toString()}`);
+            alert(`Deleted ${JSON.stringify(deletedConfig)}`);
             return id;
         } else {
             throw new Error(`User with ID ${id} not found.`);

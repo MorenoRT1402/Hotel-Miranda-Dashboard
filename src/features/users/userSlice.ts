@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createThunk, editThunk, getAllThunk, getByIdThunk, removeThunk } from './userThunk';
 import { pending, PromiseStatus, rejected } from '../../utils/promises';
-import { User } from '../../dto/user';
 import { ReduxState } from '../../app/store';
+import { UserConfig } from '../../dto/user';
 
 interface UserState extends ReduxState {
-    users: User[];
-    user: User | null;
+    users: UserConfig[];
+    user: UserConfig | null;
 }
 
 const initialState : UserState = {

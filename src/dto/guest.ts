@@ -7,12 +7,12 @@ export enum GuestStatus {
 
 export interface GuestConfig {
     id: number;
-    dateAdded: Date | string;
+    dateAdded: string;
     guest: string;
     picture: string;
-    orderDate: Date | string;
-    checkIn: Date | string;
-    checkOut: Date | string;
+    orderDate: string;
+    checkIn: string;
+    checkOut: string;
     notes: string[];
     roomId: number;
     status: GuestStatus;

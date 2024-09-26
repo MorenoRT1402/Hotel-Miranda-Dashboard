@@ -1,3 +1,4 @@
+import React from "react"
 import styled from "styled-components"
 
 const Container = styled.button`
@@ -8,13 +9,11 @@ const Container = styled.button`
     &>*{
         position: relative;
     }
-
-    &>span{
-
-    }
 `
 
-const Notification = styled.span`
+const Notification = styled.span.withConfig({
+    shouldForwardProp: prop => prop !== "bg"
+})<{ bg : string}>`
         position: absolute;
         transform: translate(-.3rem, -.6rem);
         background-color: ${({ bg, theme }) => bg || theme.colors.highlighted};
@@ -27,7 +26,6 @@ const Notification = styled.span`
         font-size: 90%;
 `
 
-// eslint-disable-next-line react/prop-types
 export const NotificationButton = ({icon:IconComp, number, color, onClick}) => {
     return (
         <Container onClick={onClick}>

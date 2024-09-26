@@ -23,18 +23,19 @@ const tableMap = {
     'Status': item => item[statusHeader],
 }
 
-export const getCategoryItem = headers =>{
+export const getCategoryItem = headers => {
     const header = headers[0];
     const category = header.split(' ')[0];
 
-    if(category == 'Name')
+    if (category == 'Name')
         return 'Employee'
     return category;
 }
+export const categoriesEnum = { Booking: 'Booking', Users: 'Users', Rooms: 'Rooms' };
 export const categories = [
-    { category: 'Users', item: 'Employee', create: createUser },
-    { category: 'Booking', item: 'Guest', create: createBooking },
-    { category: 'Rooms', item: 'Room', create: createRoom }
+    { category: categoriesEnum.Users, item: 'Employee', create: createUser, nameToSearch: 'name' },
+    { category: categoriesEnum.Booking, item: 'Guest', create: createBooking, nameToSearch: 'guest' },
+    { category: categoriesEnum.Rooms, item: 'Room', create: createRoom, nameToSearch: 'room-type' }
 ];
 
 const getCategorySlot = category => categories.find(cat => cat.category === category);
@@ -51,31 +52,36 @@ export const getCreate = category => getCategorySlot(category).create;
 
 export const getStatusOption = data => [...new Set(data.map(item => item.status))];
 export const statusColors = {
-    Users : {
-        "Active" : "#5AD07A",
-        'Inactive' : '#E23428',
+    Users: {
+        "Active": "#5AD07A",
+        'Inactive': '#E23428',
     },
-    Rooms : {
-        'Available' : '#5AD07A',
-        'Booked' : '#E23428',
+    Rooms: {
+        'Available': '#5AD07A',
+        'Booked': '#E23428',
     },
-    Booking : {
-        'Booked' : '#5AD07A',
-        'Refund' : '#E23428',
-        'Pending' : '#E2E2E2',
-        'Cancelled' : '#575757'
+    Booking: {
+        'Booked': '#5AD07A',
+        'Refund': '#E23428',
+        'Pending': '#E2E2E2',
+        'Cancelled': '#575757'
     }
 }
 
+export const getNameToSearch = headers => { 
+    const category = getCategory(headers);
+    return getCategorySlot(category).nameToSearch 
+};
+
 export const itemInThisFilter = (activeFilter, categoryItem, item) => {
     if (activeFilter.startsWith('All'))
-      return true;
+        return true;
     if (activeFilter.startsWith('Active'))
-      return item.status === 'Available' || item.status === 'Active';
+        return item.status === 'Available' || item.status === 'Active';
     if (activeFilter.startsWith('Inactive'))
-      return item.status === 'Booked' || item.status === 'Inactive';
+        return item.status === 'Booked' || item.status === 'Inactive';
     return item.status === activeFilter.replace(` ${categoryItem}`, '');
-  }
+}
 
 export const getStringData = (header, item) => {
     const getValue = tableMap[header] || (() => '');

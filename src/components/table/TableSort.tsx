@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import styled from 'styled-components';
 import { sortData, sortOptionsByCategory } from '../../utils/sort';
@@ -11,7 +11,6 @@ const SortButton = styled(Select)`
     }
 `;
 
-// eslint-disable-next-line react/prop-types
 export const TableSort = ({ category, filteredData, setSortedData }) => {
     const sortOptions = sortOptionsByCategory[category] || [];
     const [sortOption, setSortOption] = useState(sortOptions[0]);

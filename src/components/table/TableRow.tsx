@@ -2,12 +2,12 @@ import styled from "styled-components";
 import { TableData } from "./TableData";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getCategory } from "../../app/table";
+import React from "react";
 
 const Container = styled.tr`
     cursor: pointer;
 `;
 
-/* eslint-disable react/prop-types */
 export const TableRow = ({ headers, item }) => {
     const navigate = useNavigate();
     const location = useLocation();

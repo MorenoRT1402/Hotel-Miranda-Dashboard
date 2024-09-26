@@ -16,7 +16,7 @@ const Container = styled.div`
     box-shadow: 0px 0px 400000px 100px black;
     width: 50vw;
     height: 50vh;
-    padding: 1rem; /* Añadido para mejor espaciado */
+    padding: 1rem;
 `;
 
 const CloseButton = styled.button`

@@ -1,7 +1,6 @@
-/* eslint-disable react/prop-types */
 import styled from "styled-components";
-import { getCategory, getCategoryItem, getStatusOption, itemInThisFilter } from "../../app/table";
-import { useEffect, useState } from "react";
+import { categoriesEnum, getCategory, getCategoryItem, getNameToSearch, getStatusOption, itemInThisFilter } from "../../app/table";
+import React, { useEffect, useState } from "react";
 import { TableSort } from "./TableSort";
 import { NewDataForm } from "./NewDataForm";
 
@@ -39,6 +38,14 @@ const BasicFilter = styled.button`
     }
 `;
 
+const NameSearch = styled.input`
+  min-width: 17rem;
+  max-height: 2rem;
+  border-radius: 20px;
+  padding-inline: 1rem;
+  font-size: 1rem;
+`
+
 const SortSection = styled.section`
     font-size: 16px;
     max-height: 3rem;
@@ -59,6 +66,8 @@ const AddButton = styled.button`
 export const TableControlPanel = ({ headers, data, filteredData, setFilteredData, setSortedData }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [activeFilter, setActiveFilter] = useState('All');
+  const [searched, setSearched] = useState('');
+  const nameToSearch = getNameToSearch(headers);
   const statusOptions = getStatusOption(data);
 
   const categoryItem = getCategoryItem(headers);
@@ -76,10 +85,10 @@ export const TableControlPanel = ({ headers, data, filteredData, setFilteredData
       : [];
 
       useEffect(() => {
-          setFilteredData(data.filter(item => itemInThisFilter(activeFilter, categoryItem, item))
+          setFilteredData(data.filter(item => itemInThisFilter(activeFilter, categoryItem, item) && item[nameToSearch].includes(searched))
         )
-        }, [data, activeFilter, categoryItem, setFilteredData])
-  
+        }, [data, activeFilter, categoryItem, setFilteredData, searched])
+
   return (
       <ControlPanel>
       {modalVisible ? <NewDataForm data={data} category={getCategory(headers)} close={() => setModalVisible(false)}/> : <></>}
@@ -93,6 +102,10 @@ export const TableControlPanel = ({ headers, data, filteredData, setFilteredData
           </BasicFilter>
         ))}
       </section>
+      {getCategory(headers) === categoriesEnum.Booking 
+      ? <NameSearch type="text" placeholder="Search guest" value={searched} onChange={e => setSearched(e.target.value)} /> 
+      : <></>
+      }
       <SortSection>
         <AddButton onClick={() => setModalVisible(true)}>{`+ New ${categoryItem}`}</AddButton>
         {!isRoom ? <TableSort category={categoryItem} filteredData={filteredData} setSortedData={setSortedData}/>: <></>}

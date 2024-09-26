@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { LateralMenuLink } from "./LatMenuLink";
-import { MdSpaceDashboard, MdHotel, MdBook, MdRoomService } from "react-icons/md";
+import { MdSpaceDashboard, MdHotel, MdBook, MdRoomService, MdPeople } from "react-icons/md";
 import { FaHeart } from "react-icons/fa";
 import { pages } from "../../../app/pages";
 
@@ -53,12 +53,12 @@ const LinkNav = styled.nav`
 
 const UserCard = styled.article`
     box-shadow: 1px 65px 126px -52px gray;
-    padding: 1.2rem;
+    padding-block: 1.2rem;
     border-radius: 26px;
     margin: .4rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: .8rem;
     align-items: center;
 
     &>*{
@@ -103,9 +103,9 @@ export const LateralMenu = () => {
 
     const menuLinks = [
         { title: "Dashboard", icon: MdSpaceDashboard, route: '/' },
-        { title: "Room", icon: MdHotel, route: pages.rooms.path},
         { title: "Bookings", icon: MdBook, route: pages.booking.path},
-        // { title: "Guests", icon: MdPeople, route: '/guest'},
+        { title: "Room", icon: MdHotel, route: pages.rooms.path},
+        { title: "Contact", icon: MdPeople, route: pages.contact.path},
         { title: "Concierge", icon: MdRoomService, route: pages.concierges.path},
     ];
 

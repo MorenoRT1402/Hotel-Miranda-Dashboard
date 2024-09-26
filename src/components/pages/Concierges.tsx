@@ -5,10 +5,10 @@ import { PromiseStatus } from '../../utils/promises';
 import { getAllThunk } from '../../features/users/userThunk';
 
 export const Concierges = () => {
+    const dispatch = useAppDispatch();
+    const { users, status, error } = useAppSelector(state => state.user);
     const headers = ["Name", "Job Desk", "Schedule", "Contact", "Status"];
     
-    const { users, status, error } = useAppSelector(state => state.user);
-    const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (status === PromiseStatus.IDLE) {

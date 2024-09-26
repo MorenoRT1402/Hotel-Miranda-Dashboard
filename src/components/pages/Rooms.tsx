@@ -5,9 +5,9 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { getAllRoomsThunk } from '../../features/rooms/roomsThunk';
 
 export const Rooms = () => {
-    const headers = ["Room Name", "Bed Type", "Room Floor", "Facilities", "Rate", "Status"];
-    const { rooms, status, error } = useAppSelector(state => state.room);
     const dispatch = useAppDispatch();
+    const { rooms, status, error } = useAppSelector(state => state.room);
+    const headers = ["Room Name", "Bed Type", "Room Floor", "Facilities", "Rate", "Status"];
 
     useEffect(() => {
         if (status === PromiseStatus.IDLE) {

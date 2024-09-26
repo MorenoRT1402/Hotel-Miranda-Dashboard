@@ -24,6 +24,11 @@ export const pages: Record<string, PageConfig> = {
       title: 'Concierges List',
       detailTitle: 'Concierge Detail',
   },
+  contact: {
+    path: 'contact',
+    title: 'Reviews',
+    detailTitle: 'Review'
+  },
   login: {
       path: 'login',
       title: 'Login',

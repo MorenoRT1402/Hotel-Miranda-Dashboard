@@ -3,7 +3,7 @@ export enum UserStatus {
     Inactive = "Inactive",
 }
 
-export interface UserConfig {
+export interface UserInterface {
     id: number;
     dateAdded: string;
     name: string;
@@ -26,7 +26,7 @@ export class User {
     contact: string;
     status: UserStatus;
 
-    constructor(config: UserConfig) {
+    constructor(config: UserInterface) {
         this.id = config.id;
         this.dateAdded = new Date(config.dateAdded);
         this.name = config.name;

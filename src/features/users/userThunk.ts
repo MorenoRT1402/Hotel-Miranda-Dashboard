@@ -1,11 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import data from '../../data/h-miranda_concierges.json';
 import { delay } from "../../app/utils";
-import { UserConfig } from "../../dto/user";
+import { UserInterface } from "../../dto/user";
 
-const usersData: UserConfig[] = data as UserConfig[];
+const usersData: UserInterface[] = data as UserInterface[];
 
-export const getAllThunk = createAsyncThunk<UserConfig[]>(
+export const getAllThunk = createAsyncThunk<UserInterface[]>(
     'user/getAll',
     async () => {
         await delay();
@@ -13,7 +13,7 @@ export const getAllThunk = createAsyncThunk<UserConfig[]>(
     }
 );
 
-export const getByIdThunk = createAsyncThunk<UserConfig | null, number>(
+export const getByIdThunk = createAsyncThunk<UserInterface | null, number>(
     'user/getById',
     async (id) => {
         await delay();
@@ -22,7 +22,7 @@ export const getByIdThunk = createAsyncThunk<UserConfig | null, number>(
     }
 );
 
-export const createThunk = createAsyncThunk<UserConfig, UserConfig>(
+export const createThunk = createAsyncThunk<UserInterface, UserInterface>(
     'user/create',
     async (user) => {
         await delay();
@@ -31,7 +31,7 @@ export const createThunk = createAsyncThunk<UserConfig, UserConfig>(
     }
 );
 
-export const editThunk = createAsyncThunk<UserConfig, { id: number; user: UserConfig }>(
+export const editThunk = createAsyncThunk<UserInterface, { id: number; user: UserInterface }>(
     'user/edit',
     async ({ id, user }) => {
         await delay();

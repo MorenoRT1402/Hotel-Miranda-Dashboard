@@ -1,11 +1,11 @@
 import data from '../../data/h-miranda_rooms.json'
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { RoomConfig } from '../../dto/room';
+import { RoomInterface } from '../../dto/room';
 import { delay } from '../../app/utils';
 
-const roomsData: RoomConfig[] = data as RoomConfig[];
+const roomsData: RoomInterface[] = data as RoomInterface[];
 
-export const getAllRoomsThunk = createAsyncThunk<RoomConfig[]>(
+export const getAllRoomsThunk = createAsyncThunk<RoomInterface[]>(
     'rooms/getAll',
     async () => {
         await delay();
@@ -13,7 +13,7 @@ export const getAllRoomsThunk = createAsyncThunk<RoomConfig[]>(
     }
 );
 
-export const getRoomByIdThunk = createAsyncThunk<RoomConfig | null, number>(
+export const getRoomByIdThunk = createAsyncThunk<RoomInterface | null, number>(
     'rooms/getById',
     async (id: number) => {
         await delay();
@@ -22,16 +22,16 @@ export const getRoomByIdThunk = createAsyncThunk<RoomConfig | null, number>(
     }
 );
 
-export const createRoomThunk = createAsyncThunk<RoomConfig, RoomConfig>(
+export const createRoomThunk = createAsyncThunk<RoomInterface, RoomInterface>(
     'rooms/create',
-    async (room: RoomConfig) => {
+    async (room: RoomInterface) => {
         await delay();
         alert(`Created ${JSON.stringify(room)}`);
         return room;
     }
 );
 
-export const editRoomThunk = createAsyncThunk<RoomConfig, { id: number; room: RoomConfig }>(
+export const editRoomThunk = createAsyncThunk<RoomInterface, { id: number; room: RoomInterface }>(
     'rooms/edit',
     async ({ id, room }) => {
         await delay();

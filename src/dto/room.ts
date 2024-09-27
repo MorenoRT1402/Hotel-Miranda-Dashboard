@@ -3,7 +3,7 @@ export enum RoomStatus {
     Booked = "Booked",
 }
 
-export interface RoomConfig {
+export interface RoomInterface {
     id: number;
     dateAdded: string;
     "room-type": string;
@@ -28,7 +28,7 @@ export class Room {
     rate: string;
     status: RoomStatus;
 
-    constructor(config: RoomConfig) {
+    constructor(config: RoomInterface) {
         this.id = config.id;
         this.dateAdded = new Date(config.dateAdded);
         this.roomType = config["room-type"];

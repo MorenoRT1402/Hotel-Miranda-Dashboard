@@ -2,11 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import { pending, PromiseStatus, rejected } from '../../utils/promises';
 import { createRoomThunk, editRoomThunk, getAllRoomsThunk, getRoomByIdThunk, removeThunk } from './roomsThunk';
 import { ReduxState } from '../../app/store';
-import { RoomConfig } from '../../dto/room';
+import { RoomInterface } from '../../dto/room';
 
 interface RoomState extends ReduxState {
-    rooms: RoomConfig[];
-    room: RoomConfig | null;
+    rooms: RoomInterface[];
+    room: RoomInterface | null;
 }
 
 const initialState : RoomState = {

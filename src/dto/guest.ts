@@ -5,7 +5,7 @@ export enum GuestStatus {
     Pending = "Pending"
 }
 
-export interface GuestConfig {
+export interface GuestInterface {
     id: number;
     dateAdded: string;
     guest: string;
@@ -30,7 +30,7 @@ export class Guest {
     roomId: number;
     status: GuestStatus;
 
-    constructor(config: GuestConfig) {
+    constructor(config: GuestInterface) {
         this.id = config.id;
         this.dateAdded = new Date(config.dateAdded);
         this.guest = config.guest;

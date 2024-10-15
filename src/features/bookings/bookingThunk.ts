@@ -2,14 +2,17 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import data from '../../data/h-miranda_guests.json';
 import { GuestInterface } from "../../dto/guest";
 import { delay } from "../../app/utils";
+import axios from "axios";
+import { API_URL } from "../../app/api";
 
 const guestsData: GuestInterface[] = data as GuestInterface[]; 
+const BASE_URL=`${API_URL}/bookings`
 
 export const getAllThunk = createAsyncThunk<GuestInterface[]>(
     'booking/getAll',
     async () => {
-        await delay();
-        return guestsData;
+        const response = await axios.get(BASE_URL);
+        return response.data;
     }
 );
 

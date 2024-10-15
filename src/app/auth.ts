@@ -1,9 +1,6 @@
-import bcrypt from 'bcryptjs';
-import { testingUser } from './auth.credentials';
-
-const key = 'hotel-miranda-token';
-
-export const getToken = (): any => JSON.parse(localStorage.getItem(key) ?? 'null');
+import axios from 'axios';
+import { API_URL } from './api';
+import { deleteToken, saveToken } from '../utils/persistence';
 
 interface LoginParams {
     username?: string;
@@ -11,29 +8,26 @@ interface LoginParams {
     password: string;
 }
 
-const saveToken = async (firstCondition: boolean, password: string): Promise<boolean> => {
+export const onLogin = async (data: LoginParams): Promise<boolean> => {
     try {
-        const pswdCorrect = await bcrypt.compare(password, testingUser.passwordHash);
-        if (firstCondition && pswdCorrect) {
-            window.localStorage.setItem(key, JSON.stringify(testingUser));
-            console.log("Login successful!");
+        const res = await axios.post(`${API_URL}/auth/login`, data);
+
+        if (res.data?.token) {
+            saveToken(res.data.token);
             return true;
-        } else {
-            console.log("Invalid credentials.");
-            return false;
         }
+        return false;
     } catch (error) {
-        console.error("Error while verifying password:", error);
+        if (axios.isAxiosError(error)) {
+            console.error('Error de autenticación:', error.response?.data || error.message);
+        } else if (error instanceof Error) {
+            console.error('Error durante el login:', error.message);
+        } else {
+            console.error('Error desconocido:', error);
+        }
+
         return false;
     }
 };
 
-export const onLogin = async ({ username, password }: LoginParams): Promise<boolean> => {
-    return saveToken(username === testingUser.username, password);
-};
-
-export const onLoginWithEmail = async ({ email, password }: LoginParams): Promise<boolean> => {
-    return saveToken(email === testingUser.email, password);
-};
-
-export const onLogout = (): void => localStorage.removeItem(key);
+export const onLogout = () => deleteToken();

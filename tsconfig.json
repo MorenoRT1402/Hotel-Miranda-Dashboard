@@ -1,6 +1,8 @@
 {
     "compilerOptions": {
+        "module": "es2022",
         "esModuleInterop": true,
+        "moduleResolution": "Node",
         "resolveJsonModule": true,
         "target": "es5",
         "lib": ["es6", "dom"],

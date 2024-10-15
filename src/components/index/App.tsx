@@ -13,6 +13,7 @@ import { GuestDetail } from '../pages/GuestDetail'
 import { AuthMiddleware } from '../auth/AuthMiddleware'
 import React from 'react'
 import { Contact } from '../pages/Contact'
+import {axiosSetup} from '../../app/axiosSetup'
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -23,6 +24,7 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 export const App = () => {
+  axiosSetup();
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />

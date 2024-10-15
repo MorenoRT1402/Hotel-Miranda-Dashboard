@@ -15,11 +15,6 @@ interface AuthAction {
   };
 }
 
-interface AuthContextType {
-  state: AuthState;
-  dispatch: React.Dispatch<AuthAction>;
-}
-
 const initialState: AuthState = {
   authenticated: false,
   userName: "",
@@ -61,13 +56,14 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const key = 'hmdas'
   const [state, dispatch] = useReducer(authReducer, initialState, () => {
-    const storedData = localStorage.getItem("authState");
+    const storedData = localStorage.getItem(key);
     return storedData ? JSON.parse(storedData) : initialState;
   });
 
   useEffect(() => {
-    localStorage.setItem("authState", JSON.stringify(state));
+    localStorage.setItem(key, JSON.stringify(state));
   }, [state]);
 
   const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch]);

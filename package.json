@@ -14,6 +14,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
     "@types/react-redux": "^7.1.34",
+    "axios": "^1.7.7",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
     "jsonwebtoken": "^9.0.2",
@@ -67,5 +68,10 @@
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "react-dotenv": {
+    "whitelist": [
+      "VITE_API_URL"
+    ]
   }
 }

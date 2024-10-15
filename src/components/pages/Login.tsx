@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react"
 import styled from "styled-components"
-import { onLogin, onLoginWithEmail } from "../../app/auth";
+import { onLogin } from "../../app/auth";
 import { useNavigate } from "react-router-dom";
 import { pages } from "../../app/pages";
 import { authActions } from "../../app/actions";
@@ -70,12 +70,8 @@ export const Login = () => {
     const handleSubmit = async (ev: { preventDefault: () => void; }) => {
         ev.preventDefault();
     
-        let success = false;
-        if (loginType === LoginType.username) {
-          success = await onLogin({ username, password });
-        } else {
-          success = await onLoginWithEmail({ email, password });
-        }
+        const firstCredential = loginType === LoginType.username ? {name:username} : {email};
+        const success = await onLogin({...firstCredential, password});
     
         if (success) {
             dispatch({type: authActions.LOGIN, payload:{email, username, password}})

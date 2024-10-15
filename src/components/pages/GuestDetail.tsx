@@ -7,20 +7,26 @@ import { getAllThunk } from "../../features/bookings/bookingThunk";
 import { getAllRoomsThunk } from "../../features/rooms/roomsThunk";
 
 const Container = styled.section`
+    padding: 2rem;
+    &>section{
+        &>img{
+            max-height: 15rem;
+        }
+    }
 `;
 
 export const GuestDetail = () => {
     const { id } = useParams<{ id: string }>();
     const dispatch: AppDispatch = useDispatch();
 
-    const guestId = Number(id);
+    const guestId = id;
     
     const guest = useSelector((state: RootState) => 
-        state.booking.guests.find(guest => guest.id === guestId)
+        state.booking.guests.find(guest => guest._id === guestId)
     );
     
     const room = useSelector((state: RootState) => 
-        state.room.rooms.find(room => room.id === guest?.roomId)
+        state.room.rooms.find(room => room._id === guest?.roomId)
     );    
 
     useEffect(() => {
@@ -50,7 +56,7 @@ export const GuestDetail = () => {
                 <img src={guest.picture} alt={`${guest.guest} profile`} />
                 <section>
                     <h3>{guest.guest}</h3>
-                    <small>{`ID: ${guest.id}`}</small>
+                    <small>{`ID: ${guest._id}`}</small>
                 </section>
             </section>
             <section>

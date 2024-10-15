@@ -9,7 +9,7 @@ const tableMap = {
     'Check Out': item => item['checkOut'],
     // 'Special Request': item => item['notes'].join(', '),
     'Special Request': item => item['notes'].join(', '),
-    'Room Type': item => item['roomId'],
+    'Room Type': item => item['room'].bedType,
 
     'Job Desk': item => item['job-desk'],
     'Schedule': item => item['schedule'].join(', '),

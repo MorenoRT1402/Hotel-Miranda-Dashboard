@@ -59,7 +59,7 @@ export const Header = () => {
     const {dispatch} = useContext(AuthContext);
     const location = useLocation();
     const route = location.pathname;
-    const title = getPageByRoute(route).title;
+    const page = getPageByRoute(route);
     const {id} = useParams();
 
     const logout = () => {
@@ -68,13 +68,15 @@ export const Header = () => {
         window.location.reload();
     }
 
+    const title = id ? page.detailTitle : page.title;
+
     return (
         <Container className="bg-main">
             <Menu>
                 <FaArrowLeft/>
                 <Path>
                     <h2>{title}</h2>
-                    {id ? <small className="color-secondary">{`${title}`} / <span>{id}</span></small> : <></>}
+                    {id ? <small className="color-secondary">{`${page.uri}`} / <span>{id}</span></small> : <></>}
                 </Path>
                 <Icons>
                     <NotificationButton icon={IoMailOutline} number={2}/>

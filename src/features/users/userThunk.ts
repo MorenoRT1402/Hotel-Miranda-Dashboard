@@ -17,7 +17,7 @@ export const getByIdThunk = createAsyncThunk<UserInterface | null, number>(
     'user/getById',
     async (id) => {
         await delay();
-        const userConfig = usersData.find(room => room.id === id);
+        const userConfig = usersData.find(room => room._id === id);
         return userConfig || null;
     }
 );
@@ -35,7 +35,7 @@ export const editThunk = createAsyncThunk<UserInterface, { id: number; user: Use
     'user/edit',
     async ({ id, user }) => {
         await delay();
-        const oldConfig = usersData.find(r => r.id === id);
+        const oldConfig = usersData.find(r => r._id === id);
 
         if (oldConfig) {
             const updatedUser = { ...oldConfig, ...user };
@@ -52,7 +52,7 @@ export const removeThunk = createAsyncThunk<number, number>(
     'user/remove',
     async (id) => {
         await delay();
-        const deletedConfig = usersData.find(user => user.id === id) || null;
+        const deletedConfig = usersData.find(user => user._id === id) || null;
         if (deletedConfig) {
             alert(`Deleted ${JSON.stringify(deletedConfig)}`);
             return id;

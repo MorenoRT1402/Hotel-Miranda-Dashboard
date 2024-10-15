@@ -4,7 +4,7 @@ export enum UserStatus {
 }
 
 export interface UserInterface {
-    id: number;
+    _id: number;
     dateAdded: string;
     name: string;
     picture: string;
@@ -16,7 +16,7 @@ export interface UserInterface {
 }
 
 export class User {
-    id: number;
+    _id: number;
     dateAdded: Date;
     name: string;
     picture: string;
@@ -27,7 +27,7 @@ export class User {
     status: UserStatus;
 
     constructor(config: UserInterface) {
-        this.id = config.id;
+        this._id = config._id;
         this.dateAdded = new Date(config.dateAdded);
         this.name = config.name;
         this.picture = config.picture;
@@ -40,7 +40,7 @@ export class User {
 
     toString(): string {
         return `User Info:
-        ID: ${this.id}
+        ID: ${this._id}
         Name: ${this.name}
         Picture: ${this.picture}
         Joined: ${this.joined.toDateString()}

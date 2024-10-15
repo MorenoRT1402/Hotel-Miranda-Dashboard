@@ -60,7 +60,7 @@ export const userSlice = createSlice({
             })
             .addCase(editThunk.fulfilled, (state, action) => {
                 state.status = PromiseStatus.FULFILLED;
-                const index = state.users.findIndex(user => user.id === action.payload.id);
+                const index = state.users.findIndex(user => user._id === action.payload._id);
                 if (index !== -1) {
                     state.users[index] = action.payload;
                 }
@@ -74,7 +74,7 @@ export const userSlice = createSlice({
             })
             .addCase(removeThunk.fulfilled, (state, action) => {
                 state.status = PromiseStatus.FULFILLED;
-                state.users = state.users.filter(user => user.id !== action.payload);
+                state.users = state.users.filter(user => user._id !== action.payload);
             })
             .addCase(removeThunk.rejected, (state, action) => {
                 rejected(state, action);

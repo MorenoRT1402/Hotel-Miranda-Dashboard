@@ -1,7 +1,8 @@
 interface PageConfig {
   path: string;
   title: string;
-  detailTitle?: string;
+  detailTitle?: string,
+  uri?: string,
 }
 
 export const pages: Record<string, PageConfig> = {
@@ -18,6 +19,7 @@ export const pages: Record<string, PageConfig> = {
       path: 'booking',
       title: 'Guest List',
       detailTitle: 'Guest Detail',
+      uri: 'Guest'
   },
   concierges: {
       path: 'concierges',

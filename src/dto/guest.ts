@@ -6,7 +6,7 @@ export enum GuestStatus {
 }
 
 export interface GuestInterface {
-    id: number;
+    _id: string;
     dateAdded: string;
     guest: string;
     picture: string;
@@ -19,7 +19,7 @@ export interface GuestInterface {
 }
 
 export class Guest {
-    id: number;
+    _id: string;
     dateAdded: Date;
     guest: string;
     picture: string;
@@ -31,7 +31,7 @@ export class Guest {
     status: GuestStatus;
 
     constructor(config: GuestInterface) {
-        this.id = config.id;
+        this._id = config._id;
         this.dateAdded = new Date(config.dateAdded);
         this.guest = config.guest;
         this.picture = config.picture;
@@ -45,7 +45,7 @@ export class Guest {
 
     toString(): string {
         return `Guest Info:
-        ID: ${this.id}
+        ID: ${this._id}
         Name: ${this.guest}
         Picture: ${this.picture}
         Order Date: ${this.orderDate.toDateString()}

@@ -17,7 +17,7 @@ export const getRoomByIdThunk = createAsyncThunk<RoomInterface | null, number>(
     'rooms/getById',
     async (id: number) => {
         await delay();
-        const roomConfig = roomsData.find(room => room.id === id);
+        const roomConfig = roomsData.find(room => room._id === id);
         return roomConfig || null;
     }
 );
@@ -35,7 +35,7 @@ export const editRoomThunk = createAsyncThunk<RoomInterface, { id: number; room:
     'rooms/edit',
     async ({ id, room }) => {
         await delay();
-        const oldRoomConfig = roomsData.find(r => r.id === id);
+        const oldRoomConfig = roomsData.find(r => r._id === id);
 
         if (oldRoomConfig) {
             const updatedRoom = { ...oldRoomConfig, ...room };
@@ -53,7 +53,7 @@ export const removeThunk = createAsyncThunk<number, number>(
     async (id) => {
         await delay();
 
-        const deletedConfig = roomsData.find(room => room.id === id);
+        const deletedConfig = roomsData.find(room => room._id === id);
 
         if (deletedConfig) {
             alert(`Deleted ${JSON.stringify(deletedConfig)}`);

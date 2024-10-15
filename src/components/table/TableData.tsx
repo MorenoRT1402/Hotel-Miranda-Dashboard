@@ -39,20 +39,23 @@ const Identificator = styled.div.withConfig({
 `;
 
 export const TableDataIdentificator = ({ item }) => {
-    const hasroomtype = item['room-type'] !== undefined;
-  
-    return (
-      <Identificator hasroomtype={hasroomtype}>
-        <img src={item.picture} alt="" />
-        <div>
-          {!hasroomtype ? <strong>{item.name || item.guest}</strong> : null}
-          <span>{`#${item.id}`}</span>
-          {hasroomtype ? <strong>{`${item['room-type']}-${item.number}`}</strong> : null}
-          {item.joined !== undefined ? <span>{item.joined}</span> : null}
-        </div>
-      </Identificator>
-    );
-  };
+  const hasroomtype = item.bedType !== undefined;
+
+  return (
+    <Identificator hasroomtype={hasroomtype}>
+      <img src={item.picture} alt="" />
+      <div>
+        {!hasroomtype ? <strong>{item.name || item.guest}</strong> : null}
+
+        <span>{`#${item._id}`}</span>
+
+        {hasroomtype ? <strong>{`${item.room.bedType}-${item.room.number}`}</strong> : null}
+        
+        {item.joined !== undefined ? <span>{item.joined}</span> : null}
+      </div>
+    </Identificator>
+  );
+};
 
 export const TableData = ({ header, item, colIndex, category }) => {
     const stringData = colIndex !== 0 ? getStringData(header, item) : '';

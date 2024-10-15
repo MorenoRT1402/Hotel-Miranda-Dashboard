@@ -13,8 +13,8 @@ export const TableRow = ({ headers, item }) => {
     const location = useLocation();
 
     return (
-        <Container key={item.id} onClick={() => navigate(`${location.pathname}/${item.id}`)}>
-            {headers.map((header, index) => (
+        <Container key={item._id} onClick={() => navigate(`${location.pathname}/${item._id}`)}>
+            {headers.map((header: string, index: number) => (
                 <TableData key={`${index}-${item}`} header={header} item={item} colIndex={index} category={getCategory(headers)} />
             ))}
         </Container>

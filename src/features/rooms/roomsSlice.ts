@@ -60,7 +60,7 @@ export const roomSlice = createSlice({
             })
             .addCase(editRoomThunk.fulfilled, (state, action) => {
                 state.status = PromiseStatus.FULFILLED;
-                const index = state.rooms.findIndex(room => room.id === action.payload.id);
+                const index = state.rooms.findIndex(room => room._id === action.payload._id);
                 if (index !== -1) {
                     state.rooms[index] = action.payload;
                 }
@@ -74,7 +74,7 @@ export const roomSlice = createSlice({
             })
             .addCase(removeThunk.fulfilled, (state, action) => {
                 state.status = PromiseStatus.FULFILLED;
-                state.rooms = state.rooms.filter(room => room.id !== action.payload);
+                state.rooms = state.rooms.filter(room => room._id !== action.payload);
             })
             .addCase(removeThunk.rejected, (state, action) => {
                 rejected(state, action);

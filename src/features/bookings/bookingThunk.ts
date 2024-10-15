@@ -1,11 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import data from '../../data/h-miranda_guests.json';
 import { GuestInterface } from "../../dto/guest";
-import { delay } from "../../app/utils";
 import axios from "axios";
 import { API_URL } from "../../app/api";
 
-const guestsData: GuestInterface[] = data as GuestInterface[]; 
+// const guestsData: GuestInterface[] = data as GuestInterface[]; 
 const BASE_URL=`${API_URL}/bookings`
 
 export const getAllThunk = createAsyncThunk<GuestInterface[]>(
@@ -16,53 +14,35 @@ export const getAllThunk = createAsyncThunk<GuestInterface[]>(
     }
 );
 
-export const getByIdThunk = createAsyncThunk<GuestInterface | null, number>(
+export const getByIdThunk = createAsyncThunk<GuestInterface | null, string>(
     'booking/getById',
-    async (id: number) => {
-        await delay();
-        const guestConfig = guestsData.find(booking => booking.id === id) || null;
-        return guestConfig || null;
+    async (id: string) => {
+        const response = await axios.get(`${BASE_URL}/${id}`);
+        return response.data;
     }
 );
 
 export const createThunk = createAsyncThunk<GuestInterface, GuestInterface>(
     'booking/create',
     async (booking: GuestInterface) => {
-        await delay();
+        const response = await axios.post(`${BASE_URL}`);
         alert(`Created ${JSON.stringify(booking)}`);
-        return booking;
+        return response.data;
     }
 );
 
-export const editThunk = createAsyncThunk<GuestInterface, { id: number; booking: GuestInterface }>(
+export const editThunk = createAsyncThunk<GuestInterface, { id: string; booking: GuestInterface }>(
     'booking/edit',
     async ({ id, booking }) => {
-        await delay();
-
-        const oldConfig = guestsData.find(b => b.id === id);
-
-        if (oldConfig) {
-            alert(`Modified ${JSON.stringify(oldConfig)} -> ${JSON.stringify(booking)}`);
-
-            return booking;
-        } else {
-            throw new Error(`Guest with ID ${id} not found.`);
-        }
+        const response = await axios.put(`${BASE_URL}/${id}`, booking);
+        return response.data;
     }
 );
 
-export const removeThunk = createAsyncThunk<number, number>(
+export const removeThunk = createAsyncThunk<string, string>(
     'booking/remove',
     async (id) => {
-        await delay();
-
-        const deletedConfig = guestsData.find(booking => booking.id === id);
-
-        if (deletedConfig) {
-            alert(`Deleted ${JSON.stringify(deletedConfig)}`);
-            return id;
-        } else {
-            throw new Error(`Guest with ID ${id} not found.`);
-        }
+        const response = await axios.delete(`${BASE_URL}/${id}`);
+        return response.data;
     }
 );

@@ -4,7 +4,7 @@ export enum RoomStatus {
 }
 
 export interface RoomInterface {
-    id: number;
+    _id: number;
     dateAdded: string;
     "room-type": string;
     number: number;
@@ -17,7 +17,7 @@ export interface RoomInterface {
 }
 
 export class Room {
-    id: number;
+    _id: number;
     dateAdded: Date;
     roomType: string;
     number: number;
@@ -29,7 +29,7 @@ export class Room {
     status: RoomStatus;
 
     constructor(config: RoomInterface) {
-        this.id = config.id;
+        this._id = config._id;
         this.dateAdded = new Date(config.dateAdded);
         this.roomType = config["room-type"];
         this.number = config.number;
@@ -43,7 +43,7 @@ export class Room {
 
     toString(): string {
         return `Room Info:
-        ID: ${this.id}
+        ID: ${this._id}
         Room Type: ${this.roomType}
         Number: ${this.number}
         Picture: ${this.picture}

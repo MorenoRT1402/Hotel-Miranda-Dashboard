@@ -60,7 +60,7 @@ export const bookingSlice = createSlice({
             })
             .addCase(editThunk.fulfilled, (state, action : PayloadAction<GuestInterface>) => {
                 changeStatus(state, PromiseStatus.FULFILLED);
-                const index = state.guests.findIndex(booking => booking.id === action.payload.id);
+                const index = state.guests.findIndex(booking => booking._id === action.payload._id);
                 if (index !== -1) {
                     state.guests[index] = action.payload;
                 }
@@ -72,9 +72,9 @@ export const bookingSlice = createSlice({
             .addCase(removeThunk.pending, (state) => {
                 pending(state);
             })
-            .addCase(removeThunk.fulfilled, (state, action: PayloadAction<number>) => {
+            .addCase(removeThunk.fulfilled, (state, action: PayloadAction<string>) => {
                 changeStatus(state, PromiseStatus.FULFILLED);
-                state.guests = state.guests.filter(guest => guest.id !== action.payload);
+                state.guests = state.guests.filter(guest => guest._id !== action.payload);
             })            
             .addCase(removeThunk.rejected, (state, action) => {
                 rejected(state, action);

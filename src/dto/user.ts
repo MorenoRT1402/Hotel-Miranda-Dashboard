@@ -4,19 +4,19 @@ export enum UserStatus {
 }
 
 export interface UserInterface {
-    _id: number;
+    _id: string;
     dateAdded: string;
     name: string;
     picture: string;
     joined: string;
-    "job-desk": string;
+    jobDesk: string;
     schedule: string[];
     contact: string;
     status: UserStatus;
 }
 
 export class User {
-    _id: number;
+    _id: string;
     dateAdded: Date;
     name: string;
     picture: string;
@@ -32,7 +32,7 @@ export class User {
         this.name = config.name;
         this.picture = config.picture;
         this.joined = new Date(config.joined);
-        this.jobDesk = config["job-desk"];
+        this.jobDesk = config.jobDesk;
         this.schedule = config.schedule;
         this.contact = config.contact;
         this.status = config.status;

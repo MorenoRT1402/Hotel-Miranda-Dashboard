@@ -4,20 +4,20 @@ export enum RoomStatus {
 }
 
 export interface RoomInterface {
-    _id: number;
+    _id: string;
     dateAdded: string;
-    "room-type": string;
+    roomType: string;
     number: number;
     picture: string;
-    "bed-type": string;
-    "room-floor": string;
+    bedType: string;
+    roomFloor: string;
     facilities: string[];
     rate: string;
     status: RoomStatus;
 }
 
 export class Room {
-    _id: number;
+    _id: string;
     dateAdded: Date;
     roomType: string;
     number: number;
@@ -31,11 +31,11 @@ export class Room {
     constructor(config: RoomInterface) {
         this._id = config._id;
         this.dateAdded = new Date(config.dateAdded);
-        this.roomType = config["room-type"];
+        this.roomType = config.roomType;
         this.number = config.number;
         this.picture = config.picture;
-        this.bedType = config["bed-type"];
-        this.roomFloor = config["room-floor"];
+        this.bedType = config.bedType;
+        this.roomFloor = config.roomFloor;
         this.facilities = config.facilities;
         this.rate = config.rate;
         this.status = config.status;

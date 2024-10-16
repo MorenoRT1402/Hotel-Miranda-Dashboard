@@ -3,7 +3,6 @@ import { GuestInterface } from "../../dto/guest";
 import axios from "axios";
 import { API_URL } from "../../app/api";
 
-// const guestsData: GuestInterface[] = data as GuestInterface[]; 
 const BASE_URL=`${API_URL}/bookings`
 
 export const getAllThunk = createAsyncThunk<GuestInterface[]>(

@@ -6,6 +6,15 @@ import React from "react";
 
 const Container = styled.tr`
     cursor: pointer;
+    position: relative;
+
+    &>button{
+        position: absolute;
+        max-height: 3rem;
+        max-width: 1rem;
+        right: 0;
+        top: 0;
+    }
 `;
 
 export const TableRow = ({ headers, item }) => {

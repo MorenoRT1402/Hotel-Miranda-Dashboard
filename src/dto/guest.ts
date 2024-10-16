@@ -14,7 +14,7 @@ export interface GuestInterface {
     checkIn: string;
     checkOut: string;
     notes: string[];
-    roomId: number;
+    roomId: string;
     status: GuestStatus;
 }
 
@@ -27,7 +27,7 @@ export class Guest {
     checkIn: Date;
     checkOut: Date;
     notes: string[];
-    roomId: number;
+    roomId: string;
     status: GuestStatus;
 
     constructor(config: GuestInterface) {

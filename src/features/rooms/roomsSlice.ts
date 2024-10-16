@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { pending, PromiseStatus, rejected } from '../../utils/promises';
 import { createRoomThunk, editRoomThunk, getAllRoomsThunk, getRoomByIdThunk, removeThunk } from './roomsThunk';
 import { ReduxState } from '../../app/store';
@@ -72,7 +72,7 @@ export const roomSlice = createSlice({
             .addCase(removeThunk.pending, (state) => {
                 pending(state);
             })
-            .addCase(removeThunk.fulfilled, (state, action) => {
+            .addCase(removeThunk.fulfilled, (state, action:PayloadAction<string>) => {
                 state.status = PromiseStatus.FULFILLED;
                 state.rooms = state.rooms.filter(room => room._id !== action.payload);
             })

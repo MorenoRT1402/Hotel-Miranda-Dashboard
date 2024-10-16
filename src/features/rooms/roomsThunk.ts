@@ -1,65 +1,47 @@
-import data from '../../data/h-miranda_rooms.json'
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RoomInterface } from '../../dto/room';
-import { delay } from '../../app/utils';
+import axios from 'axios';
+import { API_URL } from '../../app/api';
 
-const roomsData: RoomInterface[] = data as RoomInterface[];
+const BASE_URL=`${API_URL}/bookings`
 
 export const getAllRoomsThunk = createAsyncThunk<RoomInterface[]>(
     'rooms/getAll',
     async () => {
-        await delay();
-        return roomsData;
+        const response = await axios.get(BASE_URL);
+        return response.data;
     }
 );
 
-export const getRoomByIdThunk = createAsyncThunk<RoomInterface | null, number>(
+export const getRoomByIdThunk = createAsyncThunk<RoomInterface | null, string>(
     'rooms/getById',
-    async (id: number) => {
-        await delay();
-        const roomConfig = roomsData.find(room => room._id === id);
-        return roomConfig || null;
+    async (id:string) => {
+        const response = await axios.get(`${BASE_URL}/${id}`);
+        return response.data;
     }
 );
 
 export const createRoomThunk = createAsyncThunk<RoomInterface, RoomInterface>(
     'rooms/create',
     async (room: RoomInterface) => {
-        await delay();
+        const response = await axios.post(`${BASE_URL}`);
         alert(`Created ${JSON.stringify(room)}`);
-        return room;
+        return response.data;
     }
 );
 
 export const editRoomThunk = createAsyncThunk<RoomInterface, { id: number; room: RoomInterface }>(
     'rooms/edit',
     async ({ id, room }) => {
-        await delay();
-        const oldRoomConfig = roomsData.find(r => r._id === id);
-
-        if (oldRoomConfig) {
-            const updatedRoom = { ...oldRoomConfig, ...room };
-            alert(`Modified ${JSON.stringify(oldRoomConfig)} -> ${JSON.stringify(room)}`);
-
-            return updatedRoom;
-        } else {
-            throw new Error(`Room with ID ${id} not found.`);
-        }
+        const response = await axios.put(`${BASE_URL}/${id}`, room);
+        return response.data;
     }
 );
 
-export const removeThunk = createAsyncThunk<number, number>(
+export const removeThunk = createAsyncThunk<string, string>(
     'rooms/remove',
     async (id) => {
-        await delay();
-
-        const deletedConfig = roomsData.find(room => room._id === id);
-
-        if (deletedConfig) {
-            alert(`Deleted ${JSON.stringify(deletedConfig)}`);
-            return id;
-        } else {
-            throw new Error(`Room with ID ${id} not found.`);
-        }
+        const response = await axios.delete(`${BASE_URL}/${id}`);
+        return response.data;
     }
 );

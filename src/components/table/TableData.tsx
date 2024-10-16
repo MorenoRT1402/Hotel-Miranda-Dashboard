@@ -60,6 +60,7 @@ export const TableDataIdentificator = ({ item }) => {
 export const TableData = ({ header, item, colIndex, category }) => {
     const stringData = colIndex !== 0 ? getStringData(header, item) : '';
     const isStatus = header.toLowerCase() == statusHeader;
+    const isOptions = header.toLowerCase() == '';
 
     let content: string | number | boolean | Iterable<React.ReactNode> | React.JSX.Element | null | undefined;
     if (colIndex === 0) {

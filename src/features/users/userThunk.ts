@@ -1,63 +1,47 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import data from '../../data/h-miranda_concierges.json';
-import { delay } from "../../app/utils";
 import { UserInterface } from "../../dto/user";
+import axios from "axios";
+import { API_URL } from "../../app/api";
 
-const usersData: UserInterface[] = data as UserInterface[];
+const BASE_URL=`${API_URL}/bookings`
 
 export const getAllThunk = createAsyncThunk<UserInterface[]>(
     'user/getAll',
     async () => {
-        await delay();
-        return usersData;
+        const response = await axios.get(BASE_URL);
+        return response.data;
     }
 );
 
-export const getByIdThunk = createAsyncThunk<UserInterface | null, number>(
+export const getByIdThunk = createAsyncThunk<UserInterface | null, string>(
     'user/getById',
-    async (id) => {
-        await delay();
-        const userConfig = usersData.find(room => room._id === id);
-        return userConfig || null;
+    async (id:string) => {
+        const response = await axios.get(`${BASE_URL}/${id}`);
+        return response.data;
     }
 );
 
 export const createThunk = createAsyncThunk<UserInterface, UserInterface>(
     'user/create',
     async (user) => {
-        await delay();
-        alert(`Created ${JSON.stringify(user, null, 2)}`);
-        return user;
+        const response = await axios.post(`${BASE_URL}`);
+        alert(`Created ${JSON.stringify(user)}`);
+        return response.data;
     }
 );
 
 export const editThunk = createAsyncThunk<UserInterface, { id: number; user: UserInterface }>(
     'user/edit',
     async ({ id, user }) => {
-        await delay();
-        const oldConfig = usersData.find(r => r._id === id);
-
-        if (oldConfig) {
-            const updatedUser = { ...oldConfig, ...user };
-            alert(`Modified ${JSON.stringify(oldConfig)} -> ${JSON.stringify(user)}`);
-
-            return updatedUser;
-        } else {
-            throw new Error(`Room with ID ${id} not found.`);
-        }
+        const response = await axios.put(`${BASE_URL}/${id}`, user);
+        return response.data;
     }
 );
 
 export const removeThunk = createAsyncThunk<number, number>(
     'user/remove',
     async (id) => {
-        await delay();
-        const deletedConfig = usersData.find(user => user._id === id) || null;
-        if (deletedConfig) {
-            alert(`Deleted ${JSON.stringify(deletedConfig)}`);
-            return id;
-        } else {
-            throw new Error(`User with ID ${id} not found.`);
-        }
+        const response = await axios.delete(`${BASE_URL}/${id}`);
+        return response.data;
     }
 );

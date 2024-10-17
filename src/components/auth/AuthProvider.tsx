@@ -1,23 +1,19 @@
 import React, { createContext, useReducer, useEffect, useMemo, ReactNode } from "react";
 import { authActions } from "../../app/actions";
-
-interface AuthState {
-  authenticated: boolean;
-  userName: string;
-  email: string;
-}
+import { getUser, saveUser } from "../../utils/persistence";
+import { AuthState } from '../../types/auth.types'
 
 interface AuthAction {
   type: string;
   payload?: {
-    userName: string;
+    username: string;
     email: string;
   };
 }
 
 const initialState: AuthState = {
   authenticated: false,
-  userName: "",
+  username: "",
   email: ""
 };
 
@@ -35,7 +31,7 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
       return {
         ...state,
         authenticated: true,
-        userName: action.payload?.userName || "",
+        username: action.payload?.username || "",
         email: action.payload?.email || ""
       };
     case authActions.LOGOUT:
@@ -43,7 +39,7 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
     case authActions.UPDATE_USER:
       return {
         ...state,
-        userName: action.payload?.userName || "",
+        username: action.payload?.username || "",
         email: action.payload?.email || ""
       };
     default:
@@ -56,14 +52,13 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const key = 'hmdas'
   const [state, dispatch] = useReducer(authReducer, initialState, () => {
-    const storedData = localStorage.getItem(key);
-    return storedData ? JSON.parse(storedData) : initialState;
+    const storedData = getUser();
+    return storedData ? storedData : initialState;
   });
 
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(state));
+    saveUser(state);
   }, [state]);
 
   const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch]);

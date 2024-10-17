@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { API_URL } from './api';
 import { deleteToken, saveToken } from '../utils/persistence';
+import { UserData } from '../types/auth.types';
 
 interface LoginParams {
     username?: string;
@@ -8,15 +9,15 @@ interface LoginParams {
     password: string;
 }
 
-export const onLogin = async (data: LoginParams): Promise<boolean> => {
+export const onLogin = async (data: LoginParams): Promise<UserData | null> => {
     try {
         const res = await axios.post(`${API_URL}/auth/login`, data);
 
         if (res.data?.token) {
             saveToken(res.data.token);
-            return true;
+            return res.data.user;
         }
-        return false;
+        return null;
     } catch (error) {
         if (axios.isAxiosError(error)) {
             console.error('Error de autenticación:', error.response?.data || error.message);
@@ -26,7 +27,7 @@ export const onLogin = async (data: LoginParams): Promise<boolean> => {
             console.error('Error desconocido:', error);
         }
 
-        return false;
+        return null;
     }
 };
 

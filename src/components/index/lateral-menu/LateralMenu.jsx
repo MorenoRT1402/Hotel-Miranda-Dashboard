@@ -4,6 +4,7 @@ import { LateralMenuLink } from "./LatMenuLink";
 import { MdSpaceDashboard, MdHotel, MdBook, MdRoomService, MdPeople } from "react-icons/md";
 import { FaHeart } from "react-icons/fa";
 import { pages } from "../../../app/pages";
+import { getUser } from "../../../utils/persistence";
 
 const Menu = styled.section`
     padding: 1.3rem 2rem;
@@ -100,6 +101,7 @@ const Heart = styled(FaHeart)`
 
 export const LateralMenu = () => {
     const [selectedLink, setSelectedLink] = useState(null);
+    const {username, email} = getUser();
 
     const menuLinks = [
         { title: "Dashboard", icon: MdSpaceDashboard, route: '/' },
@@ -132,8 +134,8 @@ export const LateralMenu = () => {
             </LinkNav>
             <UserCard>
                 <img src="https://picsum.photos/300/200" alt="" />
-                <h4>Carlos Moreno</h4>
-                <small className="color-dimmed">morenort1402@gmail.com</small>
+                <h4>{username}</h4>
+                <small className="color-dimmed">{email}</small>
                 <button className="color-secondary">Edit</button>
             </UserCard>
             <section>

@@ -72,10 +72,11 @@ export const Login = () => {
         ev.preventDefault();
     
         const firstCredential = loginType === LoginType.username ? {name:username} : {email};
-        const success = await onLogin({...firstCredential, password});
-    
-        if (success) {
-            dispatch({type: authActions.LOGIN, payload:{email, username, password}})
+        const user = await onLogin({...firstCredential, password});
+        
+        if (user) {
+            const payload = {email:user.email, username:user.username};
+            dispatch({type: authActions.LOGIN, payload})
             navigate(pages.home.path);
         } else {
           showToast("Invalid credentials.", ToastType.Error);

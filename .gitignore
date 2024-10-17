@@ -15,6 +15,7 @@ dist-ssr
 .sass-cache
 .env
 package-lock.json
+vite-env.d.ts
 
 # Editor directories and files
 .vscode/*

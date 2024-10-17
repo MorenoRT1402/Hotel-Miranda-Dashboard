@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Table } from '../table/Table';
 import React, { useEffect } from 'react';
 import { PromiseStatus } from '../../utils/promises';
-import { getAllThunk } from '../../features/users/userThunk';
+import userThunk from '../../features/users/userThunk';
 
 export const Concierges = () => {
     const dispatch = useAppDispatch();
@@ -12,7 +12,7 @@ export const Concierges = () => {
 
     useEffect(() => {
         if (status === PromiseStatus.IDLE) {
-            dispatch(getAllThunk());
+            dispatch(userThunk.getAll());
         }
     }, [dispatch, status]);
 

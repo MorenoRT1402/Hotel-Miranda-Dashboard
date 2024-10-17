@@ -1,48 +1,7 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { RoomInterface } from '../../dto/room';
-import axios from 'axios';
-import { API_URL } from '../../app/api';
-import { showToast } from "../../utils/alerts";
+import { endpoints } from "../../app/api";
+import { RoomInterface } from "../../dto/room";
+import { Thunk } from "../genericThunk";
 
-const BASE_URL=`${API_URL}/bookings`
+const roomThunk = new Thunk<RoomInterface>(endpoints.rooms);
 
-export const getAllRoomsThunk = createAsyncThunk<RoomInterface[]>(
-    'rooms/getAll',
-    async () => {
-        const response = await axios.get(BASE_URL);
-        return response.data;
-    }
-);
-
-export const getRoomByIdThunk = createAsyncThunk<RoomInterface | null, string>(
-    'rooms/getById',
-    async (id:string) => {
-        const response = await axios.get(`${BASE_URL}/${id}`);
-        return response.data;
-    }
-);
-
-export const createRoomThunk = createAsyncThunk<RoomInterface, RoomInterface>(
-    'rooms/create',
-    async (room: RoomInterface) => {
-        const response = await axios.post(`${BASE_URL}`);
-        showToast(`Created ${JSON.stringify(room)}`);
-        return response.data;
-    }
-);
-
-export const editRoomThunk = createAsyncThunk<RoomInterface, { id: number; room: RoomInterface }>(
-    'rooms/edit',
-    async ({ id, room }) => {
-        const response = await axios.put(`${BASE_URL}/${id}`, room);
-        return response.data;
-    }
-);
-
-export const removeThunk = createAsyncThunk<string, string>(
-    'rooms/remove',
-    async (id) => {
-        const response = await axios.delete(`${BASE_URL}/${id}`);
-        return response.data;
-    }
-);
+export default roomThunk;

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { pending, PromiseStatus, rejected } from '../../utils/promises';
-import { createRoomThunk, editRoomThunk, getAllRoomsThunk, getRoomByIdThunk, removeThunk } from './roomsThunk';
+import roomThunk from './roomsThunk';
 import { ReduxState } from '../../app/store';
 import { RoomInterface } from '../../dto/room';
 
@@ -22,61 +22,61 @@ export const roomSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getAllRoomsThunk.pending, state => {
+            .addCase(roomThunk.getAll.pending, state => {
                 pending(state);
             })
-            .addCase(getAllRoomsThunk.fulfilled, (state, action) => {
+            .addCase(roomThunk.getAll.fulfilled, (state, action) => {
                 state.status = PromiseStatus.FULFILLED;
                 state.rooms = action.payload;
             })
-            .addCase(getAllRoomsThunk.rejected, (state, action) => {
+            .addCase(roomThunk.getAll.rejected, (state, action) => {
                 rejected(state, action);
             })
 
-            .addCase(getRoomByIdThunk.pending, (state) => {
+            .addCase(roomThunk.getById.pending, (state) => {
                 pending(state);
             })
-            .addCase(getRoomByIdThunk.fulfilled, (state, action) => {
+            .addCase(roomThunk.getById.fulfilled, (state, action) => {
                 state.status = PromiseStatus.FULFILLED;
                 state.room = action.payload;
             })
-            .addCase(getRoomByIdThunk.rejected, (state, action) => {
+            .addCase(roomThunk.getById.rejected, (state, action) => {
                 rejected(state, action);
             })
 
-            .addCase(createRoomThunk.pending, (state) => {
+            .addCase(roomThunk.create.pending, (state) => {
                 pending(state);
             })
-            .addCase(createRoomThunk.fulfilled, (state, action) => {
+            .addCase(roomThunk.create.fulfilled, (state, action) => {
                 state.status = PromiseStatus.FULFILLED;
                 state.rooms.push(action.payload);
             })
-            .addCase(createRoomThunk.rejected, (state, action) => {
+            .addCase(roomThunk.create.rejected, (state, action) => {
                 rejected(state, action);
             })
 
-            .addCase(editRoomThunk.pending, (state) => {
+            .addCase(roomThunk.edit.pending, (state) => {
                 pending(state);
             })
-            .addCase(editRoomThunk.fulfilled, (state, action) => {
+            .addCase(roomThunk.edit.fulfilled, (state, action) => {
                 state.status = PromiseStatus.FULFILLED;
                 const index = state.rooms.findIndex(room => room._id === action.payload._id);
                 if (index !== -1) {
                     state.rooms[index] = action.payload;
                 }
             })
-            .addCase(editRoomThunk.rejected, (state, action) => {
+            .addCase(roomThunk.edit.rejected, (state, action) => {
                 rejected(state, action);
             })
 
-            .addCase(removeThunk.pending, (state) => {
+            .addCase(roomThunk.remove.pending, (state) => {
                 pending(state);
             })
-            .addCase(removeThunk.fulfilled, (state, action:PayloadAction<string>) => {
+            .addCase(roomThunk.remove.fulfilled, (state, action:PayloadAction<string>) => {
                 state.status = PromiseStatus.FULFILLED;
                 state.rooms = state.rooms.filter(room => room._id !== action.payload);
             })
-            .addCase(removeThunk.rejected, (state, action) => {
+            .addCase(roomThunk.remove.rejected, (state, action) => {
                 rejected(state, action);
             });
     }

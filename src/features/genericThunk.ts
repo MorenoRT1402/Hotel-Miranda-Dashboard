@@ -1,71 +1,58 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios from 'axios';
 import { API_URL } from "../app/api";
-import { GuestInterface } from "../dto/guest";
 
-const BASE_URL = (endpoint: string) => `${API_URL}/${endpoint}`;
+interface MongoEntity {
+    _id: string;
+}
 
-const createGenericThunk = <TResponse, TArg>(
-  type: string,
-  method: 'get' | 'post' | 'put' | 'delete',
-  endpoint: string,
-  data: TArg | null = null
-) => {
-  return createAsyncThunk<TResponse, TArg>(
-    type,
-    async (arg: TArg) => {
-      let response;
-      switch (method) {
-        case 'get':
-          response = await axios.get(`${BASE_URL(endpoint)}${arg ? `/${arg}` : ''}`);
-          break;
-        case 'post':
-          response = await axios.post(BASE_URL(endpoint), data);
-          break;
-        case 'put':
-          response = await axios.put(`${BASE_URL(endpoint)}/${(arg as any)?.id}`, data);
-          break;
-        case 'delete':
-          response = await axios.delete(`${BASE_URL(endpoint)}/${arg}`);
-          break;
-        default:
-          throw new Error("Invalid HTTP method");
-      }
-      return response.data;
+export class Thunk<T extends MongoEntity> {
+    private endpoint = 'entities';
+
+    get baseUrl(){ return `${API_URL}/${this.endpoint}` };
+
+    constructor(endpoint: string) {
+        this.endpoint = endpoint;
     }
-  );
-};
 
-// Use examples
+    getAll = createAsyncThunk<T[]>(
+        `${this.endpoint}/getAll`,
+        async () => {
+            const response = await axios.get(this.baseUrl);
+            return response.data;
+        }
+    );
 
-export const getAllThunk = createGenericThunk<GuestInterface[], null>(
-  'booking/getAll',
-  'get',
-  'bookings'
-);
+    getById = createAsyncThunk<T | null, string>(
+        `${this.endpoint}/getById`,
+        async (id: string) => {
+            const response = await axios.get(`${this.baseUrl}/${id}`);
+            return response.data;
+        }
+    );
 
-export const getByIdThunk = createGenericThunk<GuestInterface | null, string>(
-  'booking/getById',
-  'get',
-  'bookings'
-);
+    create = createAsyncThunk<T, T>(
+        `${this.endpoint}/create`,
+        async (entity: T) => {
+            const response = await axios.post(this.baseUrl, entity);
+            return response.data;
+        }
+    );
 
-export const createThunk = createGenericThunk<GuestInterface, GuestInterface>(
-  'booking/create',
-  'post',
-  'bookings',
-  null
-);
+    edit = createAsyncThunk<T, { id: string; entity: T }>(
+        `${this.endpoint}/edit`,
+        async ({ id, entity }) => {
+            const response = await axios.put(`${this.baseUrl}/${id}`, entity);
+            return response.data;
+        }
+    );
 
-export const editThunk = createGenericThunk<GuestInterface, { id: string; booking: GuestInterface }>(
-  'booking/edit',
-  'put',
-  'bookings',
-  null
-);
+    remove = createAsyncThunk<string, string>(
+        `${this.endpoint}/remove`,
+        async (id) => {
+            await axios.delete(`${this.baseUrl}/${id}`);
+            return id;
+        }
+    );
 
-export const removeThunk = createGenericThunk<string, string>(
-  'booking/remove',
-  'delete',
-  'bookings'
-);
+}

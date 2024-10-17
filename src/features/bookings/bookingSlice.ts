@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { createThunk, editThunk, getAllThunk, getByIdThunk, removeThunk } from './bookingThunk';
+import bookingThunk from './bookingThunk';
 import { changeStatus, pending, PromiseStatus, rejected } from '../../utils/promises';
 import { GuestInterface } from '../../dto/guest';
 import { ReduxState } from '../../app/store';
@@ -22,61 +22,61 @@ export const bookingSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getAllThunk.pending, (state) => {
+            .addCase(bookingThunk.getAll.pending, (state) => {
                 pending(state);
             })
-            .addCase(getAllThunk.fulfilled, (state, action) => {
+            .addCase(bookingThunk.getAll.fulfilled, (state, action) => {
                 changeStatus(state, PromiseStatus.FULFILLED);
                 state.guests = action.payload;
             })
-            .addCase(getAllThunk.rejected, (state, action) => {
+            .addCase(bookingThunk.getAll.rejected, (state, action) => {
                 rejected(state, action);
             })
 
-            .addCase(getByIdThunk.pending, state => {
+            .addCase(bookingThunk.getById.pending, state => {
                 pending(state)
             })
-            .addCase(getByIdThunk.fulfilled, (state, action) => {
+            .addCase(bookingThunk.getById.fulfilled, (state, action) => {
                 changeStatus(state, PromiseStatus.FULFILLED);
                 state.guest = action.payload;
             })
-            .addCase(getByIdThunk.rejected, (state, action) => {
+            .addCase(bookingThunk.getById.rejected, (state, action) => {
                 rejected(state, action);
             })
 
-            .addCase(createThunk.pending, state => {
+            .addCase(bookingThunk.create.pending, state => {
                 pending(state);
             })
-            .addCase(createThunk.fulfilled, (state, action : PayloadAction<GuestInterface>) => {
+            .addCase(bookingThunk.create.fulfilled, (state, action : PayloadAction<GuestInterface>) => {
                 changeStatus(state, PromiseStatus.FULFILLED);
                 state.guests.push(action.payload);
             })
-            .addCase(createThunk.rejected, (state, action) => {
+            .addCase(bookingThunk.create.rejected, (state, action) => {
                 rejected(state, action);
             })
 
-            .addCase(editThunk.pending, (state) => {
+            .addCase(bookingThunk.edit.pending, (state) => {
                 pending(state);
             })
-            .addCase(editThunk.fulfilled, (state, action : PayloadAction<GuestInterface>) => {
+            .addCase(bookingThunk.edit.fulfilled, (state, action : PayloadAction<GuestInterface>) => {
                 changeStatus(state, PromiseStatus.FULFILLED);
                 const index = state.guests.findIndex(booking => booking._id === action.payload._id);
                 if (index !== -1) {
                     state.guests[index] = action.payload;
                 }
             })
-            .addCase(editThunk.rejected, (state, action) => {
+            .addCase(bookingThunk.edit.rejected, (state, action) => {
                 rejected(state, action);
             })
 
-            .addCase(removeThunk.pending, (state) => {
+            .addCase(bookingThunk.remove.pending, (state) => {
                 pending(state);
             })
-            .addCase(removeThunk.fulfilled, (state, action: PayloadAction<string>) => {
+            .addCase(bookingThunk.remove.fulfilled, (state, action: PayloadAction<string>) => {
                 changeStatus(state, PromiseStatus.FULFILLED);
                 state.guests = state.guests.filter(guest => guest._id !== action.payload);
             })            
-            .addCase(removeThunk.rejected, (state, action) => {
+            .addCase(bookingThunk.remove.rejected, (state, action) => {
                 rejected(state, action);
             });
     }

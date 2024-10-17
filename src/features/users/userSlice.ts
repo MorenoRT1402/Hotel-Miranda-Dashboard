@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createThunk, editThunk, getAllThunk, getByIdThunk, removeThunk } from './userThunk';
+import userThunk from './userThunk';
 import { pending, PromiseStatus, rejected } from '../../utils/promises';
 import { ReduxState } from '../../app/store';
 import { UserInterface } from '../../dto/user';
@@ -22,61 +22,61 @@ export const userSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getAllThunk.pending, (state) => {
+            .addCase(userThunk.getAll.pending, (state) => {
                 pending(state);
             })
-            .addCase(getAllThunk.fulfilled, (state, action) => {
+            .addCase(userThunk.getAll.fulfilled, (state, action) => {
                 state.status = PromiseStatus.FULFILLED;
                 state.users = action.payload;
             })
-            .addCase(getAllThunk.rejected, (state, action) => {
+            .addCase(userThunk.getAll.rejected, (state, action) => {
                 rejected(state, action);
             })
 
-            .addCase(getByIdThunk.pending, (state) => {
+            .addCase(userThunk.getById.pending, (state) => {
                 pending(state);
             })
-            .addCase(getByIdThunk.fulfilled, (state, action) => {
+            .addCase(userThunk.getById.fulfilled, (state, action) => {
                 state.status = PromiseStatus.FULFILLED;
                 state.user = action.payload;
             })
-            .addCase(getByIdThunk.rejected, (state, action) => {
+            .addCase(userThunk.getById.rejected, (state, action) => {
                 rejected(state, action);
             })
 
-            .addCase(createThunk.pending, (state) => {
+            .addCase(userThunk.create.pending, (state) => {
                 pending(state);
             })
-            .addCase(createThunk.fulfilled, (state, action) => {
+            .addCase(userThunk.create.fulfilled, (state, action) => {
                 state.status = PromiseStatus.FULFILLED;
                 state.users.push(action.payload);
             })
-            .addCase(createThunk.rejected, (state, action) => {
+            .addCase(userThunk.create.rejected, (state, action) => {
                 rejected(state, action);
             })
 
-            .addCase(editThunk.pending, (state) => {
+            .addCase(userThunk.edit.pending, (state) => {
                 pending(state);
             })
-            .addCase(editThunk.fulfilled, (state, action) => {
+            .addCase(userThunk.edit.fulfilled, (state, action) => {
                 state.status = PromiseStatus.FULFILLED;
                 const index = state.users.findIndex(user => user._id === action.payload._id);
                 if (index !== -1) {
                     state.users[index] = action.payload;
                 }
             })
-            .addCase(editThunk.rejected, (state, action) => {
+            .addCase(userThunk.edit.rejected, (state, action) => {
                 rejected(state, action);
             })
 
-            .addCase(removeThunk.pending, (state) => {
+            .addCase(userThunk.remove.pending, (state) => {
                 pending(state);
             })
-            .addCase(removeThunk.fulfilled, (state, action) => {
+            .addCase(userThunk.remove.fulfilled, (state, action) => {
                 state.status = PromiseStatus.FULFILLED;
                 state.users = state.users.filter(user => user._id !== action.payload);
             })
-            .addCase(removeThunk.rejected, (state, action) => {
+            .addCase(userThunk.remove.rejected, (state, action) => {
                 rejected(state, action);
             });
     }

@@ -4,16 +4,31 @@ import { defaultModalStrings } from '../../types/alert.types'
 import { NoPropagationButton } from "../table/buttons/TableButton";
 
 const Container = styled.dialog`
+    position: fixed;
     display: block;
+    z-index: 10;
+    transform: translateY(-10rem);
 
     &>section{
-        &>button{
-            border: initial;
-            background-color: initial;
-            outline: initial;
+        display: flex;
+        justify-content: space-around;
+
+        &>button {
+            background-color: ${({theme}) => theme.colors.secondary};
+            color: white;
+            border: 1px solid;
+            padding: .5rem;
+            border-radius: 24px;
+            width: 6rem;
         }
     }
 `;
+
+const ModalButton = styled(NoPropagationButton)`
+    border: 1px solid black !important;
+    background-color: initial;
+    outline: initial;
+`
 
 export const Modal = ({strings=defaultModalStrings, onYes = () => {}, onCancel = () => {}}) => {
 
@@ -21,8 +36,8 @@ export const Modal = ({strings=defaultModalStrings, onYes = () => {}, onCancel =
         <Container>
             <strong>{strings.message}</strong>
             <section>
-                <NoPropagationButton onClick={onYes}>{strings.yesOption}</NoPropagationButton>
-                <NoPropagationButton onClick={onCancel}>{strings.noOption}</NoPropagationButton>
+                <ModalButton onClick={onYes}>{strings.yesOption}</ModalButton>
+                <ModalButton onClick={onCancel}>{strings.noOption}</ModalButton>
             </section>
         </Container>
     )

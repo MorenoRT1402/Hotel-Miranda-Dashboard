@@ -2,7 +2,7 @@ import { Table } from '../table/Table';
 import React, { useEffect } from 'react';
 import { PromiseStatus } from '../../utils/promises';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { getAllRoomsThunk } from '../../features/rooms/roomsThunk';
+import roomThunk from '../../features/rooms/roomsThunk';
 
 export const Rooms = () => {
     const dispatch = useAppDispatch();
@@ -11,7 +11,7 @@ export const Rooms = () => {
 
     useEffect(() => {
         if (status === PromiseStatus.IDLE) {
-            dispatch(getAllRoomsThunk());
+            dispatch(roomThunk.getAll());
         }
     }, [dispatch, status]);
 

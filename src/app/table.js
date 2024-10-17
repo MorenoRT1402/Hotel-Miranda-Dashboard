@@ -1,6 +1,6 @@
-import { createThunk as createUser } from "../features/users/userThunk";
-import { createThunk as createBooking } from "../features/bookings/bookingThunk";
-import { createRoomThunk as createRoom } from "../features/rooms/roomsThunk";
+import bookingThunk from "../features/bookings/bookingThunk";
+import roomThunk from "../features/rooms/roomsThunk";
+import userThunk from "../features/users/userThunk";
 
 export const statusHeader = 'status'
 const tableMap = {
@@ -32,9 +32,9 @@ export const getCategoryItem = headers => {
 }
 export const categoriesEnum = { Booking: 'Booking', Users: 'Users', Rooms: 'Rooms' };
 export const categories = [
-    { category: categoriesEnum.Users, item: 'Employee', create: createUser, nameToSearch: 'name' },
-    { category: categoriesEnum.Booking, item: 'Guest', create: createBooking, nameToSearch: 'guest' },
-    { category: categoriesEnum.Rooms, item: 'Room', create: createRoom, nameToSearch: 'room-type' }
+    { category: categoriesEnum.Users, item: 'Employee', thunk: userThunk, nameToSearch: 'name' },
+    { category: categoriesEnum.Booking, item: 'Guest', thunk: bookingThunk, nameToSearch: 'guest' },
+    { category: categoriesEnum.Rooms, item: 'Room', thunk: roomThunk, nameToSearch: 'room-type' }
 ];
 
 const getCategorySlot = category => categories.find(cat => cat.category === category);
@@ -46,8 +46,9 @@ export const getCategory = headers => {
 
     return categoryMatch ? categoryMatch.category : null;
 }
-
-export const getCreate = category => getCategorySlot(category).create;
+export const getThunk = category => getCategorySlot(category).thunk;
+export const getCreate = category => getThunk(category).create;
+export const getRemove = category => getThunk(category).remove;
 
 export const getStatusOption = data => [...new Set(data.map(item => item.status))];
 export const statusColors = {

@@ -3,8 +3,8 @@ import styled from "styled-components";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../app/store";
-import { getAllThunk } from "../../features/bookings/bookingThunk";
-import { getAllRoomsThunk } from "../../features/rooms/roomsThunk";
+import bookingThunk from "../../features/bookings/bookingThunk";
+import roomThunk from "../../features/rooms/roomsThunk";
 
 const Container = styled.section`
     padding: 2rem;
@@ -18,11 +18,9 @@ const Container = styled.section`
 export const GuestDetail = () => {
     const { id } = useParams<{ id: string }>();
     const dispatch: AppDispatch = useDispatch();
-
-    const guestId = id;
     
     const guest = useSelector((state: RootState) => 
-        state.booking.guests.find(guest => guest._id === guestId)
+        state.booking.guests.find(guest => guest._id === id)
     );
     
     const room = useSelector((state: RootState) => 
@@ -30,12 +28,8 @@ export const GuestDetail = () => {
     );    
 
     useEffect(() => {
-        if (!guest) {
-            dispatch(getAllThunk());
-        }
-        if (!room) {
-            dispatch(getAllRoomsThunk());
-        }
+        if (!guest) dispatch(bookingThunk.getAll());
+        if (!room) dispatch(roomThunk.getAll());
     }, [dispatch, guest, room]);
 
     if (!guest || !room) {

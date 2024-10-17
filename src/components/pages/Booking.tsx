@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { getAllThunk } from '../../features/bookings/bookingThunk';
 import { Table } from '../table/Table';
 import { PromiseStatus } from '../../utils/promises';
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import bookingThunk from '../../features/bookings/bookingThunk';
 
 export const Booking = () => {
     const dispatch = useAppDispatch();
@@ -11,7 +11,7 @@ export const Booking = () => {
 
     useEffect(() => {
         if (status === PromiseStatus.IDLE) {
-            dispatch(getAllThunk());
+            dispatch(bookingThunk.getAll());
         }
     }, [dispatch, status]);
 

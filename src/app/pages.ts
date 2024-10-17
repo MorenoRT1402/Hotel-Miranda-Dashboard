@@ -1,3 +1,5 @@
+import { endpoints } from "./api";
+
 interface PageConfig {
   path: string;
   title: string;
@@ -11,28 +13,28 @@ export const pages: Record<string, PageConfig> = {
       title: 'Dashboard',
   },
   rooms: {
-      path: 'rooms',
+      path: endpoints.rooms,
       title: 'Room List',
       detailTitle: 'Room Detail',
   },
   booking: {
-      path: 'booking',
+      path: endpoints.booking,
       title: 'Guest List',
       detailTitle: 'Guest Detail',
       uri: 'Guest'
   },
-  concierges: {
-      path: 'concierges',
+  users: {
+      path: endpoints.users,
       title: 'Concierges List',
       detailTitle: 'Concierge Detail',
   },
   contact: {
-    path: 'contact',
+    path: endpoints.contacts,
     title: 'Reviews',
     detailTitle: 'Review'
   },
   login: {
-      path: 'login',
+      path: endpoints.login,
       title: 'Login',
   },
 };

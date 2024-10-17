@@ -7,7 +7,6 @@ const tableMap = {
     'Order Date': item => item['orderDate'],
     'Check In': item => item['checkIn'],
     'Check Out': item => item['checkOut'],
-    // 'Special Request': item => item['notes'].join(', '),
     'Special Request': item => item['notes'].join(', '),
     'Room Type': item => item['room'].bedType,
 

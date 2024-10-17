@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks'
 export const Booking = () => {
     const dispatch = useAppDispatch();
     const { guests, status, error } = useAppSelector((state) => state.booking);
-    const headers = ["Guest", "Order Date", "Check In", "Check Out", "Special Request", "Room Type", "Status"];
+    const headers = ["Guest", "Order Date", "Check In", "Check Out", "Special Request", "Room Type", "Status", ""];
 
     useEffect(() => {
         if (status === PromiseStatus.IDLE) {

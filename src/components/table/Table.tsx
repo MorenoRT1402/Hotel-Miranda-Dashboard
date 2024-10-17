@@ -25,7 +25,7 @@ const Content = styled.table`
     &>*{
         background-color: ${({theme}) => theme.colors.main};
         &>tr{
-            &>*{
+            &>td{
                 padding: .31rem 1rem;
             }
         }

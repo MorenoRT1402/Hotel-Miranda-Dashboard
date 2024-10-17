@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import { getStringData, statusColors, statusHeader } from "../../app/table";
-import { StatusButton } from './StatusButton'
+import { StatusButton } from './buttons/StatusButton'
 import React from "react";
+import { RemoveButton } from "./buttons/RemoveButton";
 
 const Container = styled.td`
-    max-width: 23rem;
+  max-width: 23rem;
 `;
+
 
 const Identificator = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'hasroomtype',
@@ -58,15 +60,17 @@ export const TableDataIdentificator = ({ item }) => {
 };
 
 export const TableData = ({ header, item, colIndex, category }) => {
-    const stringData = colIndex !== 0 ? getStringData(header, item) : '';
-    const isStatus = header.toLowerCase() == statusHeader;
-    const isOptions = header.toLowerCase() == '';
+  const stringData = colIndex !== 0 ? getStringData(header, item) : '';
+  const isStatus = header.toLowerCase() == statusHeader;
+  const isOptions = header.toLowerCase() == '';
 
-    let content: string | number | boolean | Iterable<React.ReactNode> | React.JSX.Element | null | undefined;
-    if (colIndex === 0) {
-        content = <TableDataIdentificator item={item} />;
-    } else
-        content = isStatus ? <StatusButton text={stringData} statusColors={statusColors[category]}/> : <strong>{stringData}</strong>;
+  let content: string | number | boolean | Iterable<React.ReactNode> | React.JSX.Element | null | undefined;
+  if (colIndex === 0) {
+    content = <TableDataIdentificator item={item} />;
+  } else if(isStatus)
+    content = <StatusButton text={stringData} statusColors={statusColors[category]}/>;
+  else
+    content = isOptions ? <RemoveButton item={item}/> : <strong>{stringData}</strong>
   
-    return <Container>{content}</Container>;
+  return <Container style={{ paddingInline: isOptions ? '0 1.6rem' : undefined }}>{content}</Container>;
 }

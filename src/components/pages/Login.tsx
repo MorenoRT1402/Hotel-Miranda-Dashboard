@@ -6,6 +6,7 @@ import { pages } from "../../app/pages";
 import { authActions } from "../../app/actions";
 import { AuthContext } from "../auth/AuthProvider";
 import { testingUser, validPass } from "../../app/auth.credentials";
+import { showToast, ToastType } from "../../utils/alerts";
 
 const Container = styled.section`
     margin: 0 auto;
@@ -77,7 +78,7 @@ export const Login = () => {
             dispatch({type: authActions.LOGIN, payload:{email, username, password}})
             navigate(pages.home.path);
         } else {
-          alert("Invalid credentials.");
+          showToast("Invalid credentials.", ToastType.Error);
         }
       };
 

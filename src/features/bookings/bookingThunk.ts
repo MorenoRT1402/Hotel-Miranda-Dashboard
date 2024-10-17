@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { GuestInterface } from "../../dto/guest";
 import axios from "axios";
 import { API_URL } from "../../app/api";
+import { showToast } from "../../utils/alerts";
 
 const BASE_URL=`${API_URL}/bookings`
 
@@ -25,7 +26,7 @@ export const createThunk = createAsyncThunk<GuestInterface, GuestInterface>(
     'booking/create',
     async (booking: GuestInterface) => {
         const response = await axios.post(`${BASE_URL}`);
-        alert(`Created ${JSON.stringify(booking)}`);
+        showToast(`Created ${JSON.stringify(booking)}`);
         return response.data;
     }
 );

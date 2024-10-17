@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RoomInterface } from '../../dto/room';
 import axios from 'axios';
 import { API_URL } from '../../app/api';
+import { showToast } from "../../utils/alerts";
 
 const BASE_URL=`${API_URL}/bookings`
 
@@ -25,7 +26,7 @@ export const createRoomThunk = createAsyncThunk<RoomInterface, RoomInterface>(
     'rooms/create',
     async (room: RoomInterface) => {
         const response = await axios.post(`${BASE_URL}`);
-        alert(`Created ${JSON.stringify(room)}`);
+        showToast(`Created ${JSON.stringify(room)}`);
         return response.data;
     }
 );

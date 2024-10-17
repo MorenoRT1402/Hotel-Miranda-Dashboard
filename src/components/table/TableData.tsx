@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { getRemove as getThunk, getStringData, statusColors, statusHeader } from "../../app/table";
+import { getThunk, getStringData, statusColors, statusHeader } from "../../app/table";
 import { StatusButton } from './buttons/StatusButton'
 import React from "react";
 import { RemoveButton } from "./buttons/RemoveButton";
@@ -7,7 +7,6 @@ import { RemoveButton } from "./buttons/RemoveButton";
 const Container = styled.td`
   max-width: 23rem;
 `;
-
 
 const Identificator = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'hasroomtype',
@@ -64,7 +63,7 @@ export const TableData = ({ header, item, colIndex, category }) => {
   const isStatus = header.toLowerCase() == statusHeader;
   const isOptions = header.toLowerCase() == '';
 
-  const thunk = getThunk(category);
+  const thunkk = getThunk(category);
 
   let content: string | number | boolean | Iterable<React.ReactNode> | React.JSX.Element | null | undefined;
   if (colIndex === 0) {
@@ -72,7 +71,7 @@ export const TableData = ({ header, item, colIndex, category }) => {
   } else if(isStatus)
     content = <StatusButton text={stringData} statusColors={statusColors[category]}/>;
   else
-    content = isOptions ? <RemoveButton item={item} thunk={thunk}/> : <strong>{stringData}</strong>
+    content = isOptions ? <RemoveButton data={item} thunk={thunkk}/> : <strong>{stringData}</strong>
   
   return <Container style={{ paddingInline: isOptions ? '0 1.6rem' : undefined }}>{content}</Container>;
 }

@@ -2,8 +2,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import Select from 'react-select';
-import { getCreate } from "../../app/table";
 import { useDispatch } from "react-redux";
+import { getThunk } from "../../app/table";
 
 const Container = styled.div`
     position: absolute;
@@ -65,7 +65,7 @@ export const NewDataForm = ({ close, data, category }) => {
     const handleSubmit = ev => {
         ev.preventDefault();
         const newData = { ...formData, id: data[data.length - 1].id + 1, picture: '', status: status};
-        const createTh = getCreate(category);
+        const createTh = getThunk(category).create;
         dispatch(createTh(newData));
         close();
     };

@@ -7,7 +7,7 @@ const Container = styled.dialog`
     position: fixed;
     display: block;
     z-index: 10;
-    transform: translateY(-10rem);
+    top: 20rem;
 
     &>section{
         display: flex;

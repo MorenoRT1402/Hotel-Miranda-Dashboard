@@ -46,9 +46,15 @@ export const getCategory = headers => {
 
     return categoryMatch ? categoryMatch.category : null;
 }
-export const getThunk = category => getCategorySlot(category).thunk;
-export const getCreate = category => getThunk(category).create;
-export const getRemove = category => getThunk(category).remove;
+export const getThunk = category => {
+    const thunk = getCategorySlot(category).thunk;
+    return thunk;
+}
+
+export const getDisplayName = data => {
+    if(data.guest) return data.guest;
+    return data;
+}
 
 export const getStatusOption = data => [...new Set(data.map(item => item.status))];
 export const statusColors = {

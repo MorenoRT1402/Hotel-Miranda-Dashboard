@@ -8,6 +8,8 @@ export interface UserInterface {
     dateAdded: string;
     name: string;
     picture: string;
+    position: string;
+    email: string;
     joined: string;
     jobDesk: string;
     schedule: string[];
@@ -20,6 +22,8 @@ export class User {
     dateAdded: Date;
     name: string;
     picture: string;
+    position: string;
+    email: string;
     joined: Date;
     jobDesk: string;
     schedule: string[];
@@ -31,6 +35,8 @@ export class User {
         this.dateAdded = new Date(config.dateAdded);
         this.name = config.name;
         this.picture = config.picture;
+        this.position = config.position;
+        this.email = config.email;
         this.joined = new Date(config.joined);
         this.jobDesk = config.jobDesk;
         this.schedule = config.schedule;

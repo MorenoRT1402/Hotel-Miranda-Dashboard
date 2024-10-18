@@ -19,7 +19,11 @@ const initialState : BookingState = {
 export const bookingSlice = createSlice({
     name: 'booking',
     initialState,
-    reducers: {},
+    reducers: {
+        resetStatus: (state) => {
+            state.status = PromiseStatus.IDLE;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(bookingThunk.getAll.pending, (state) => {
@@ -81,3 +85,5 @@ export const bookingSlice = createSlice({
             });
     }
 });
+
+export const { resetStatus } = bookingSlice.actions;

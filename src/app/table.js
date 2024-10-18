@@ -10,7 +10,7 @@ const tableMap = {
     'Special Request': item => item['notes'].join(', '),
     'Room Type': item => item['room'].bedType,
 
-    'Job Desk': item => item['job-desk'],
+    'Job Desk': item => item.jobDesk,
     'Schedule': item => item['schedule'].join(', '),
     'Contact': item => item['contact'],
 
@@ -56,6 +56,7 @@ export const getThunk = category => {
 export const getDisplayName = data => {
     if(data.guest) return data.guest;
     if(data.bedType) return `${data.bedType} - ${data.number}`;
+    if(data.name) return data.name;
     return data;
 }
 

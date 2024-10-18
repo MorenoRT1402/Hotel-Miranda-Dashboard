@@ -19,7 +19,11 @@ const initialState : UserState = {
 export const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        resetStatus: (state) => {
+            state.status = PromiseStatus.IDLE;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(userThunk.getAll.pending, (state) => {
@@ -81,3 +85,5 @@ export const userSlice = createSlice({
             });
     }
 });
+
+export const { resetStatus } = userSlice.actions;

@@ -28,11 +28,13 @@ export const pages: Record<string, PageConfig> = {
       path: endpoints.users,
       title: 'Concierges List',
       detailTitle: 'Concierge Detail',
+      uri: 'User'
   },
   contact: {
     path: endpoints.contacts,
     title: 'Reviews',
-    detailTitle: 'Review'
+    detailTitle: 'Review',
+    uri: 'Contact'
   },
   login: {
       path: endpoints.login,

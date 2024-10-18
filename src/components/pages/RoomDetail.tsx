@@ -72,23 +72,37 @@ const PriceSection = styled.div`
     background-color: #f5f5f5;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    align-items: center; /* Alinear contenido verticalmente */
 
     h3 {
         font-size: 1.5rem;
         color: #333;
+        margin-bottom: 0.5rem;
     }
 
-    span {
-        font-size: 1.2rem;
-        color: #ff4d4d;
+    .original-price {
+        font-size: 1rem;
+        color: #941313;
+        text-decoration: line-through;
+        margin-bottom: 0.5rem;
+    }
+
+    .final-price {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #2d8519;
+    }
+
+    .price-container {
+        text-align: right;
     }
 
     .discount {
-        font-size: 0.9rem;
+        font-size: 1rem;
         color: #999;
-        text-decoration: line-through;
     }
 `;
+
 
 export const RoomDetail = () => {
     return (
@@ -137,16 +151,17 @@ export const RoomDetail = () => {
                         <PriceSection>
                             <div>
                                 <h3>Price</h3>
-                                <span>{room.rate}</span>
+                            </div>
+                            <div className="price-container">
+                                {room.discount && (
+                                    <div className="original-price">{room.rate}</div>
+                                )}
+                                <div className="final-price">
+                                    ${getFinalPrice(parseFloat(room.rate.slice(1)), room.discount)}
+                                </div>
                                 {room.discount && (
                                     <div className="discount">Discount: {room.discount}%</div>
                                 )}
-                            </div>
-                            <div>
-                                <small>Final Price (after discount)</small>
-                                <strong>
-                                    ${getFinalPrice(parseFloat(room.rate.slice(1)), room.discount)}
-                                </strong>
                             </div>
                         </PriceSection>
                     </Container>

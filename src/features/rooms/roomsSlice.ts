@@ -19,7 +19,11 @@ const initialState : RoomState = {
 export const roomSlice = createSlice({
     name: 'room',
     initialState,
-    reducers: {},
+    reducers: {
+        resetStatus: (state) => {
+            state.status = PromiseStatus.IDLE;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(roomThunk.getAll.pending, state => {
@@ -81,3 +85,5 @@ export const roomSlice = createSlice({
             });
     }
 });
+
+export const { resetStatus } = roomSlice.actions;

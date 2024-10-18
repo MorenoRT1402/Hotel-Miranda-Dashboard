@@ -1,30 +1,22 @@
-import { Table } from '../table/Table';
-import React, { useEffect } from 'react';
-import { PromiseStatus } from '../../utils/promises';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import roomThunk from '../../features/rooms/roomsThunk';
+// Rooms.jsx
+import React from 'react';
 import { commonHeaders } from '../../app/table';
+import roomThunk from '../../features/rooms/roomsThunk';
+import { resetStatus } from '../../features/rooms/roomsSlice';
+import { DataPage } from './DataPage';
+import { useAppSelector } from '../../app/hooks';
 
 export const Rooms = () => {
-    const dispatch = useAppDispatch();
-    const { rooms, status, error } = useAppSelector(state => state.room);
+    const selector = useAppSelector((state) => state.room);
     const headers = ["Room Name", "Bed Type", "Room Floor", "Facilities", "Rate", ...commonHeaders];
 
-    useEffect(() => {
-        if (status === PromiseStatus.IDLE) {
-            dispatch(roomThunk.getAll());
-        }
-    }, [dispatch, status]);
-
-    if (status === PromiseStatus.PENDING) {
-        return <p>Loading...</p>;
-    }
-
-    if (status === PromiseStatus.REJECTED) {
-        return <p>Error: {error}</p>;
-    }
-
     return (
-        <Table headers={headers} data={rooms} />
-    )
-}
+        <DataPage
+            thunkAction={roomThunk.getAll}
+            resetStatusAction={resetStatus}
+            selector={selector}
+            dataKey={'rooms'}
+            headers={headers}
+        />
+    );
+};

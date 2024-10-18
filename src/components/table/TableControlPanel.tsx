@@ -67,7 +67,7 @@ export const TableControlPanel = ({ headers, data, filteredData, setFilteredData
   const [modalVisible, setModalVisible] = useState(false);
   const [activeFilter, setActiveFilter] = useState('All');
   const [searched, setSearched] = useState('');
-  const nameToSearch = getNameToSearch(headers);
+  const [nameToSearch, setNameToSearch] = useState('');
   const statusOptions = getStatusOption(data);
 
   const categoryItem = getCategoryItem(headers);
@@ -85,9 +85,14 @@ export const TableControlPanel = ({ headers, data, filteredData, setFilteredData
       : [];
 
       useEffect(() => {
+        setNameToSearch(getNameToSearch(headers));
+      }, [headers])
+
+      useEffect(() => {
+        if(nameToSearch)
           setFilteredData(data.filter(item => itemInThisFilter(activeFilter, categoryItem, item) && item[nameToSearch].includes(searched))
         )
-        }, [data, activeFilter, categoryItem, setFilteredData, searched])
+        }, [data, activeFilter, categoryItem, setFilteredData, searched, nameToSearch])
 
   return (
       <ControlPanel>

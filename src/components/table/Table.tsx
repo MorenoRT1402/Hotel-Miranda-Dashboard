@@ -11,10 +11,6 @@ const Container = styled.article`
     height: 100%;
     display: flex;
     flex-direction: column;
-
-    &>table{
-      flex: 1;
-    }
 `;
 
 const Content = styled.table`

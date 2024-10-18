@@ -50,7 +50,7 @@ export const TableDataIdentificator = ({ item }) => {
 
         <span>{`#${item._id}`}</span>
 
-        {hasroomtype ? <strong>{`${item.room.bedType}-${item.room.number}`}</strong> : null}
+        {hasroomtype ? <strong>{`${item.bedType}-${item.number}`}</strong> : null}
         
         {item.joined !== undefined ? <span>{item.joined}</span> : null}
       </div>
@@ -63,7 +63,7 @@ export const TableData = ({ header, item, colIndex, category }) => {
   const isStatus = header.toLowerCase() == statusHeader;
   const isOptions = header.toLowerCase() == '';
 
-  const thunkk = getThunk(category);
+  const thunk = getThunk(category);
 
   let content: string | number | boolean | Iterable<React.ReactNode> | React.JSX.Element | null | undefined;
   if (colIndex === 0) {
@@ -71,7 +71,7 @@ export const TableData = ({ header, item, colIndex, category }) => {
   } else if(isStatus)
     content = <StatusButton text={stringData} statusColors={statusColors[category]}/>;
   else
-    content = isOptions ? <RemoveButton data={item} thunk={thunkk}/> : <strong>{stringData}</strong>
+    content = isOptions ? <RemoveButton data={item} thunk={thunk}/> : <strong>{stringData}</strong>
   
   return <Container style={{ paddingInline: isOptions ? '0 1.6rem' : undefined }}>{content}</Container>;
 }

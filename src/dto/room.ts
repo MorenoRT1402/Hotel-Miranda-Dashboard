@@ -1,3 +1,4 @@
+//#region Interface
 export enum RoomStatus {
     Available = "Available",
     Booked = "Booked",
@@ -13,9 +14,12 @@ export interface RoomInterface {
     roomFloor: string;
     facilities: string[];
     rate: string;
+    discount: number;
     status: RoomStatus;
 }
+//#endregion
 
+//#region Class
 export class Room {
     _id: string;
     dateAdded: Date;
@@ -26,6 +30,7 @@ export class Room {
     roomFloor: string;
     facilities: string[];
     rate: string;
+    discount: number;
     status: RoomStatus;
 
     constructor(config: RoomInterface) {
@@ -38,6 +43,7 @@ export class Room {
         this.roomFloor = config.roomFloor;
         this.facilities = config.facilities;
         this.rate = config.rate;
+        this.discount = config.discount;
         this.status = config.status;
     }
 
@@ -55,4 +61,5 @@ export class Room {
         Date Added: ${this.dateAdded.toDateString()}`;
     }
 }
+//#endregion
 

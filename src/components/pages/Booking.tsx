@@ -3,11 +3,12 @@ import { Table } from '../table/Table';
 import { PromiseStatus } from '../../utils/promises';
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import bookingThunk from '../../features/bookings/bookingThunk';
+import { commonHeaders } from '../../app/table';
 
 export const Booking = () => {
     const dispatch = useAppDispatch();
     const { guests, status, error } = useAppSelector((state) => state.booking);
-    const headers = ["Guest", "Order Date", "Check In", "Check Out", "Special Request", "Room Type", "Status", ""];
+    const headers = ["Guest", "Order Date", "Check In", "Check Out", "Special Request", "Room Type", ...commonHeaders];
 
     useEffect(() => {
         if (status === PromiseStatus.IDLE) {

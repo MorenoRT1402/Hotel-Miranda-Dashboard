@@ -3,11 +3,12 @@ import React, { useEffect } from 'react';
 import { PromiseStatus } from '../../utils/promises';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import roomThunk from '../../features/rooms/roomsThunk';
+import { commonHeaders } from '../../app/table';
 
 export const Rooms = () => {
     const dispatch = useAppDispatch();
     const { rooms, status, error } = useAppSelector(state => state.room);
-    const headers = ["Room Name", "Bed Type", "Room Floor", "Facilities", "Rate", "Status"];
+    const headers = ["Room Name", "Bed Type", "Room Floor", "Facilities", "Rate", ...commonHeaders];
 
     useEffect(() => {
         if (status === PromiseStatus.IDLE) {

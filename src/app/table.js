@@ -14,13 +14,15 @@ const tableMap = {
     'Schedule': item => item['schedule'].join(', '),
     'Contact': item => item['contact'],
 
-    'Bed Type': item => `${item['bed-type']}`,
-    'Room Floor': item => item['room-floor'],
+    'Bed Type': item => `${item.bedType}`,
+    'Room Floor': item => item.roomFloor,
     'Facilities': item => item['facilities'].join(', '),
     'Rate': item => `${item['rate']} /night`,
 
     'Status': item => item[statusHeader],
 }
+
+export const commonHeaders = ['Status', ''];
 
 export const getCategoryItem = headers => {
     const header = headers[0];
@@ -34,7 +36,7 @@ export const categoriesEnum = { Booking: 'Booking', Users: 'Users', Rooms: 'Room
 export const categories = [
     { category: categoriesEnum.Users, item: 'Employee', thunk: userThunk, nameToSearch: 'name' },
     { category: categoriesEnum.Booking, item: 'Guest', thunk: bookingThunk, nameToSearch: 'guest' },
-    { category: categoriesEnum.Rooms, item: 'Room', thunk: roomThunk, nameToSearch: 'room-type' }
+    { category: categoriesEnum.Rooms, item: 'Room', thunk: roomThunk, nameToSearch: 'roomType' }
 ];
 
 const getCategorySlot = category => categories.find(cat => cat.category === category);
@@ -53,6 +55,7 @@ export const getThunk = category => {
 
 export const getDisplayName = data => {
     if(data.guest) return data.guest;
+    if(data.bedType) return `${data.bedType} - ${data.number}`;
     return data;
 }
 

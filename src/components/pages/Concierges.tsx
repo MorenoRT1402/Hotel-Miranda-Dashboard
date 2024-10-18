@@ -3,11 +3,12 @@ import { Table } from '../table/Table';
 import React, { useEffect } from 'react';
 import { PromiseStatus } from '../../utils/promises';
 import userThunk from '../../features/users/userThunk';
+import { commonHeaders } from '../../app/table';
 
 export const Concierges = () => {
     const dispatch = useAppDispatch();
     const { users, status, error } = useAppSelector(state => state.user);
-    const headers = ["Name", "Job Desk", "Schedule", "Contact", "Status"];
+    const headers = ["Name", "Job Desk", "Schedule", "Contact", ...commonHeaders];
     
 
     useEffect(() => {

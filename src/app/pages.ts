@@ -16,6 +16,7 @@ export const pages: Record<string, PageConfig> = {
       path: endpoints.rooms,
       title: 'Room List',
       detailTitle: 'Room Detail',
+      uri: 'Room'
   },
   booking: {
       path: endpoints.booking,

@@ -14,6 +14,7 @@ import { AuthMiddleware } from '../auth/AuthMiddleware'
 import React from 'react'
 import { Contact } from '../pages/Contact'
 import {axiosSetup} from '../../app/axiosSetup'
+import { RoomDetail } from '../pages/RoomDetail'
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -37,6 +38,7 @@ export const App = () => {
               <Route path={pages.booking.path} element={<Booking />} />
               <Route path={`${pages.booking.path}/:id`} element={<GuestDetail />} />
               <Route path={pages.rooms.path} element={<Rooms />} />
+              <Route path={`${pages.rooms.path}/:id`} element={<RoomDetail />} />
               <Route path={pages.users.path} element={<Concierges />} />
               <Route path={pages.contact.path} element={<Contact />} />
             </Route>

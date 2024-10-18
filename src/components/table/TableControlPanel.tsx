@@ -91,7 +91,7 @@ export const TableControlPanel = ({ headers, data, filteredData, setFilteredData
 
   return (
       <ControlPanel>
-      {modalVisible ? <NewDataForm data={data} category={getCategory(headers)} close={() => setModalVisible(false)}/> : <></>}
+      {modalVisible ? <NewDataForm category={getCategory(headers)} close={() => setModalVisible(false)}/> : <></>}
       <section>
         {basicFilters.map((filter, index) => (
           <BasicFilter 

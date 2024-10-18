@@ -1,10 +1,9 @@
-import { useParams } from "react-router-dom";
+import { getDisplayName } from "../../app/table";
 import styled from "styled-components";
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "../../app/store";
+import React from "react";
+import { PageDetail } from "./PageDetail";
 import bookingThunk from "../../features/bookings/bookingThunk";
-import roomThunk from "../../features/rooms/roomsThunk";
+import { formatDateTime } from "../../utils/dates";
 
 const Container = styled.section`
     padding: 2rem;
@@ -16,65 +15,46 @@ const Container = styled.section`
 `;
 
 export const GuestDetail = () => {
-    const { id } = useParams<{ id: string }>();
-    const dispatch: AppDispatch = useDispatch();
-    
-    const guest = useSelector((state: RootState) => 
-        state.booking.guests.find(guest => guest._id === id)
-    );
-    
-    const room = useSelector((state: RootState) => 
-        state.room.rooms.find(room => room._id === guest?.roomId)
-    );    
-
-    useEffect(() => {
-        if (!guest) dispatch(bookingThunk.getAll());
-        if (!room) dispatch(roomThunk.getAll());
-    }, [dispatch, guest, room]);
-
-    if (!guest || !room) {
-        return <p>Loading...</p>;
-    }
-
-    const formatDate = (date: Date | string) => {
-        return new Intl.DateTimeFormat('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-        }).format(new Date(date));
-    };
-
     return (
-        <Container>
-            <section>
-                <img src={guest.picture} alt={`${guest.guest} profile`} />
-                <section>
-                    <h3>{guest.guest}</h3>
-                    <small>{`ID: ${guest._id}`}</small>
-                </section>
-            </section>
-            <section>
-                <div>
-                    <small>Check In</small>
-                    <strong>{formatDate(guest.checkIn)}</strong>
-                </div>
-                <div>
-                    <small>Check Out</small>
-                    <strong>{formatDate(guest.checkOut)}</strong>
-                </div>
-            </section>
-            <hr />
-            <section>
-                <div>
-                    <small>Room Info</small>
-                    <strong>{room["room-type"]}</strong>
-                </div>
-                <div>
-                    <small>Price</small>
-                    <strong>{room.rate}</strong>
-                </div>
-            </section>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas commodi dolorum accusamus aperiam quod earum facilis facere at odit eveniet! Veritatis maiores quo aspernatur enim esse similique aut quos porro.</p>
-        </Container>
+        <PageDetail
+            selector={(state, id) => state.booking.guests.find(guest => guest._id === id)}
+            thunkAction={bookingThunk.getAll}
+            render={(booking) => {
+                const name = getDisplayName(booking);
+                return (
+                    <Container>
+                        <section>
+                            <img src={booking.picture} alt={`${name} profile`} />
+                            <section>
+                                <h3>{name}</h3>
+                                <small>{`ID: ${booking._id}`}</small>
+                            </section>
+                        </section>
+                        <section>
+                            <div>
+                                <small>Check In</small>
+                                <strong>{formatDateTime(booking.checkIn)}</strong>
+                            </div>
+                            <div>
+                                <small>Check Out</small>
+                                <strong>{formatDateTime(booking.checkOut)}</strong>
+                            </div>
+                        </section>
+                        <hr />
+                        <section>
+                            <div>
+                                <small>Room Info</small>
+                                <strong>{booking.room.roomType}</strong>
+                            </div>
+                            <div>
+                                <small>Price</small>
+                                <strong>{booking.room.rate}</strong>
+                            </div>
+                        </section>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas commodi dolorum accusamus aperiam quod earum facilis facere at odit eveniet! Veritatis maiores quo aspernatur enim esse similique aut quos porro.</p>
+                    </Container>
+                );
+            }}
+        />
     );
 };

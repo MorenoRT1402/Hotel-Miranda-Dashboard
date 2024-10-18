@@ -1,3 +1,5 @@
+import { RoomInterface } from "./room";
+
 export enum GuestStatus {
     Cancelled = "Cancelled",
     Refund = "Refund",
@@ -14,7 +16,7 @@ export interface GuestInterface {
     checkIn: string;
     checkOut: string;
     notes: string[];
-    roomId: string;
+    room: RoomInterface;
     status: GuestStatus;
 }
 
@@ -27,7 +29,7 @@ export class Guest {
     checkIn: Date;
     checkOut: Date;
     notes: string[];
-    roomId: string;
+    room: RoomInterface;
     status: GuestStatus;
 
     constructor(config: GuestInterface) {
@@ -39,7 +41,7 @@ export class Guest {
         this.checkIn = new Date(config.checkIn);
         this.checkOut = new Date(config.checkOut);
         this.notes = config.notes;
-        this.roomId = config.roomId;
+        this.room = config.room;
         this.status = config.status;
     }
 
@@ -51,7 +53,7 @@ export class Guest {
         Order Date: ${this.orderDate.toDateString()}
         Check-In: ${this.checkIn.toDateString()}
         Check-Out: ${this.checkOut.toDateString()}
-        Room ID: ${this.roomId}
+        Room ID: ${this.room}
         Status: ${this.status}
         Notes: ${this.notes.join(", ")}
         Date Added: ${this.dateAdded.toDateString()}`;

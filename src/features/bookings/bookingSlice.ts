@@ -3,6 +3,7 @@ import bookingThunk from './bookingThunk';
 import { changeStatus, pending, PromiseStatus, rejected } from '../../utils/promises';
 import { GuestInterface } from '../../dto/guest';
 import { ReduxState } from '../../app/store';
+import { getID } from '../../app/utils';
 
 interface BookingState extends ReduxState {
     guests : GuestInterface[],
@@ -64,7 +65,7 @@ export const bookingSlice = createSlice({
             })
             .addCase(bookingThunk.edit.fulfilled, (state, action : PayloadAction<GuestInterface>) => {
                 changeStatus(state, PromiseStatus.FULFILLED);
-                const index = state.guests.findIndex(booking => booking._id === action.payload._id);
+                const index = state.guests.findIndex(booking => getID(booking) === getID(action.payload));
                 if (index !== -1) {
                     state.guests[index] = action.payload;
                 }
@@ -78,7 +79,7 @@ export const bookingSlice = createSlice({
             })
             .addCase(bookingThunk.remove.fulfilled, (state, action: PayloadAction<string>) => {
                 changeStatus(state, PromiseStatus.FULFILLED);
-                state.guests = state.guests.filter(guest => guest._id !== action.payload);
+                state.guests = state.guests.filter(guest => getID(guest) !== action.payload);
             })            
             .addCase(bookingThunk.remove.rejected, (state, action) => {
                 rejected(state, action);

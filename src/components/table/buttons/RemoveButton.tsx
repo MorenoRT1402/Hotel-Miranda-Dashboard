@@ -7,6 +7,7 @@ import { ModalStringsInterface as ModalStringsInterface } from '../../../types/a
 import styled from "styled-components"
 import { useAppDispatch } from "../../../app/hooks"
 import { getDisplayName } from "../../../app/table"
+import { getID } from "../../../app/utils"
 
 const Icon = styled(FaTrash)`
   padding: 1rem;
@@ -23,7 +24,7 @@ export const RemoveButton = ({data, thunk}) => {
     noOption:'Cancelar'
   }
   const handleYes=() => {
-    dispatch(thunk.remove(data._id));
+    dispatch(thunk.remove(getID(data)));
     showToast(`Eliminado ${name}`);
   }
 

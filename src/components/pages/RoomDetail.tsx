@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React from "react";
 import roomThunk from "../../features/rooms/roomsThunk";
 import { PageDetail } from "./PageDetail";
-import { getFinalPrice } from '../../app/utils'
+import { getFinalPrice, getID } from '../../app/utils'
 
 const Container = styled.section`
     padding: 2rem;
@@ -107,7 +107,7 @@ const PriceSection = styled.div`
 export const RoomDetail = () => {
     return (
         <PageDetail
-            selector={(state, id) => state.room.rooms.find(room => room._id === id)}
+            selector={(state, id) => state.room.rooms.find(room => getID(room) === id)}
             thunkAction={roomThunk.getAll}
             render={(room) => {
                 return (

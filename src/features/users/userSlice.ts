@@ -3,6 +3,7 @@ import userThunk from './userThunk';
 import { pending, PromiseStatus, rejected } from '../../utils/promises';
 import { ReduxState } from '../../app/store';
 import { UserInterface } from '../../dto/user';
+import { getID } from '../../app/utils';
 
 interface UserState extends ReduxState {
     users: UserInterface[];
@@ -64,7 +65,7 @@ export const userSlice = createSlice({
             })
             .addCase(userThunk.edit.fulfilled, (state, action) => {
                 state.status = PromiseStatus.FULFILLED;
-                const index = state.users.findIndex(user => user._id === action.payload._id);
+                const index = state.users.findIndex(user => getID(user) === getID(action.payload));
                 if (index !== -1) {
                     state.users[index] = action.payload;
                 }
@@ -78,7 +79,7 @@ export const userSlice = createSlice({
             })
             .addCase(userThunk.remove.fulfilled, (state, action) => {
                 state.status = PromiseStatus.FULFILLED;
-                state.users = state.users.filter(user => user._id !== action.payload);
+                state.users = state.users.filter(user => getID(user) !== action.payload);
             })
             .addCase(userThunk.remove.rejected, (state, action) => {
                 rejected(state, action);

@@ -4,6 +4,7 @@ import React from "react";
 import { PageDetail } from "./PageDetail";
 import bookingThunk from "../../features/bookings/bookingThunk";
 import { formatDateTime } from "../../utils/dates";
+import { getID } from "../../app/utils";
 
 const Container = styled.section`
     padding: 2rem;
@@ -17,7 +18,7 @@ const Container = styled.section`
 export const GuestDetail = () => {
     return (
         <PageDetail
-            selector={(state, id) => state.booking.guests.find(guest => guest._id === id)}
+            selector={(state, id) => state.booking.guests.find(guest => getID(guest))}
             thunkAction={bookingThunk.getAll}
             render={(booking) => {
                 const name = getDisplayName(booking);
@@ -27,7 +28,7 @@ export const GuestDetail = () => {
                             <img src={booking.picture} alt={`${name} profile`} />
                             <section>
                                 <h3>{name}</h3>
-                                <small>{`ID: ${booking._id}`}</small>
+                                <small>{`ID: ${getID(booking)}`}</small>
                             </section>
                         </section>
                         <section>

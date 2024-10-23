@@ -3,6 +3,7 @@ import { getThunk, getStringData, statusColors, statusHeader } from "../../app/t
 import { StatusButton } from './buttons/StatusButton'
 import React from "react";
 import { RemoveButton } from "./buttons/RemoveButton";
+import { getID } from "../../app/utils";
 
 const Container = styled.td`
   max-width: 23rem;
@@ -48,7 +49,7 @@ export const TableDataIdentificator = ({ item }) => {
       <div>
         {!hasroomtype ? <strong>{item.name || item.guest}</strong> : null}
 
-        <span>{`#${item._id}`}</span>
+        <span>{`#${getID(item)}`}</span>
 
         {hasroomtype ? <strong>{`${item.bedType}-${item.number}`}</strong> : null}
         

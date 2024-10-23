@@ -4,6 +4,7 @@ import React from "react";
 import { PageDetail } from "./PageDetail";
 import userThunk from "../../features/users/userThunk";
 import { formatDateTime } from "../../utils/dates";
+import { getID } from "../../app/utils";
 
 const Container = styled.section`
     padding: 2rem;
@@ -30,7 +31,7 @@ const Container = styled.section`
 export const UserDetail = () => {
     return (
         <PageDetail
-            selector={(state, id) => state.user.users.find(user => user._id === id)}
+            selector={(state, id) => state.user.users.find(user => getID(user) === id)}
             thunkAction={userThunk.getAll}
             render={(user) => {
                 const name = getDisplayName(user);
@@ -40,7 +41,7 @@ export const UserDetail = () => {
                             <img src={user.picture} alt={`${name}'s profile`} />
                             <div>
                                 <h3>{name}</h3>
-                                <small>{`ID: ${user._id}`}</small>
+                                <small>{`ID: ${getID(user)}`}</small>
                             </div>
                         </section>
 

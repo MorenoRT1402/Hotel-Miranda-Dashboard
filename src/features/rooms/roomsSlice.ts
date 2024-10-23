@@ -3,6 +3,7 @@ import { pending, PromiseStatus, rejected } from '../../utils/promises';
 import roomThunk from './roomsThunk';
 import { ReduxState } from '../../app/store';
 import { RoomInterface } from '../../dto/room';
+import { getID } from '../../app/utils';
 
 interface RoomState extends ReduxState {
     rooms: RoomInterface[];
@@ -64,7 +65,7 @@ export const roomSlice = createSlice({
             })
             .addCase(roomThunk.edit.fulfilled, (state, action) => {
                 state.status = PromiseStatus.FULFILLED;
-                const index = state.rooms.findIndex(room => room._id === action.payload._id);
+                const index = state.rooms.findIndex(room => getID(room) === getID(action.payload));
                 if (index !== -1) {
                     state.rooms[index] = action.payload;
                 }
@@ -78,7 +79,7 @@ export const roomSlice = createSlice({
             })
             .addCase(roomThunk.remove.fulfilled, (state, action:PayloadAction<string>) => {
                 state.status = PromiseStatus.FULFILLED;
-                state.rooms = state.rooms.filter(room => room._id !== action.payload);
+                state.rooms = state.rooms.filter(room => getID(room) !== action.payload);
             })
             .addCase(roomThunk.remove.rejected, (state, action) => {
                 rejected(state, action);

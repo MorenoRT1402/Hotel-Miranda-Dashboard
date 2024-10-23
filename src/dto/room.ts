@@ -1,3 +1,5 @@
+import { arrayToText } from "../app/utils";
+
 //#region Interface
 export enum RoomStatus {
     Available = "Available",
@@ -55,7 +57,7 @@ export class Room {
         Picture: ${this.picture}
         Bed Type: ${this.bedType}
         Room Floor: ${this.roomFloor}
-        Facilities: ${this.facilities.join(", ")}
+        Facilities: ${arrayToText(this.facilities).join(", ")}
         Rate: ${this.rate}
         Status: ${this.status}
         Date Added: ${this.dateAdded.toDateString()}`;

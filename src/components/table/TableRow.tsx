@@ -3,6 +3,7 @@ import { TableData } from "./TableData";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getCategory } from "../../app/table";
 import React from "react";
+import { getID } from "../../app/utils";
 
 const Container = styled.tr`
     cursor: pointer;
@@ -20,9 +21,10 @@ const Container = styled.tr`
 export const TableRow = ({ headers, item }) => {
     const navigate = useNavigate();
     const location = useLocation();
+    const id = getID(item);
 
     return (
-        <Container key={item._id} onClick={() => navigate(`${location.pathname}/${item._id}`)}>
+        <Container key={id} onClick={() => navigate(`${location.pathname}/${id}`)}>
             {headers.map((header: string, index: number) => (
                 <TableData key={`${index}-${item}`} header={header} item={item} colIndex={index} category={getCategory(headers)} />
             ))}

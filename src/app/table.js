@@ -1,22 +1,23 @@
 import bookingThunk from "../features/bookings/bookingThunk";
 import roomThunk from "../features/rooms/roomsThunk";
 import userThunk from "../features/users/userThunk";
+import { arrayToText } from '../app/utils';
 
 export const statusHeader = 'status'
 const tableMap = {
     'Order Date': item => item['orderDate'],
     'Check In': item => item['checkIn'],
     'Check Out': item => item['checkOut'],
-    'Special Request': item => item['notes'].join(', '),
+    'Special Request': item => arrayToText(item.notes),
     'Room Type': item => item['room'].bedType,
 
     'Job Desk': item => item.jobDesk,
-    'Schedule': item => item['schedule'].join(', '),
+    'Schedule': item => arrayToText(item.schedule).join(', '),
     'Contact': item => item['contact'],
 
     'Bed Type': item => `${item.bedType}`,
     'Room Floor': item => item.roomFloor,
-    'Facilities': item => item['facilities'].join(', '),
+    'Facilities': item => arrayToText(item.facilities).join(', '),
     'Rate': item => `${item['rate']} /night`,
 
     'Status': item => item[statusHeader],

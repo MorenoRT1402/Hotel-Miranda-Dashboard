@@ -54,6 +54,7 @@ const formFields = {
         { label: 'Room ID', type: 'text', key: 'room', default: '670e4401ad82acfd85774263' }
     ],
     'Rooms': [
+        { label: '', type: 'auto', key: 'dateAdded', default: getCurrentDateTime()},
         { label: 'Room Type', type: 'checkbox', key: 'roomType', options: roomParams.types, default: roomParams.types[0] },
         { label: 'Bed Type', type: 'checkbox', key: 'bedType', options: roomParams.bedType, default: roomParams.bedType[0] },
         { label: 'Number', type: 'number', key: 'number', default: 0},

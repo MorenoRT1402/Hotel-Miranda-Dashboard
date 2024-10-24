@@ -12,13 +12,13 @@ const tableMap = {
     'Room Type': item => item['room'].bedType,
 
     'Job Desk': item => item.jobDesk,
-    'Schedule': item => arrayToText(item.schedule).join(', '),
+    'Schedule': item => arrayToText(item.schedule),
     'Contact': item => item['contact'],
 
     'Bed Type': item => `${item.bedType}`,
     'Room Floor': item => item.roomFloor,
-    'Facilities': item => arrayToText(item.facilities).join(', '),
-    'Rate': item => `${item['rate']} /night`,
+    'Facilities': item => arrayToText(item.facilities),
+    'Rate': item => `$${item.rate} /night`,
 
     'Status': item => item[statusHeader],
 }

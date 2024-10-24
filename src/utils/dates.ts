@@ -1,7 +1,7 @@
 export const getCurrentDateTime = (add=0) => {
     const date = new Date();
     date.setDate(date.getDate() + add);
-    return date.toISOString().slice(0, 19);
+    return date.toISOString().split('T')[0];
 };
 
 export const formatDateTime = (date: Date | string) => {

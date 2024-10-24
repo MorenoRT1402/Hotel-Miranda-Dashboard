@@ -18,14 +18,18 @@ const Container = styled.section`
 export const GuestDetail = () => {
     return (
         <PageDetail
-            selector={(state, id) => state.booking.guests.find(guest => getID(guest))}
-            thunkAction={bookingThunk.getAll}
+            selector={(state) => state.booking.guest}
+            thunk={bookingThunk}
             render={(booking) => {
                 const name = getDisplayName(booking);
+
+                if(!booking)
+                    return <p>Error</p>
+                    
                 return (
                     <Container>
                         <section>
-                            <img src={booking.picture} alt={`${name} profile`} />
+                            <img src={booking?.picture} alt={`${name} profile`} />
                             <section>
                                 <h3>{name}</h3>
                                 <small>{`ID: ${getID(booking)}`}</small>

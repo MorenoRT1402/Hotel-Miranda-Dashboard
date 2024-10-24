@@ -107,42 +107,45 @@ const PriceSection = styled.div`
 export const RoomDetail = () => {
     return (
         <PageDetail
-            selector={(state, id) => state.room.rooms.find(room => getID(room) === id)}
-            thunkAction={roomThunk.getAll}
+            selector={(state) => state.room.room}
+            thunk={roomThunk}
             render={(room) => {
+
+                if(!room)
+                    return <p>Error</p>
                 return (
                     <Container>
                         <ImageContainer>
-                            <img src={room.picture} alt={`${room.roomType} Room`} />
+                            <img src={room?.picture} alt={`${room?.roomType} Room`} />
                         </ImageContainer>
 
                         <RoomInfo>
                             <div>
                                 <small>Room Type</small>
-                                <strong>{room.roomType}</strong>
+                                <strong>{room?.roomType}</strong>
                             </div>
                             <div>
                                 <small>Room Number</small>
-                                <strong>{room.number}</strong>
+                                <strong>{room?.number}</strong>
                             </div>
                             <div>
                                 <small>Bed Type</small>
-                                <strong>{room.bedType}</strong>
+                                <strong>{room?.bedType}</strong>
                             </div>
                             <div>
                                 <small>Room Floor</small>
-                                <strong>{room.roomFloor}</strong>
+                                <strong>{room?.roomFloor}</strong>
                             </div>
                             <div>
                                 <small>Status</small>
-                                <strong>{room.status}</strong>
+                                <strong>{room?.status}</strong>
                             </div>
                         </RoomInfo>
 
                         <section>
                             <h4>Facilities</h4>
                             <Facilities>
-                                {room.facilities.map((facility, index) => (
+                                {room?.facilities.map((facility, index) => (
                                     <li key={index}>{facility}</li>
                                 ))}
                             </Facilities>
@@ -153,7 +156,7 @@ export const RoomDetail = () => {
                                 <h3>Price</h3>
                             </div>
                             <div className="price-container">
-                                {room.discount && (
+                                {room?.discount && (
                                     <div className="original-price">{room.rate}</div>
                                 )}
                                 <div className="final-price">

@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
-import { Table } from '../table/Table';
-import { PromiseStatus } from '../../utils/promises';
-import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import React from 'react';
+import { useAppSelector } from '../../app/hooks'
 import bookingThunk from '../../features/bookings/bookingThunk';
 import { commonHeaders } from '../../app/table';
 import { resetStatus } from '../../features/bookings/bookingSlice';

@@ -26,7 +26,8 @@ export class Thunk<T extends MongoEntity> {
     getById = createAsyncThunk<T | null, string>(
         `${this.endpoint}/getById`,
         async (id: string) => {
-            const response = await axios.get(`${this.baseUrl}/${id}`);
+            const url = `${this.baseUrl}/${id}`;
+            const response = await axios.get(url);
             return response.data;
         }
     );

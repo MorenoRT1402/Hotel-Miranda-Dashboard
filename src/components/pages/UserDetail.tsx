@@ -31,10 +31,14 @@ const Container = styled.section`
 export const UserDetail = () => {
     return (
         <PageDetail
-            selector={(state, id) => state.user.users.find(user => getID(user) === id)}
-            thunkAction={userThunk.getAll}
+            selector={(state) => state.user.user}
+            thunk={userThunk}
             render={(user) => {
                 const name = getDisplayName(user);
+
+                if(!user)
+                    return <p>Error</p>
+                    
                 return (
                     <Container>
                         <section>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Table } from '../table/Table';
 import { PromiseStatus } from '../../utils/promises';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppDispatch } from '../../app/hooks';
 
 export const DataPage = ({ thunkAction, resetStatusAction, selector, dataKey, headers }) => {
     const dispatch = useAppDispatch();

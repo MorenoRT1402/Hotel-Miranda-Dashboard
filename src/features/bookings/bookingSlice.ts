@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import bookingThunk from './bookingThunk';
 import { changeStatus, pending, PromiseStatus, rejected } from '../../utils/promises';
 import { GuestInterface } from '../../dto/guest';
 import { ReduxState } from '../../app/store';
 import { getID } from '../../app/utils';
+import bookingThunk from './bookingThunk';
+import { endpoints } from '../../app/api';
 
 interface BookingState extends ReduxState {
     guests : GuestInterface[],
@@ -18,7 +19,7 @@ const initialState : BookingState = {
 };
 
 export const bookingSlice = createSlice({
-    name: 'booking',
+    name: endpoints.booking,
     initialState,
     reducers: {
         resetStatus: (state) => {

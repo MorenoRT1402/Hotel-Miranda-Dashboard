@@ -1,9 +1,9 @@
 import React from 'react';
 import { useAppSelector } from '../../app/hooks'
-import bookingThunk from '../../features/bookings/bookingThunk';
 import { commonHeaders } from '../../app/table';
-import { resetStatus } from '../../features/bookings/bookingSlice';
 import { DataPage } from './DataPage';
+import { resetStatus } from '../../features/bookings/bookingSlice';
+import bookingThunk from '../../features/bookings/bookingThunk';
 
 export const Booking = () => {
     const selector = useAppSelector((state) => state.booking);
@@ -11,11 +11,11 @@ export const Booking = () => {
 
     return (
         <DataPage 
-        thunkAction={bookingThunk.getAll}
-        resetStatusAction={resetStatus}
+        thunk={bookingThunk}
         selector={selector}
         dataKey={'guests'}
         headers={headers}
+        resetStatusAction={resetStatus}
         />
     )
 }

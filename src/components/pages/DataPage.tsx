@@ -3,16 +3,16 @@ import { Table } from '../table/Table';
 import { PromiseStatus } from '../../utils/promises';
 import { useAppDispatch } from '../../app/hooks';
 
-export const DataPage = ({ thunkAction, resetStatusAction, selector, dataKey, headers }) => {
+export const DataPage = ({ thunk, resetStatusAction, selector, dataKey, headers }) => {
     const dispatch = useAppDispatch();
     const { status, error } = selector;
-    const data = selector[dataKey]
+    const data = selector[dataKey];
 
     useEffect(() => {
         if (status === PromiseStatus.IDLE) {
-            dispatch(thunkAction());
+            dispatch(thunk.getAll());
         }
-    }, [dispatch, status, thunkAction]);
+    }, [dispatch, status, thunk]);
 
     useEffect(() => {
         return () => {

@@ -3,11 +3,10 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../app/store";
 import React from "react";
-import { Thunk } from "../../features/genericThunk";
 
 type DetailPageProps<T> = {
     selector: (state: RootState, id: string) => T | undefined;
-    thunk: Thunk<any>;
+    thunk: any;
     render: (data: T) => JSX.Element;
 };
 

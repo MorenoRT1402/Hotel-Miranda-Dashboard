@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../app/store";
-import { AsyncThunk } from "@reduxjs/toolkit";
 import React from "react";
 import { Thunk } from "../../features/genericThunk";
 

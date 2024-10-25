@@ -12,6 +12,20 @@ export const arrayToText = (array:any[]) => {
     }
 }
 
+export const textToArray = (text: any) => {
+    try {
+        const parsed = JSON.parse(text);
+        if (Array.isArray(parsed)) {
+            return parsed;
+        }
+        return text.split(',').map((item: string) => item.trim());
+    } catch (e) {
+        console.error(e);
+        return [];
+    }
+}
+
+
 //#region DB
 type ItemId = { _id?: string; id?: string };
 

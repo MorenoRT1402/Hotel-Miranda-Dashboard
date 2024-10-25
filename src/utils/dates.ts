@@ -5,6 +5,18 @@ export const getCurrentDateTime = (add=0) => {
 };
 
 export const formatDateTime = (date: Date | string) => {
+    if (!date) {
+        console.error("Invalid date value provided:", date);
+        return "Invalid date";
+    }
+
+    const parsedDate = new Date(date);
+    
+    if (isNaN(parsedDate.getTime())) {
+        console.error("Invalid date format:", date);
+        return "Invalid date";
+    }
+
     const options: Intl.DateTimeFormatOptions = {
         year: 'numeric',
         month: 'long',
@@ -14,5 +26,7 @@ export const formatDateTime = (date: Date | string) => {
         second: 'numeric',
         hour12: true,
     };
-    return new Intl.DateTimeFormat('en-US', options).format(new Date(date));
+    
+    return new Intl.DateTimeFormat('en-US', options).format(parsedDate);
 };
+

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React from "react";
 import roomThunk from "../../features/rooms/roomsThunk";
 import { PageDetail } from "./PageDetail";
-import { getFinalPrice, getID } from '../../app/utils'
+import { getFinalPrice, textToArray } from '../../app/utils'
 
 const Container = styled.section`
     padding: 2rem;
@@ -110,7 +110,6 @@ export const RoomDetail = () => {
             selector={(state) => state.room.room}
             thunk={roomThunk}
             render={(room) => {
-
                 if(!room)
                     return <p>Error</p>
                 return (
@@ -145,7 +144,7 @@ export const RoomDetail = () => {
                         <section>
                             <h4>Facilities</h4>
                             <Facilities>
-                                {room?.facilities.map((facility, index) => (
+                                {textToArray(room.facilities).map((facility, index) => (
                                     <li key={index}>{facility}</li>
                                 ))}
                             </Facilities>

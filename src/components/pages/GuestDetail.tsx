@@ -25,11 +25,11 @@ export const GuestDetail = () => {
 
                 if(!booking)
                     return <p>Error</p>
-                    
+
                 return (
                     <Container>
                         <section>
-                            <img src={booking?.picture} alt={`${name} profile`} />
+                            <img src={booking.picture} alt={`${name} profile`} />
                             <section>
                                 <h3>{name}</h3>
                                 <small>{`ID: ${getID(booking)}`}</small>

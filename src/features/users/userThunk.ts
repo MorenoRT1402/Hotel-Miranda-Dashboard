@@ -22,10 +22,19 @@ export const getById = createAsyncThunk<UserInterface, string>(
     }
 );
 
+export const createUnsafe = createAsyncThunk<UserInterface, UserInterface>(
+    `${name}/createUnsafe`,
+    async (data) => {
+        const response = await axios.post(endpoint, data);
+        return response.data;
+    }
+);
+
 export const create = createAsyncThunk<UserInterface, UserInterface>(
     `${name}/create`,
     async (data) => {
-        const response = await axios.post(endpoint, data);
+        const url = `${API_URL}/${endpoints.register}`
+        const response = await axios.post(url, data);
         return response.data;
     }
 );

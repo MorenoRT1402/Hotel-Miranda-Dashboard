@@ -6,8 +6,9 @@ import Select from 'react-select';
 import { useDispatch } from "react-redux";
 import { getDisplayName, getThunk } from "../../app/table";
 import { showToast, ToastType } from "../../utils/alerts";
-import { roomParams } from '../../app/hotelParams'
+import { roomParams, userParams } from '../../app/hotelParams'
 import { getCurrentDateTime } from "../../utils/dates";
+import { getRandomImageUrl } from "../../utils/random";
 
 const Container = styled.dialog`
     display: block;
@@ -39,19 +40,23 @@ const CloseButton = styled.button`
 
 const formFields = {
     'Users': [
-        { label: 'Name', type: 'text', key: 'name' },
-        { label: 'Job Desk', type: 'text', key: 'jobDesk' },
-        { label: 'Schedule', type: 'radio', key: 'schedule', options: ['Monday, Friday', 'Saturday, Sunday', 'Wednesday, Sunday'] },
-        { label: 'Contact', type: 'text', key: 'contact' }
+        { label: 'Name', type: 'text', key: 'name', default: 'Paco' },
+        { label: 'Password', type: 'password', key: 'password', default: 'password'},
+        { label: 'Position', type: 'checkbox', key: 'position', options: userParams.positions, default: userParams.positions[0]},
+        { label: 'Email', type: 'email', key: 'email', default: 'some@example.com'},
+        { label: 'Contact', type: 'tel', key: 'contact', default: '6xxxxxxxx'},
+        { label: '', type: 'auto', key: 'joined', default: getCurrentDateTime()},
+        { label: 'Job Desk', type: 'text', key: 'jobDesk', default: userParams.jobDesks[0] },
+        { label: 'Schedule', type: 'radio', key: 'schedule', options: userParams.schedules, default: userParams.schedules[0], saveLike:'array' },
     ],
     'Booking': [
         { label: 'Guest', type: 'text', key: 'guest', default: 'Paco' },
-        { label: 'Order Date', type: 'today', key: 'orderDate', default: getCurrentDateTime()},
+        { label: '', type: 'auto', key: 'orderDate', default: getCurrentDateTime()},
         { label: 'Check In', type: 'date', key: 'checkIn', default: getCurrentDateTime() },
         { label: 'Check Out', type: 'date', key: 'checkOut', default: getCurrentDateTime(1) },
         { label: 'Discount', type: 'range', key: 'discount', default: 50 },
         { label: 'Notes', type: 'textarea[]', key: 'notes' },
-        { label: 'Room ID', type: 'text', key: 'room', default: '670e4401ad82acfd85774263' }
+        { label: 'Room ID', type: 'text', key: 'room', default: 1 }
     ],
     'Rooms': [
         { label: '', type: 'auto', key: 'dateAdded', default: getCurrentDateTime()},
@@ -93,7 +98,8 @@ export const NewDataForm = ({ close, category }) => {
 
     const handleSubmit = ev => {
         ev.preventDefault();
-        const newData = { ...formData, picture: '', status: status};
+        if(formData['schedule'] != null) setFormData({...formData, schedule: [formData.schedule]});
+        const newData = { ...formData, picture: getRandomImageUrl(), status: status};
         const createTh = getThunk(category).create;
         dispatch(createTh(newData));
         showToast(`Created ${getDisplayName(newData)}`, ToastType.Success);
@@ -107,7 +113,7 @@ export const NewDataForm = ({ close, category }) => {
                 {categoryFields.map((field) => (
                     <div key={field.key}>
                         <label>{field.label}</label>
-                        {field.type === 'text' && (
+                        {(field.type === 'text' || field.type === 'password' || field.type === 'tel' || field.type === 'email') && (
                             <input 
                                 type={field.type}
                                 value={formData[field.key] || field.default}
@@ -137,13 +143,7 @@ export const NewDataForm = ({ close, category }) => {
                                 type="date"
                                 value={formData[field.key] || ''}
                                 onChange={(e) => handleInputChange(field.key, e.target.value)}
-                            />
-                        )}
-                        {field.type === 'today' && (
-                            <input 
-                                type="date"
-                                value={formData[field.key] || getCurrentDateTime()}
-                                readOnly
+                                readOnly={field.readOnly}
                             />
                         )}
                         {field.type === 'textarea' && (

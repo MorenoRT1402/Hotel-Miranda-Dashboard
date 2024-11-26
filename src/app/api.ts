@@ -5,5 +5,6 @@ export const endpoints = {
     rooms: 'rooms',
     booking: 'booking',
     contacts: 'contacts',
-    login: 'auth/login'
+    login: 'auth/login',
+    register: 'auth/register'
 }

@@ -64,6 +64,7 @@ const AddButton = styled.button`
 `;
 
 export const TableControlPanel = ({ headers, data, filteredData, setFilteredData, setSortedData }) => {
+
   const [modalVisible, setModalVisible] = useState(false);
   const [activeFilter, setActiveFilter] = useState('All');
   const [searched, setSearched] = useState('');

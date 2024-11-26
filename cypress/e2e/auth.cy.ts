@@ -19,7 +19,9 @@ describe('Authentication Tests', () => {
     cy.get('input[data-cy="password"]').type(`wrong${validUser.password}`);
     cy.get('button[data-cy="submit"]').click();
 
-    cy.get('@alert').should('be.calledWith', 'Invalid credentials.');
+    // cy.get('@alert').should('be.calledWith', 'Invalid credentials.');
+    cy.contains('div[role="alert"]', 'Invalid credentials')
+    .should('be.visible');
   });
 
   it('should redirect to login if not authenticated', () => {

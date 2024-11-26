@@ -38,11 +38,14 @@ export default [
   },
   {
     files: ['cypress/**/*.js'],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.cypress,
+      },
+    },
     plugins: {
       cypress,
-    },
-    env: {
-      'cypress/globals': true,
     },
     rules: {
       ...cypress.configs.recommended.rules,
